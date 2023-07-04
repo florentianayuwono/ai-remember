@@ -58,11 +58,11 @@
 }
 
 .green-gradient {
-  background: #1c3813;
-  background: linear-gradient(-90deg, #1c3813 0%, rgba(58, 80, 51, 0) 100%);
+  background: #94d290;
+  background: linear-gradient(-90deg, #94d290 0%, rgba(58, 80, 51, 0) 100%);
   background: -webkit-linear-gradient(
     -90deg,
-    #1c3813 0%,
+    #94d290 0%,
     rgba(58, 80, 51, 0) 100%
   );
 }
