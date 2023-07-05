@@ -251,7 +251,7 @@
 }
 
 .dino-active {
-  animation: animateDino 1s linear infinite;
+  animation: animateDino 0.5s linear infinite;
 }
 
 @keyframes animateDino {
@@ -259,7 +259,7 @@
     bottom: 28px;
   }
   45%, 55% {
-    bottom: 160px;
+    bottom: 120px;
   }
 }
 
