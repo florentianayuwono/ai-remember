@@ -23,7 +23,6 @@ const Dinogame = () => {
     const scoreCounter = () => {
         playerScore++;
         scoreVar.innerHTML = `Score <b>${playerScore}</b>`;
-        console.log(playerScore);
     };
     
     const handleKeyPress = (event) => {
@@ -43,6 +42,11 @@ const Dinogame = () => {
         const dinoBottom = parseInt(
           getComputedStyle(dinoVar).getPropertyValue("bottom")
         );
+
+        const dinoLeft = parseInt(
+            getComputedStyle(dinoVar).getPropertyValue("left")
+          );
+
         const cactusLeft = parseInt(
           getComputedStyle(cactusVar).getPropertyValue("left")
         );
@@ -50,9 +54,11 @@ const Dinogame = () => {
         if (
           isGameStarted &&
           dinoBottom <= 80 &&
-          cactusLeft >= 0 &&
-          cactusLeft <= 20
+          cactusLeft >= (dinoLeft - 10) &&
+          cactusLeft <= (dinoLeft + 10)
         ) {
+            console.log("dino: " + dinoLeft);
+            console.log("cactus: " + cactusLeft);
           endGame();
         }
     };

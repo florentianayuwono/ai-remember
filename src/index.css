@@ -247,7 +247,7 @@
   width: 70px;
   position: absolute;
   bottom: 28px;
-  left: start;
+  left: 20px;
 }
 
 .dino-active {
@@ -259,7 +259,7 @@
     bottom: 28px;
   }
   45%, 55% {
-    bottom: 120px;
+    bottom: 130px;
   }
 }
 
@@ -288,7 +288,7 @@
     right: -100px;
   }
   100% {
-    right: 500px;
+    right: 600px;
   }
 }
 
