@@ -37,6 +37,19 @@ const Dinogame = () => {
           }
         }
     };
+
+    const handleTap = (event) => {
+        if (!isGameStarted) {
+          startGame();
+        } else {
+          if (!dinoVar.classList.contains("dino-active")) {
+            dinoVar.classList.add("dino-active");
+            setTimeout(() => {
+              dinoVar.classList.remove("dino-active");
+            }, 500);
+          }
+        }
+    };
     
     const handleCollisionCheck = () => {
         const dinoBottom = parseInt(
@@ -82,6 +95,7 @@ const Dinogame = () => {
     useEffect(() => {
         setupElements();
         window.addEventListener("keydown", handleKeyPress);
+        window.addEventListener("touchstart", handleTap);
         result = setInterval(handleCollisionCheck, 10);
         if (isGameStarted) {
             interval = setInterval(scoreCounter, 200);
@@ -89,6 +103,7 @@ const Dinogame = () => {
     
         return () => {
           window.removeEventListener("keydown", handleKeyPress);
+          window.removeEventListener("touchstart", handleTap);
           clearInterval(interval);
           clearInterval(result);
         };
