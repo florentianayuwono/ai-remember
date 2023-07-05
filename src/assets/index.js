@@ -30,6 +30,10 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 
+import dino from "./dinogame/dino.png";
+import moon from "./dinogame/moon.png";
+import cactus from "./dinogame/cactus.png";
+
 export {
   logo,
   backend,
@@ -59,4 +63,7 @@ export {
   carrent,
   jobit,
   tripguide,
+  dino,
+  moon,
+  cactus
 };

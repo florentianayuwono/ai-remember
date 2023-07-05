@@ -1,5 +1,5 @@
 import { styles } from "../styles";
-import { ComputersCanvas } from "./canvas";
+import Dinogame from "./Dinogame";
 
 const Hero = () => {
   return (
@@ -21,9 +21,11 @@ const Hero = () => {
             <br className="sm:block hidden" />
             student at NUS. Nice to meet you!😄
           </p>
-        </div>
 
-        <ComputersCanvas />
+          <div className="flex flex-col justify-center items-start mt-5">
+            <Dinogame />
+            </div>
+        </div>
       </div>
     </section>
   );
