@@ -229,17 +229,17 @@
 }
 
 /* Dinogame */
-/* .dinogame-body {
-  display: grid;
-  place-items: center;
-  height: 100vh;
-} */
 
 .dinogame-container {
-  height: 180px;
+  height: 250px;
   width: 100%;
   position: relative;
   overflow: hidden;
+}
+
+.road {
+  position: absolute;
+  bottom: 24px;
 }
 
 .dino {
@@ -263,11 +263,23 @@
   }
 }
 
+.moon {
+  height: 80px;
+  width: 80px;
+  position: absolute;
+  top: 50px;
+  right: 40px;
+}
+
 .cactus {
   height: 80px;
   width: 125px;
   position: absolute;
   bottom: 28px;
+  right: 0px;
+}
+
+.cactus-active {
   animation: animateCactus 1s linear infinite;
 }
 
@@ -278,4 +290,22 @@
   100% {
     right: 500px;
   }
+}
+
+.score {
+  height: auto;
+  width: auto;
+  position: absolute;
+  top: 20px;
+  right: 0;
+}
+
+.game-over {
+  display: none;
+  font-size: 28px;
+  position: absolute;
+  left: calc(50% - 90px);
+  top: calc(50% - 20px);
+  height: 80px;
+  color: #cbffc7;
 }

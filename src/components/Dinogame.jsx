@@ -9,6 +9,16 @@ const Dinogame = () => {
         <div className="cactus">
             <img src={cactus} alt="cactus" className="h-[80px]"/>
         </div>
+        <div className="road w-full h-1 green-gradient" />
+        <div className="moon">
+            <img src={moon} alt="moon" className="h-[80px]"/>
+        </div>
+        <div className="score">
+            Score <b>00</b>
+        </div>
+        <div className="game-over">
+            Game Over
+        </div>
     </div>
   )
 }
