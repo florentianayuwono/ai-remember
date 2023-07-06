@@ -29,7 +29,12 @@ const About = () => {
       </motion.div>
 
       <motion.p variants={fadeIn("", "", 0.1, 1)} className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]">
-        Oh hey there, greetings to you! I'm a Computer Science student diving headfirst into the thrilling realms of Software Engineering and AI/ML. My passion lies in harnessing cutting-edge technologies to drive innovation. Equipped with a solid foundation in programming, algorithms, and machine learning, I thrive in collaborative environments that solve complex problems and construct intelligent systems. Excited to see where I'll be going!
+        Oh hey there, greetings to you! 
+        I'm a Computer Science student diving headfirst into the thrilling realms of Software Engineering and AI/ML. 
+        My passion lies in harnessing cutting-edge technologies to drive innovation. 
+        Equipped with a solid foundation in programming, algorithms, and machine learning, 
+        I thrive in collaborative environments that solve complex problems and construct intelligent systems. 
+        Excited to see where I'll be going!
       </motion.p>
 
       <div className="mt-20 flex flex-wrap gap-10">
