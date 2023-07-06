@@ -50,11 +50,11 @@ import {
       icon: mobile,
     },
     {
-      title: "Tutor",
+      title: "Product Manager",
       icon: backend,
     },
     {
-      title: "Content Creator",
+      title: "Tutor",
       icon: creator,
     },
   ];
