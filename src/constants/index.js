@@ -19,6 +19,10 @@ import {
     starbucks,
     tesla,
     shopify,
+    shopee,
+    nus,
+    ncl,
+    incareasia,
     carrent,
     jobit,
     tripguide,
@@ -116,11 +120,11 @@ import {
   
   const experiences = [
     {
-      title: "React.js Developer",
-      company_name: "Starbucks",
-      icon: starbucks,
+      title: "Machine Translation Intern",
+      company_name: "Shopee",
+      icon: shopee,
       iconBg: "#383E56",
-      date: "March 2020 - April 2021",
+      date: "May 2023 - Present",
       points: [
         "Developing and maintaining web applications using React.js and other related technologies.",
         "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -129,11 +133,11 @@ import {
       ],
     },
     {
-      title: "React Native Developer",
-      company_name: "Tesla",
-      icon: tesla,
+      title: "Teaching Assistant",
+      company_name: "National University of Singapore",
+      icon: nus,
       iconBg: "#E6DEDD",
-      date: "Jan 2021 - Feb 2022",
+      date: "August 2022 - Present",
       points: [
         "Developing and maintaining web applications using React.js and other related technologies.",
         "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -142,11 +146,11 @@ import {
       ],
     },
     {
-      title: "Web Developer",
-      company_name: "Shopify",
-      icon: shopify,
+      title: "Frontend Engineer Intern",
+      company_name: "National Cybersecurity R&D Laboratory",
+      icon: ncl,
       iconBg: "#383E56",
-      date: "Jan 2022 - Jan 2023",
+      date: "May 2022 - July 2022",
       points: [
         "Developing and maintaining web applications using React.js and other related technologies.",
         "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -155,11 +159,11 @@ import {
       ],
     },
     {
-      title: "Full stack Developer",
-      company_name: "Meta",
-      icon: meta,
+      title: "Product Management Intern",
+      company_name: "InCare Asia",
+      icon: incareasia,
       iconBg: "#E6DEDD",
-      date: "Jan 2023 - Present",
+      date: "February 2022 - April 2022",
       points: [
         "Developing and maintaining web applications using React.js and other related technologies.",
         "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",

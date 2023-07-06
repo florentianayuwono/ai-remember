@@ -25,6 +25,10 @@ import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
 import starbucks from "./company/starbucks.png";
 import tesla from "./company/tesla.png";
+import shopee from "./company/shopee.png";
+import nus from "./company/nus.png";
+import ncl from "./company/ncl.jpg";
+import incareasia from "./company/InCareAsia.webp";
 
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
@@ -60,6 +64,10 @@ export {
   shopify,
   starbucks,
   tesla,
+  shopee,
+  nus,
+  ncl,
+  incareasia,
   carrent,
   jobit,
   tripguide,
