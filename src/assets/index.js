@@ -20,6 +20,10 @@ import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
+import java from "./tech/java.svg";
+import flutter from "./tech/flutter.svg";
+import c from "./tech/c.svg";
+import python from "./tech/python.svg";
 
 import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
@@ -74,4 +78,8 @@ export {
   dino,
   moon,
   cactus,
+  java,
+  flutter,
+  c,
+  python
 };
