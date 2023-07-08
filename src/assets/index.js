@@ -73,5 +73,5 @@ export {
   tripguide,
   dino,
   moon,
-  cactus
+  cactus,
 };

@@ -24,7 +24,7 @@ const Hero = () => {
 
           <div className="flex flex-col justify-center items-start mt-5">
             <Dinogame />
-            </div>
+          </div>
         </div>
       </div>
     </section>
