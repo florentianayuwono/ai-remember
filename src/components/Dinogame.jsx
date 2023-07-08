@@ -25,7 +25,7 @@ const Dinogame = () => {
   };
 
   const handleKeyPress = (event) => {
-    if (!isGameStarted && event.code === "Space") {
+    if (!isGameStarted) {
       startGame();
     } else if (event.key === "ArrowUp") {
       if (!dinoVar.classList.contains("dino-active")) {
