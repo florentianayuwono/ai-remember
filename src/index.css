@@ -11,10 +11,11 @@
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
+  scrollbar-color: light;
 }
 
 ::selection {
-  background: red;
+  background: #8338ec;
 }
 
 .hash-span {
