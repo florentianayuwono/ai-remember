@@ -39,13 +39,19 @@ const About = () => {
         variants={fadeIn("", "", 0.1, 1)}
         className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
       >
-        Oh hey there, fancy meeting you! I'm a Computer Science student diving
-        headfirst into the thrilling realms of Software Engineering and AI/ML.
-        My passion lies in harnessing cutting-edge technologies to drive
-        innovation. Equipped with a solid foundation in programming, algorithms,
-        and machine learning, I thrive in collaborative environments that solve
-        complex problems and construct intelligent systems. Excited to see where
-        I'll be going!
+        Oh hey there, fancy meeting you! I'm{" "}
+        <span style={{ textDecoration: "line-through" }}>
+          a Computer Science student diving headfirst into the thrilling realms
+          of Software Engineering and AI/ML. My passion lies in harnessing
+          cutting-edge technologies to drive innovation. Equipped with a solid
+          foundation in programming, algorithms, and machine learning, I thrive
+          in collaborative environments that solve complex problems and
+          construct intelligent systems. Excited to see where I'll be going!
+        </span>{" "}
+        still figuring things out okay. Please don't ask where I see myself in 5
+        years or the hardest decision I've ever made because I... I don't know
+        but I cannot say that so I guess I will lie but I don't think I can lie
+        impressively🥲.
       </motion.p>
 
       <div className="mt-20 flex flex-wrap gap-10 mb-20">
