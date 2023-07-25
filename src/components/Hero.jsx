@@ -18,15 +18,15 @@ const Hero = () => {
             Hello, I'm{" "}
             <TypeAnimation
               sequence={[
-                "Floren👋",
+                "Floren 👋",
                 1000,
-                "raised by Taylor Swift💜",
+                "raised by Taylor Swift 💜",
                 1000,
-                "in my Barbie era🩰",
+                "in my Barbie era 🩰",
                 1000,
-                "a proud Gen Z ofc💅",
+                "a proud Gen Z ofc 💅",
                 1000,
-                "an aspiring Rich Auntie👑",
+                "an aspiring Rich Auntie 👑",
                 1000,
               ]}
               speed={50}
