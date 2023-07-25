@@ -37,6 +37,10 @@ import incareasia from "./company/InCareAsia.webp";
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
+import soconnect from "./soconnect.png";
+import groundzero from "./groundzero.png";
+import classroom360 from "./classroom360.jpg";
+import digitalit from "./digitalit.png";
 
 import dino from "./dinogame/dino.png";
 import moon from "./dinogame/moon.png";
@@ -74,6 +78,10 @@ export {
   incareasia,
   carrent,
   jobit,
+  soconnect,
+  groundzero,
+  classroom360,
+  digitalit,
   tripguide,
   dino,
   moon,

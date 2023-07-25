@@ -15,7 +15,8 @@
 }
 
 ::selection {
-  background: #8338ec blue;
+  background: #8338ec;
+  color: white;
 }
 
 .hash-span {

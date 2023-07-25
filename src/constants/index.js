@@ -25,12 +25,16 @@ import {
   incareasia,
   carrent,
   jobit,
+  soconnect,
+  groundzero,
+  classroom360,
+  digitalit,
   tripguide,
   threejs,
   java,
   flutter,
   c,
-  python
+  python,
 } from "../assets";
 
 export const navLinks = [
@@ -221,61 +225,70 @@ const projects = [
     tags: [
       {
         name: "react",
-        color: "blue-text-gradient",
+        color: "text-blue-600",
       },
       {
-        name: "mongodb",
-        color: "green-text-gradient",
+        name: "express",
+        color: "text-yellow-300",
       },
       {
-        name: "tailwind",
-        color: "pink-text-gradient",
+        name: "postgresql",
+        color: "text-green-600",
       },
     ],
-    image: carrent,
-    source_code_link: "https://github.com/",
+    image: digitalit,
+    source_code_link: "https://github.com/florentianayuwono/DigitalIT",
   },
   {
-    name: "Job IT",
+    name: "SoConnect",
     description:
-      "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+      "Desktop app for managing contacts and tasks. It is originally built to help NUS SoC students stay better connected to their school life, in terms of social connections and academic tasks.",
+    tags: [
+      {
+        name: "java",
+        color: "text-amber-200",
+      },
+      {
+        name: "javafx",
+        color: "text-fuchsia-600",
+      },
+      {
+        name: "gradle",
+        color: "text-sky-500",
+      },
+    ],
+    image: soconnect,
+    source_code_link: "https://github.com/florentianayuwono/tp",
+  },
+  {
+    name: "Ground Zero",
+    description:
+      "Web application built to promote and provide information for NES Ground Zero 2023, the largest student-run startathon in Singapore.",
     tags: [
       {
         name: "react",
-        color: "blue-text-gradient",
+        color: "text-blue-600",
       },
       {
-        name: "restapi",
-        color: "green-text-gradient",
-      },
-      {
-        name: "scss",
-        color: "pink-text-gradient",
+        name: "tailwindcss",
+        color: "text-teal-500",
       },
     ],
-    image: jobit,
-    source_code_link: "https://github.com/",
+    image: groundzero,
+    source_code_link: "https://github.com/florentianayuwono/groundzero-website",
   },
   {
-    name: "Trip Guide",
+    name: "Classroom360",
     description:
-      "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      "VR platform aims to revolutionize the traditional classroom experience by providing an immersive virtual environment where students and teachers can interact and collaborate remotely.",
     tags: [
       {
-        name: "nextjs",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "supabase",
-        color: "green-text-gradient",
-      },
-      {
-        name: "css",
-        color: "pink-text-gradient",
+        name: "react360",
+        color: "text-rose-700",
       },
     ],
-    image: tripguide,
-    source_code_link: "https://github.com/",
+    image: classroom360,
+    source_code_link: "https://github.com/florentianayuwono/pink-unicorn",
   },
 ];
 
