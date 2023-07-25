@@ -15,7 +15,7 @@
 }
 
 ::selection {
-  background: #8338ec;
+  background: #8338ec blue;
 }
 
 .hash-span {
@@ -54,11 +54,11 @@
 
 .violet-gradient {
   background: #804dee;
-  background: linear-gradient(-90deg, #804dee 0%, rgba(90, 3, 144, 0) 100%);
+  background: linear-gradient(-90deg, #804dee 0%, #804dee 100%);
   background: -webkit-linear-gradient(
     -90deg,
     #804dee 0%,
-    rgba(90, 3, 144, 0) 100%
+    rgba(99, 31, 245, 0.423) 100%
   );
 }
 

@@ -215,9 +215,9 @@ const testimonials = [
 
 const projects = [
   {
-    name: "Car Rent",
+    name: "DigitalIT",
     description:
-      "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+      "Web application focusing on making decisions and generating recommendations on growth strategy based on the user's business profile and condition.",
     tags: [
       {
         name: "react",

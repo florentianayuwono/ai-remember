@@ -8,17 +8,17 @@ import { SectionWrapper } from "../hoc";
 
 const ServiceCard = ({ index, title, icon }) => {
   return (
-    <Tilt className="xs:w-[250px] w-full">
+    <Tilt
+      className="xs:w-[250px] w-full"
+      options={{ max: 45, scale: 1, speed: 450 }}
+    >
       <motion.div
         variants={fadeIn("right", "spring", 0.5 * index, 0.75)}
         className="w-full pink-gradient p-[1px] rounded-[20px] shadow-pink-500/100 shadow-lg"
       >
-        <div
-          options={{ max: 45, scale: 1, speed: 450 }}
-          className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col"
-        >
+        <div className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col">
           <img src={icon} alt={title} className="w-16 h-16 object-contain" />
-          <h3 className="text-white text-[20px] font-bold text-center">
+          <h3 className="text-red-700 text-[20px] font-bold text-center">
             {title}
           </h3>
         </div>
@@ -39,7 +39,7 @@ const About = () => {
         variants={fadeIn("", "", 0.1, 1)}
         className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
       >
-        Oh hey there, greetings to you! I'm a Computer Science student diving
+        Oh hey there, fancy meeting you! I'm a Computer Science student diving
         headfirst into the thrilling realms of Software Engineering and AI/ML.
         My passion lies in harnessing cutting-edge technologies to drive
         innovation. Equipped with a solid foundation in programming, algorithms,
