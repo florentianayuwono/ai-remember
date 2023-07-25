@@ -242,7 +242,7 @@ const projects = [
   {
     name: "SoConnect",
     description:
-      "Desktop app for managing contacts and tasks. It is originally built to help NUS SoC students stay better connected to their school life, in terms of social connections and academic tasks.",
+      "Desktop app built to help NUS SoC students stay better connected to their school life, in terms of social connections and academic tasks.",
     tags: [
       {
         name: "java",
@@ -280,7 +280,7 @@ const projects = [
   {
     name: "Classroom360",
     description:
-      "VR platform aims to revolutionize the traditional classroom experience by providing an immersive virtual environment where students and teachers can interact and collaborate remotely.",
+      "VR platform aims to provide an immersive virtual environment where students and teachers can interact and collaborate remotely.",
     tags: [
       {
         name: "react360",
