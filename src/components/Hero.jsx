@@ -1,5 +1,6 @@
 import { styles } from "../styles";
 import Dinogame from "./Dinogame";
+import { TypeAnimation } from "react-type-animation";
 
 const Hero = () => {
   return (
@@ -14,7 +15,24 @@ const Hero = () => {
 
         <div>
           <h1 className={`${styles.heroHeadText} text-white`}>
-            Hello, I'm <span className="text-secondary">Floren</span>
+            Hello, I'm{" "}
+            <TypeAnimation
+              sequence={[
+                "Floren👋",
+                1000,
+                "raised by Taylor Swift💜",
+                1000,
+                "in my Barbie era🩰",
+                1000,
+                "a proud Gen Z ofc💅",
+                1000,
+                "an aspiring Rich Auntie👑",
+                1000,
+              ]}
+              speed={50}
+              repeat={Infinity}
+              className="text-secondary"
+            />
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-500`}>
             Currently a penultimate Computer Science{" "}
