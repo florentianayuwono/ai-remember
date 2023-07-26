@@ -46,6 +46,8 @@ import dino from "./dinogame/dino.png";
 import moon from "./dinogame/moon.png";
 import cactus from "./dinogame/cactus.png";
 
+import loveletter from "./loveletter.png";
+
 export {
   logo,
   backend,
@@ -89,5 +91,6 @@ export {
   java,
   flutter,
   c,
-  python
+  python,
+  loveletter
 };

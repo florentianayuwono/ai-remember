@@ -1,5 +1,6 @@
 import { dino, moon, cactus } from "../assets";
 import { useState, useEffect } from "react";
+import { SectionWrapper } from "../hoc";
 
 const Dinogame = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
@@ -109,25 +110,27 @@ const Dinogame = () => {
   }, [isGameStarted]);
 
   return (
-    <div id="dinogame-container" className="dinogame-container">
-      <div id="dino" className="dino">
-        <img src={dino} alt="dino" className="h-[70px] w-[70px]" />
-      </div>
-      <div id="cactus" className="cactus">
-        <img src={cactus} alt="cactus" className="h-[80px]" />
-      </div>
-      <div className="road w-full h-1 pink-gradient" />
-      <div className="moon">
-        <img src={moon} alt="moon" className="h-[80px]" />
-      </div>
-      <div id="score" className="score">
-        Score <b>00</b>
-      </div>
-      <div id="game-over" className="game-over">
-        Game Over
+    <div className="flex flex-col justify-center items-start mt-5">
+      <div id="dinogame-container" className="dinogame-container">
+        <div id="dino" className="dino">
+          <img src={dino} alt="dino" className="h-[70px] w-[70px]" />
+        </div>
+        <div id="cactus" className="cactus">
+          <img src={cactus} alt="cactus" className="h-[80px]" />
+        </div>
+        <div className="road w-full h-1 pink-gradient" />
+        <div className="moon">
+          <img src={moon} alt="moon" className="h-[80px]" />
+        </div>
+        <div id="score" className="score">
+          Score <b>00</b>
+        </div>
+        <div id="game-over" className="game-over">
+          Game Over
+        </div>
       </div>
     </div>
   );
 };
 
-export default Dinogame;
+export default SectionWrapper(Dinogame, "dinogame");

@@ -39,10 +39,6 @@ const Hero = () => {
             <br className="sm:block hidden" />
             student at NUS. Nice to meet you!😄
           </p>
-
-          <div className="flex flex-col justify-center items-start mt-5">
-            <Dinogame />
-          </div>
         </div>
       </div>
     </section>

@@ -11,12 +11,24 @@
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
-  scrollbar-color: light;
 }
 
 ::selection {
   background: #8338ec;
   color: white;
+}
+
+::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: purple;        /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: pink;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
 }
 
 .hash-span {
@@ -310,7 +322,7 @@
     right: -100px;
   }
   100% {
-    right: 600px;
+    right: 100%;
   }
 }
 

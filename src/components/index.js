@@ -7,6 +7,7 @@ import Experience from './Experience';
 import Work from './Work';
 import Feedbacks from './Feedbacks';
 import Contact from './Contact';
+import Game from "./Dinogame";
 
 export {
   Hero,
@@ -20,5 +21,6 @@ export {
   EarthCanvas, 
   BallCanvas, 
   ComputersCanvas, 
-  StarsCanvas
+  StarsCanvas,
+  Game
 }
