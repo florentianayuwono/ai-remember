@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -8,7 +8,7 @@ import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 
 const Contact = () => {
-  const fromRef = useRef();
+  const formRef = useRef();
 
   const email_templateid = "template_gxednwi";
   const email_serviceid = "service_0q6iimo";
@@ -76,7 +76,7 @@ const Contact = () => {
         <p className={styles.sectionSubText}>Your sign to write a</p>
         <h3 className={styles.sectionHeadText}>Letter.</h3>
 
-        <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
+        <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
           <label className="flex flex-col">
             <span className="text-white font-medium mb-4">Your Name</span>
             <input

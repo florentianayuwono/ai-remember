@@ -1,5 +1,4 @@
 import { styles } from "../styles";
-import Dinogame from "./Dinogame";
 import { TypeAnimation } from "react-type-animation";
 
 const Hero = () => {
