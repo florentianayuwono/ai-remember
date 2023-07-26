@@ -10,6 +10,10 @@ import { slideIn } from "../utils/motion";
 const Contact = () => {
   const fromRef = useRef();
 
+  const email_templateid = "template_gxednwi";
+  const email_serviceid = "service_0q6iimo";
+  const email_pubkey = "o3iEaA1qkVkXXi_xS";
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -18,9 +22,47 @@ const Contact = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  const handleSubmit = (e) => {};
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .send(
+        email_serviceid,
+        email_templateid,
+        {
+          from_name: form.name,
+          to_name: "Florentiana",
+          from_email: form.email,
+          to_email: "florentianayuwono2003@gmail.com",
+          message: form.message,
+        },
+        email_pubkey
+      )
+      .then(
+        () => {
+          setLoading(false);
+          alert("A letter to me, why thank you!");
+
+          setForm({
+            name: "",
+            email: "",
+            message: "",
+          });
+        },
+        (error) => {
+          setLoading(false);
+          console.log(error);
+          alert("Oh noes! Seems like the letter is lost😟.");
+        }
+      );
+  };
 
   const placeholderMessage =
     "Dear Alex,\nI'm drunk in the back of the car\nAnd I cried like a baby coming home from the bar (oh)\nSaid, 'I'm fine, ' but it wasn't true\nI don't wanna keep secrets just to keep you\nAnd I snuck in through the garden gate\nEvery night that summer just to seal my fate (oh)\nAnd I screamed for whatever it's worth\n'I love you, ' ain't that the worst thing you ever heard?";
@@ -80,7 +122,10 @@ const Contact = () => {
         </form>
       </motion.div>
 
-      <motion.div variants={slideIn('right', 'tween', 0.2, 1)} className="xl:flex-1 xl:h-auto md:h-[50px] flex-1">
+      <motion.div
+        variants={slideIn("right", "tween", 0.2, 1)}
+        className="xl:flex-1 xl:h-auto md:h-[50px] flex-1"
+      >
         <img src={loveletter} />
       </motion.div>
     </div>
