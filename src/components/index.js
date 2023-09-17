@@ -6,7 +6,7 @@ import Tech from './Tech';
 import OthersWords from './OthersWords';
 import WhyUs from './WhyUs';
 import Feedbacks from './Feedbacks';
-import Contact from './Contact';
+import Pricing from './Pricing';
 import Game from "./Dinogame";
 
 export {
@@ -17,7 +17,7 @@ export {
   OthersWords,
   WhyUs,
   Feedbacks,
-  Contact,
+  Pricing,
   EarthCanvas, 
   BallCanvas, 
   ComputersCanvas, 

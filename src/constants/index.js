@@ -61,9 +61,9 @@ const features = [
     description: "Record life's moments, no precious moment goes undocumented."
   },
   {
-    title: "Past Memories on Demand",
+    title: "Empathetic AI Companion",
     icon: logo2,
-    description: "Prompt the chat to recall your cherished moments."
+    description: "Chat, laugh, and cry with AI that understands you."
   },
   {
     title: "Community Connection",

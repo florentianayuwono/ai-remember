@@ -17,7 +17,7 @@ const ReasonCard = ({
     <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
       <Tilt
         options={{ max: 45, scale: 1, speed: 450 }}
-        className=" bg-secondary-beige p-5 rounded-2xl w-full my-5"
+        className=" bg-white bg-opacity-70 p-5 rounded-2xl w-full my-5"
       >
       <div className="flex">
       <div className="text-[100px] mx-10">{image}</div>

@@ -7,7 +7,7 @@ import { loveletter } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 
-const Contact = () => {
+const Pricing = () => {
   const formRef = useRef();
 
   const email_templateid = "template_gxednwi";
@@ -132,4 +132,4 @@ const Contact = () => {
   );
 };
 
-export default SectionWrapper(Contact, "pricing");
+export default SectionWrapper(Pricing, "pricing");
