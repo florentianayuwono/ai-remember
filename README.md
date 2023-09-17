@@ -14,7 +14,7 @@ AI-Remember simplifies the process of recording cherished memories through diari
 
 ## Application URL 🌐
 
-https://florentianayuwono.github.io/ai-remember/
+https://ai-remember.vercel.app/
 
 ## Set-up Instructions for Local Testing ⚙️
 
