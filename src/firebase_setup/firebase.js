@@ -7,7 +7,7 @@ import { getFirestore } from "@firebase/firestore"
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// TODO - need a safer way to store the informations here
+// TODO - need a safer way to store the informations here: https://www.makeuseof.com/react-api-keys-store-access/
 const firebaseConfig = {
   apiKey: "AIzaSyBzRAQygXp7iL6oepOig6sTxubfTHW7nOc",
   authDomain: "ai-remember.firebaseapp.com",
