@@ -1,17 +1,16 @@
 import { BrowserRouter } from 'react-router-dom';
 
-import { Game, About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Work, StarsCanvas } from './components';
+import { About, Contact, Experience, Hero, Navbar, Tech, Work } from './components';
 
 const App = () => {
 
   return (
     <BrowserRouter>
       <div className="relative z-0 bg-purple">
-        <div className="sm:bg-hero-pattern bg-cover bg-no-repeat bg-center">
+        <div className="bg-cover bg-no-repeat bg-center">
           <Navbar />
           <Hero />
         </div>
-        <Game />
         <About />
         <Experience />
         <Tech />
