@@ -9,7 +9,7 @@ AI-Remember simplifies the process of recording cherished memories through diari
 | Matriculation Number | Name                | Contributions                             |
 | -------------------- | ------------------- | ----------------------------------------- |
 | A0237732A | Xu Yi        | [Description of contributions] |
-| [Matriculation Number 2] | [Member 2]        | [Description of contributions by Member 2] |
+| A0244109L | Florentiana Yuwono     | [Description of contributions by Member 2] |
 | [Matriculation Number 3] | [Member 3]        | [Description of contributions by Member 3] |
 
 ## Application URL 🌐
