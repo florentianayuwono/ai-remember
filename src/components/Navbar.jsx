@@ -22,23 +22,24 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt="logo" className="h-9 object-contain" />
-          {/* <p className="text-white text-[18px] font-bold cursor-pointer flex">
-            <span className="sm:block hidden">| Portfolio Website</span>
-          </p> */}
+          <div className="flex items-center">
+            <img src={logo} alt="logo" className="h-9 object-contain" />
+            <div className={"text-white font-bold mx-2" }>AI-Remember</div>
+          </div>
         </Link>
-        <ul className="list-none hidden sm:flex flex-row gap-10">
+        <ul className="list-none hidden sm:flex flex-row gap-10 items-center">
           {navLinks.map((link) => (
             <li
               key={link.id}
               className={`${
-                active === link.title ? "text-white" : "text-secondary"
+                active === link.title ? "text-white" : "text-primary-lightpink"
               } hover:text-white text-[18px] font-medium cursor-pointer`}
               onClick={() => setActive(link.title)}
             >
               <a href={`#${link.id}`}>{link.title}</a>
             </li>
           ))}
+          <LoginButton />
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
@@ -58,7 +59,7 @@ const Navbar = () => {
                 <li
                   key={link.id}
                   className={`${
-                    active === link.title ? "text-white" : "text-secondary"
+                    active === link.title ? "text-white" : "text-primary-lightpink"
                   } hover:text-white text-[16px] font-poppins font-medium cursor-pointer`}
                   onClick={() => {
                     setToggle(!toggle);
@@ -68,6 +69,7 @@ const Navbar = () => {
                   <a href={`#${link.id}`}>{link.title}</a>
                 </li>
               ))}
+              <LoginButton />
             </ul>
           </div>
         </div>
@@ -75,5 +77,13 @@ const Navbar = () => {
     </nav>
   );
 };
+
+const LoginButton = () => {
+  return(<button 
+    onClick={() => null}
+    className=" rounded-full bg-primary-pink py-2 px-6 font-medium transition-transform transform hover:scale-110">
+      Login
+    </button>)
+}
 
 export default Navbar;

@@ -17,7 +17,7 @@ const ServiceCard = ({ index, title, icon }) => {
         variants={fadeIn("right", "spring", 0.5 * index, 0.75)}
         className="w-full pink-gradient p-[1px] rounded-[20px] shadow-pink-500/100 shadow-lg"
       >
-        <div className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col">
+        <div className="bg-primary-lightblue rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col">
           <img src={icon} alt={title} className="w-16 h-16 object-contain" />
           <h3 className="text-red-700 text-[20px] font-bold text-center">
             {title}
@@ -38,7 +38,7 @@ const About = () => {
 
       <motion.p
         variants={fadeIn("", "", 0.1, 1)}
-        className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
+        className="mt-4 text-primary-lightpink text-[17px] max-w-3xl leading-[30px]"
       >
         Oh hey there, fancy meeting you! I'm{" "}
         <TypeAnimation
@@ -50,7 +50,7 @@ const About = () => {
           ]}
           speed={50}
           repeat={0}
-          className="text-secondary"
+          className="text-primary-lightpink"
         />
       </motion.p>
 
@@ -63,4 +63,4 @@ const About = () => {
   );
 };
 
-export default SectionWrapper(About, "about");
+export default SectionWrapper(About, "features");

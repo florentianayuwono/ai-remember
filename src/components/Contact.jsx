@@ -85,7 +85,7 @@ const Contact = () => {
               value={form.name}
               onChange={handleChange}
               placeholder="HRH Prince Henry of Who Cares"
-              className="bg-fuchsia-700 py-4 px-6 placeholder:text-secondary text-rose-200 rounded-lg outlined-none border-none font-medium"
+              className="bg-fuchsia-700 py-4 px-6 placeholder:text-primary-lightpink text-rose-200 rounded-lg outlined-none border-none font-medium"
             />
           </label>
 
@@ -97,7 +97,7 @@ const Contact = () => {
               value={form.email}
               onChange={handleChange}
               placeholder="henry@kensington.com"
-              className="bg-fuchsia-700 py-4 px-6 placeholder:text-secondary text-rose-200 rounded-lg outlined-none border-none font-medium"
+              className="bg-fuchsia-700 py-4 px-6 placeholder:text-primary-lightpink text-rose-200 rounded-lg outlined-none border-none font-medium"
             />
           </label>
 
@@ -109,7 +109,7 @@ const Contact = () => {
               value={form.message}
               onChange={handleChange}
               placeholder={placeholderMessage}
-              className="bg-fuchsia-700 py-4 px-6 placeholder:text-secondary text-rose-200 rounded-lg outlined-none border-none font-medium"
+              className="bg-fuchsia-700 py-4 px-6 placeholder:text-primary-lightpink text-rose-200 rounded-lg outlined-none border-none font-medium"
             />
           </label>
 
@@ -132,4 +132,4 @@ const Contact = () => {
   );
 };
 
-export default SectionWrapper(Contact, "contact");
+export default SectionWrapper(Contact, "pricing");
