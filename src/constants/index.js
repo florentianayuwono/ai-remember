@@ -148,7 +148,7 @@ const technologies = [
   // },
 ];
 
-const experiences = [
+const othersWords = [
   {
     title: "Machine Translation Intern",
     company_name: "Shopee",
@@ -298,4 +298,4 @@ const projects = [
   },
 ];
 
-export { features, technologies, experiences, testimonials, projects };
+export { features, technologies, othersWords, testimonials, projects };

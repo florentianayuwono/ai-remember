@@ -38,7 +38,7 @@ const Features = () => {
     <>
       <motion.div variants={textVariant()}>
         <h2 className={styles.sectionHeadText}>Features.</h2>
-        <p className={styles.sectionSubText}>How AI-Remember improves your life</p>
+        <p className="mt-3 text-primary-lightpink text-[17px] max-w-3xl leading-[30px]">How AI-Remember improves your life.</p>
       </motion.div>
 
       <motion.p

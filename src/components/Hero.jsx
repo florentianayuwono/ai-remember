@@ -38,6 +38,7 @@ const Hero = () => {
           </p>
         </div>
       </div>
+      {/*TODO - Perhaps a demo video here*/}
     </section>
   );
 };

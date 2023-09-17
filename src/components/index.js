@@ -3,7 +3,7 @@ import Hero from './Hero';
 import Navbar from './Navbar';
 import Features from './Features';
 import Tech from './Tech';
-import Experience from './Experience';
+import OthersWords from './OthersWords';
 import Work from './Work';
 import Feedbacks from './Feedbacks';
 import Contact from './Contact';
@@ -14,7 +14,7 @@ export {
   Navbar,
   Features,
   Tech,
-  Experience,
+  OthersWords,
   Work,
   Feedbacks,
   Contact,
