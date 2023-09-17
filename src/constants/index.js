@@ -61,9 +61,9 @@ const features = [
     description: "Record life's moments, no precious moment goes undocumented."
   },
   {
-    title: "Past Memories on Demand",
+    title: "Empathetic AI Companion",
     icon: logo2,
-    description: "Prompt the chat to recall your cherished moments."
+    description: "Chat, laugh, and cry with AI that understands you."
   },
   {
     title: "Community Connection",
@@ -196,106 +196,30 @@ const othersWords = [
   },
 ];
 
-const testimonials = [
+const reasons = [
   {
-    testimonial:
-      "I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.",
-    name: "Sara Lee",
-    designation: "CFO",
-    company: "Acme Co",
-    image: "https://randomuser.me/api/portraits/women/4.jpg",
+    name: "Seamless Technology",
+    description: "Our advanced AI-driven platform simplifies memory capture and retrieval, making it easier than ever to document and relive your life's moments.",
+    image: "🤖",
   },
   {
-    testimonial:
-      "I've never met a web developer who truly cares about their clients' success like Rick does.",
-    name: "Chris Brown",
-    designation: "COO",
-    company: "DEF Corp",
-    image: "https://randomuser.me/api/portraits/men/5.jpg",
+    name: "Emotional Connection",
+    description: 
+    "Experience an AI companion like no other. Our AI is designed to understand your emotions, providing a unique and empathetic interaction that enhances your memories.",
+    image: "🤗",
   },
   {
-    testimonial:
-      "After Rick optimized our website, our traffic increased by 50%. We can't thank them enough!",
-    name: "Lisa Wang",
-    designation: "CTO",
-    company: "456 Enterprises",
-    image: "https://randomuser.me/api/portraits/women/6.jpg",
+    name: "Personalization",
+    description:
+      "Your diaries are not just records; they're artful creations. Customize them with photos, music, and stickers to make each memory uniquely yours.",
+    image: "🎨",
+  },
+  {
+    name: "Community & Connection",
+    description:
+      "Join a vibrant community of like-minded individuals who appreciate the power of storytelling. Share your stories and connect with others who understand and empathize.",
+    image: "✨",
   },
 ];
 
-const projects = [
-  {
-    name: "DigitalIT",
-    description:
-      "Web application focusing on making decisions and generating recommendations on growth strategy based on the user's business profile and condition.",
-    tags: [
-      {
-        name: "react",
-        color: "text-blue-600",
-      },
-      {
-        name: "express",
-        color: "text-yellow-300",
-      },
-      {
-        name: "postgresql",
-        color: "text-green-600",
-      },
-    ],
-    image: digitalit,
-    source_code_link: "https://github.com/florentianayuwono/DigitalIT",
-  },
-  {
-    name: "SoConnect",
-    description:
-      "Desktop app built to help NUS SoC students stay better connected to their school life, in terms of social connections and academic tasks.",
-    tags: [
-      {
-        name: "java",
-        color: "text-amber-200",
-      },
-      {
-        name: "javafx",
-        color: "text-fuchsia-600",
-      },
-      {
-        name: "gradle",
-        color: "text-sky-500",
-      },
-    ],
-    image: soconnect,
-    source_code_link: "https://github.com/florentianayuwono/tp",
-  },
-  {
-    name: "Ground Zero",
-    description:
-      "Web application built to promote and provide information for NES Ground Zero 2023, the largest student-run startathon in Singapore.",
-    tags: [
-      {
-        name: "react",
-        color: "text-blue-600",
-      },
-      {
-        name: "tailwindcss",
-        color: "text-teal-500",
-      },
-    ],
-    image: groundzero,
-    source_code_link: "https://github.com/florentianayuwono/groundzero-website",
-  },
-  {
-    name: "Classroom360",
-    description:
-      "VR platform aims to provide an immersive virtual environment where students and teachers can interact and collaborate remotely.",
-    tags: [
-      {
-        name: "react360",
-        color: "text-rose-700",
-      },
-    ],
-    image: classroom360,
-    source_code_link: "https://github.com/florentianayuwono/pink-unicorn",
-  },
-];
-
-export { features, technologies, othersWords, testimonials, projects };
+export { features, technologies, othersWords, reasons };
