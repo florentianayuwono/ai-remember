@@ -6,11 +6,11 @@ AI-Remember simplifies the process of recording cherished memories through diari
 
 ## Group Members 👥
 
-| Matriculation Number | Name                | Contributions                             |
-| -------------------- | ------------------- | ----------------------------------------- |
-| A0237732A | Xu Yi        | [Description of contributions] |
-| A0244109L | Florentiana Yuwono     | [Description of contributions by Member 2] |
-| [Matriculation Number 3] | [Member 3]        | [Description of contributions by Member 3] |
+| Matriculation Number | Name               | Contributions                              |
+| -------------------- | ------------------ | ------------------------------------------ |
+| A0237732A            | Xu Yi              | [Description of contributions]             |
+| A0244109L            | Florentiana Yuwono | [Description of contributions by Member 2] |
+| A0242770H            | Ting Yi Xin        | [Description of contributions by Member 3] |
 
 ## Application URL 🌐
 
@@ -23,13 +23,21 @@ If you want to test AI-Remember locally, follow these steps:
 1. Clone the repository to your local machine:
    ```bash
    git clone https://github.com/florentianayuwono/ai-remember.git
+   ```
 2. Navigate to the project directory:
    ```bash
    cd ai-remember
+   ```
 3. Install dependencies:
-    ```bash
-    npm install
-4. Start the local preview:
-    ```bash
-    npm run preview
-5. Open a web browser and access AI-Remember at http://localhost:4173 🚀
+   ```bash
+   npm install
+   ```
+4. Build the project:
+   ```bash
+   npm run build
+   ```
+5. Start the local preview:
+   ```bash
+   npm run preview
+   ```
+6. Open a web browser and access AI-Remember at http://localhost:4173 🚀
