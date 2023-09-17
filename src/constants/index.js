@@ -223,79 +223,30 @@ const testimonials = [
   },
 ];
 
-const projects = [
+const reasons = [
   {
-    name: "DigitalIT",
-    description:
-      "Web application focusing on making decisions and generating recommendations on growth strategy based on the user's business profile and condition.",
-    tags: [
-      {
-        name: "react",
-        color: "text-blue-600",
-      },
-      {
-        name: "express",
-        color: "text-yellow-300",
-      },
-      {
-        name: "postgresql",
-        color: "text-green-600",
-      },
-    ],
-    image: digitalit,
-    source_code_link: "https://github.com/florentianayuwono/DigitalIT",
+    name: "Seamless Technology",
+    description: "Our advanced AI-driven platform simplifies memory capture and retrieval, making it easier than ever to document and relive your life's moments.",
+    image: "🤖",
   },
   {
-    name: "SoConnect",
-    description:
-      "Desktop app built to help NUS SoC students stay better connected to their school life, in terms of social connections and academic tasks.",
-    tags: [
-      {
-        name: "java",
-        color: "text-amber-200",
-      },
-      {
-        name: "javafx",
-        color: "text-fuchsia-600",
-      },
-      {
-        name: "gradle",
-        color: "text-sky-500",
-      },
-    ],
-    image: soconnect,
-    source_code_link: "https://github.com/florentianayuwono/tp",
+    name: "Emotional Connection",
+    description: 
+    "Experience an AI companion like no other. Our AI is designed to understand your emotions, providing a unique and empathetic interaction that enhances your memories.",
+    image: "🤗",
   },
   {
-    name: "Ground Zero",
+    name: "Personalization",
     description:
-      "Web application built to promote and provide information for NES Ground Zero 2023, the largest student-run startathon in Singapore.",
-    tags: [
-      {
-        name: "react",
-        color: "text-blue-600",
-      },
-      {
-        name: "tailwindcss",
-        color: "text-teal-500",
-      },
-    ],
-    image: groundzero,
-    source_code_link: "https://github.com/florentianayuwono/groundzero-website",
+      "Your diaries are not just records; they're artful creations. Customize them with photos, music, and stickers to make each memory uniquely yours.",
+    image: "🎨",
   },
   {
-    name: "Classroom360",
+    name: "Community & Connection",
     description:
-      "VR platform aims to provide an immersive virtual environment where students and teachers can interact and collaborate remotely.",
-    tags: [
-      {
-        name: "react360",
-        color: "text-rose-700",
-      },
-    ],
-    image: classroom360,
-    source_code_link: "https://github.com/florentianayuwono/pink-unicorn",
+      "Join a vibrant community of like-minded individuals who appreciate the power of storytelling. Share your stories and connect with others who understand and empathize.",
+    image: "✨",
   },
 ];
 
-export { features, technologies, othersWords, testimonials, projects };
+export { features, technologies, othersWords, testimonials, reasons };

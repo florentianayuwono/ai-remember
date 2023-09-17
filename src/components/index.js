@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import Features from './Features';
 import Tech from './Tech';
 import OthersWords from './OthersWords';
-import Work from './Work';
+import WhyUs from './WhyUs';
 import Feedbacks from './Feedbacks';
 import Contact from './Contact';
 import Game from "./Dinogame";
@@ -15,7 +15,7 @@ export {
   Features,
   Tech,
   OthersWords,
-  Work,
+  WhyUs,
   Feedbacks,
   Contact,
   EarthCanvas, 
