@@ -1,9 +1,9 @@
 import { EarthCanvas, BallCanvas, ComputersCanvas, StarsCanvas } from './canvas';
 import Hero from './Hero';
 import Navbar from './Navbar';
-import About from './About';
+import Features from './Features';
 import Tech from './Tech';
-import Experience from './Experience';
+import OthersWords from './OthersWords';
 import Work from './Work';
 import Feedbacks from './Feedbacks';
 import Contact from './Contact';
@@ -12,9 +12,9 @@ import Game from "./Dinogame";
 export {
   Hero,
   Navbar,
-  About,
+  Features,
   Tech,
-  Experience,
+  OthersWords,
   Work,
   Feedbacks,
   Contact,

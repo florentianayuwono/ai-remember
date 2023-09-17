@@ -3,6 +3,7 @@ import {
   backend,
   creator,
   web,
+  logo2,
   javascript,
   typescript,
   html,
@@ -35,39 +36,44 @@ import {
   flutter,
   c,
   python,
+  logo,
 } from "../assets";
 
 export const navLinks = [
   {
-    id: "about",
-    title: "About",
+    id: "features",
+    title: "Features",
   },
   {
-    id: "work",
-    title: "Work",
+    id: "whyus",
+    title: "Why Us?",
   },
   {
-    id: "contact",
-    title: "Contact",
-  },
+    id: "pricing",
+    title: "Pricing",
+  }
 ];
 
-const services = [
+const features = [
   {
-    title: "Software Engineer",
-    icon: web,
+    title: "Effortless Memory Capture",
+    icon: logo2,
+    description: "Record life's moments, no precious moment goes undocumented."
   },
   {
-    title: "AI/ML Engineer",
-    icon: mobile,
+    title: "Past Memories on Demand",
+    icon: logo2,
+    description: "Prompt the chat to recall your cherished moments."
   },
   {
-    title: "Product Manager",
-    icon: backend,
+    title: "Community Connection",
+    icon: logo2,
+    description:"Share and connect over your cherished stories."
   },
   {
-    title: "Tutor",
-    icon: creator,
+    title: "Personalized Keepsakes",
+    icon: logo2,
+    description: "Craft unique diaries with music, photos, and stickers."
   },
 ];
 
@@ -142,7 +148,7 @@ const technologies = [
   // },
 ];
 
-const experiences = [
+const othersWords = [
   {
     title: "Machine Translation Intern",
     company_name: "Shopee",
@@ -292,4 +298,4 @@ const projects = [
   },
 ];
 
-export { services, technologies, experiences, testimonials, projects };
+export { features, technologies, othersWords, testimonials, projects };

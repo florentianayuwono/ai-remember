@@ -1,4 +1,5 @@
 import logo from "./logo.png";
+import logo2 from "./logo2.png";
 import backend from "./backend.png";
 import creator from "./creator.png";
 import mobile from "./mobile.png";
@@ -50,6 +51,7 @@ import loveletter from "./loveletter.png";
 
 export {
   logo,
+  logo2,
   backend,
   creator,
   mobile,
