@@ -5,9 +5,7 @@ import { styles } from "../../styles";
 import { navLinks } from "../../constants";
 import { logo, menu, close } from "../../assets";
 
-
-
-const Navbar = () => {
+const Navbar = ({ loggedIn }) => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
 
@@ -33,7 +31,7 @@ const Navbar = () => {
               <a href={`#${link.id}`}>{link.title}</a>
             </li>
           ))}
-          <LoginButton/>
+          <LoginButton loggedIn={loggedIn} />
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
@@ -52,7 +50,7 @@ const Navbar = () => {
                   <a href={`#${link.id}`}>{link.title}</a>
                 </li>
               ))}
-              <LoginButton />
+              <LoginButton loggedIn={loggedIn} />
             </ul>
           </div>
         </div>
@@ -61,11 +59,10 @@ const Navbar = () => {
   );
 };
 
-
-const LoginButton = () => {
+const LoginButton = ({ loggedIn }) => {
   return (
     <Link to="/login">
-      <button className=" rounded-full bg-secondary-purple py-2 px-6 font-medium transition-transform transform hover:scale-110">Login</button>
+      <button className=" rounded-full bg-secondary-purple py-2 px-6 font-medium transition-transform transform hover:scale-110">{loggedIn ? "Go to App" : "Login"}</button>
     </Link>
   );
 };
