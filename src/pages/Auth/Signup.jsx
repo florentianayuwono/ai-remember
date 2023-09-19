@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { auth } from "../../firebase_setup/FirebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import InputForm from "../../components/common/InputForm";
 import { logo2, googleicon } from "../../assets";
@@ -12,6 +11,12 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [registerLoading, setRegisterLoading] = useState(false);
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useCreateUserWithEmailAndPassword(auth);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

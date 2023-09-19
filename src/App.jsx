@@ -7,30 +7,25 @@ import { Login, Landing, Forget, Signup, Verify, Communities, Diary, Conversatio
 import { useEffect } from "react";
 
 const App = () => {
-  const [user, error] = useAuthState(auth);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
-  useEffect(() => {
-    console.log(cookies.user)
-  },[cookies.user])
-
-  const ProtectedRoute = ({ authorised, redirectPath = "/login", children, setShowMenus }) => {
-    if (!authorised) {
+  const ProtectedRoute = ({ redirectPath = "/login", children }) => {
+    const [user] = useAuthState(auth);
+    if (!user) {
       return <Navigate to={redirectPath} replace />;
     }
-    setTimeout(() => setShowMenus(true), 0);
     return children ? children : <Outlet />;
   };
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing user={user} />} />
-        <Route path="/login" element={<Login setCookie = {setCookie}/>} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login setCookie = {setCookie} cookies = {cookies}/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forget" element={<Forget />} />
         <Route path="/verify" element={<Verify />} />
-        <Route element={<ProtectedRoute authorised={user} />}>
+        <Route element={<ProtectedRoute/>}>
           <Route path="/conversation" element={<Conversation />} />
           <Route path="/communities" element={<Communities />} />
           <Route path="/diary" element={<Diary />} />
