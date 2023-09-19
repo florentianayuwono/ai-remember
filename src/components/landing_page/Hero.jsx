@@ -30,7 +30,7 @@ const Hero = () => {
               ]}
               speed={50}
               repeat={0}
-              className="text-[#0e7490]"
+              className="text-secondary-blue"
             />
           </h1>
           <p className={`${styles.heroSubText} mt-2`}>
