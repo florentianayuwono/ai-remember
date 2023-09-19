@@ -103,12 +103,22 @@
   );
 }
 
-.green-gradient {
-  background: #94d290;
-  background: linear-gradient(-90deg, #94d290 0%, rgba(58, 80, 51, 0) 100%);
+.brown-gradient {
+  background: #6C584C;
+  background: linear-gradient(-90deg, #6C584C 0%, rgba(58, 80, 51, 0) 100%);
   background: -webkit-linear-gradient(
     -90deg,
-    #94d290 0%,
+    #6C584C 0%,
+    rgba(58, 80, 51, 0) 100%
+  );
+}
+
+.green-gradient {
+  background: #ADC178;
+  background: linear-gradient(-90deg, #ADC178 0%, rgba(58, 80, 51, 0) 100%);
+  background: -webkit-linear-gradient(
+    -90deg,
+    #ADC178 0%,
     rgba(58, 80, 51, 0) 100%
   );
 }
