@@ -1,16 +1,15 @@
-import { BrowserRouter, Route, Routes,Navigate, Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, Outlet } from "react-router-dom";
 
-import { Login, Landing } from "./pages";
+import { Login, Landing, Forget, Signup, Verify } from "./pages";
 import Conversation from "./pages/Conversation";
 
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
 import Communities from "./pages/Communities";
 import Diary from "./pages/Diary";
 
 const App = () => {
-
-  const[user, error] = useAuthState(auth);
+  const [user, error] = useAuthState(auth);
   console.log(error);
 
   const ProtectedRoute = ({ authorised, redirectPath = "/login", children, setShowMenus }) => {
@@ -26,6 +25,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Landing user={user} />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forget" element={<Forget />} />
+        <Route path="/verify" element={<Verify />} />
         <Route element={<ProtectedRoute authorised={user} />}>
           <Route path="/conversation" element={<Conversation />} />
           <Route path="/communities" element={<Communities />} />
