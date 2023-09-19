@@ -13,6 +13,7 @@ import CircularIndicator from "../../components/CircularIndicator";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [registerLoading, setRegisterLoading] = useState(false);
 
@@ -22,6 +23,10 @@ const Signup = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -43,6 +48,7 @@ const Signup = () => {
         <img className="w-24 m-auto mb-4" src={logo2} />
         <InputForm title="Email" value={email} htmlValue="email" handleChange={handleEmailChange} placeholder="your email*" />
         <InputForm title="Password" value={password} htmlValue="password" handleChange={handlePasswordChange} placeholder="password *" />
+        <InputForm title="Confirm Password" value={confirmPassword} htmlValue="confirmPassword" handleChange={handleConfirmPasswordChange} placeholder="confirm password *" />
         <div className="flex items-center mt-4 mb-2">
           <button className=" bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl" type="submit" onClick={handleSubmit}>
             {registerLoading ? <CircularIndicator /> : "Register"}
