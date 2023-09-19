@@ -22,12 +22,12 @@ const Navbar = () => {
         >
           <div className="flex items-center">
             <img src={logo} alt="logo" className="h-9 object-contain" />
-            <div className={"text-white font-bold mx-2"}>AI-Remember</div>
+            <div className={"text-secondary-purple font-bold mx-2"}>AI-Remember</div>
           </div>
         </Link>
         <ul className="list-none hidden sm:flex flex-row gap-10 items-center">
           {navLinks.map((link) => (
-            <li key={link.id} className={`${active === link.title ? "text-white" : "text-primary-lightpink"} hover:text-white text-[18px] font-medium cursor-pointer`} onClick={() => setActive(link.title)}>
+            <li key={link.id} className={`${active === link.title ? "text-secondary-lightbrown" : "text-secondary-brown"} hover:text-white text-[18px] font-medium cursor-pointer`} onClick={() => setActive(link.title)}>
               <a href={`#${link.id}`}>{link.title}</a>
             </li>
           ))}
@@ -62,7 +62,7 @@ const Navbar = () => {
 const LoginButton = () => {
   return (
     <Link to="/login">
-      <button className=" rounded-full bg-primary-pink py-2 px-6 font-medium transition-transform transform hover:scale-110">Login</button>
+      <button className=" rounded-full bg-secondary-purple py-2 px-6 font-medium transition-transform transform hover:scale-110">Login</button>
     </Link>
   );
 };
