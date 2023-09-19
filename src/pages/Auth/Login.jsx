@@ -45,26 +45,30 @@ const Login = ( {setCookie, cookies} ) => {
 
   const handleGoogleSignIn = (e) => {
     e.preventDefault();
-    signInWithGoogle().then((userCredential) => {
-      console.log(userCredential);
-      navigate('/conversation');
-    });
+    signInWithGoogle();
   } 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoginLoading(true);
-    signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
+  useEffect(() => {
+    if (error || googleError) {
+      console.log(error);
+      setLoginLoading(false);
+    }
+  },[error])
+
+  useEffect(() => {
+    if (user || googleUser) {
       setLoginLoading(false);
       //set cookie for the entire app
       setCookie('email', email, { path: '/',})
       setCookie('password', password, { path: '/',})
       navigate("/conversation");
-    }).catch((err) => {
-      console.log(err);
-      setLoginLoading(false);
-    })
+    }
+  }, [user, googleUser])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoginLoading(true);
+    await signInWithEmailAndPassword(email, password);
   };
 
   return (
