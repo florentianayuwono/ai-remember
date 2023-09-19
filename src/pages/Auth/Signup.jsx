@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { auth } from "../../firebase_setup/FirebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -6,9 +5,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import InputForm from "../../components/common/InputForm";
 import { logo2, googleicon } from "../../assets";
 import CircularIndicator from "../../components/CircularIndicator";
-
-
-
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -33,24 +29,47 @@ const Signup = () => {
     e.preventDefault();
     setRegisterLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log(userCredential);
-      setRegisterLoading(false);
-    }).catch((err) => {
-      console.log(err);
-      setRegisterLoading(false);
-    })
+      .then((userCredential) => {
+        console.log(userCredential);
+        setRegisterLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setRegisterLoading(false);
+      });
   };
 
   return (
     <div className="bg-secondary-darkpurple flex justify-center items-center min-h-screen text-black">
       <form className="bg-white rounded-xl px-14 py-8 m-5 text-sm flex flex-col justify-center">
         <img className="w-24 m-auto mb-4" src={logo2} />
-        <InputForm title="Email" value={email} htmlValue="email" handleChange={handleEmailChange} placeholder="your email*" />
-        <InputForm title="Password" value={password} htmlValue="password" handleChange={handlePasswordChange} placeholder="password *" />
-        <InputForm title="Confirm Password" value={confirmPassword} htmlValue="confirmPassword" handleChange={handleConfirmPasswordChange} placeholder="confirm password *" />
+        <InputForm
+          title="Email"
+          value={email}
+          htmlValue="email"
+          handleChange={handleEmailChange}
+          placeholder="your email"
+        />
+        <InputForm
+          title="Password"
+          value={password}
+          htmlValue="password"
+          handleChange={handlePasswordChange}
+          placeholder="password"
+        />
+        <InputForm
+          title="Confirm Password"
+          value={confirmPassword}
+          htmlValue="password"
+          handleChange={handleConfirmPasswordChange}
+          placeholder="confirm password"
+        />
         <div className="flex items-center mt-4 mb-2">
-          <button className=" bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl" type="submit" onClick={handleSubmit}>
+          <button
+            className=" bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl"
+            type="submit"
+            onClick={handleSubmit}
+          >
             {registerLoading ? <CircularIndicator /> : "Register"}
           </button>
         </div>
