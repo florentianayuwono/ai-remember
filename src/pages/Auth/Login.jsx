@@ -1,29 +1,36 @@
 import { useState, useEffect } from "react";
 import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
-import { sendSignInLinkToEmail } from "firebase/auth";
+import {} from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from "../../firebase_setup/FirebaseConfig";
-import { CONVERSATION_PAGE } from "../../constants";
 import { logo2 } from "../../assets";
 import CircularIndicator from "../../components/CircularIndicator";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [user] = useAuthState(auth);
-  const [cookies, setCookie] = useCookies(['user']);
+
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [loginMsg, setLoginMsg] = useState('');
+
+  const [initialLoading, setInitialLoading] = useState(false);
+  const [initialError, setInititialError] = useState('');
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       navigate('/conversation');
+    } else {
     }
-  }, [user])
+  }, [])
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -36,20 +43,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoginLoading(true);
-    sendSignInLinkToEmail(auth, email, {
-      //url link to after clicking link in mailbox
-      url: CONVERSATION_PAGE,
-      handleCodeInApp: true
-    }).then(() => {
-      //path signifies availability for all pages on website
-      setCookie('email', email, { path: '/' }); //retrieve using cookies.email
-      setLoginLoading(false);
-      setLoginError('');
-      setLoginMsg("We have sent you an email with a link to sign in");
-    }).catch((err) => {
-      setLoginLoading(false);
-      setLoginError(err.message);
-    })
   };
 
   return (
@@ -86,6 +79,11 @@ const Login = () => {
           {loginError !== "" && (
             <div className="text-red-500">
               {loginError}
+            </div>
+          )}
+          {loginMsg !== "" && (
+            <div className="text-green-500">
+              {loginMsg}
             </div>
           )}
       </form>
