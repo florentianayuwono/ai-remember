@@ -1,13 +1,28 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { styles } from "../../styles";
 import { navLinks } from "../../constants";
 import { logo, menu, close } from "../../assets";
 
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from "../../firebase_setup/FirebaseConfig";
+
 const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate();
+
+  const[user, error] = useAuthState(auth);
+  console.log(error);
+
+  const LoginButton = () => {
+    return (
+        <button 
+        onClick={() => {user ? navigate('/conversation') : navigate('/login')}}
+        className=" rounded-full bg-primary-pink py-2 px-6 font-medium transition-transform transform hover:scale-110">Login</button>
+    );
+  };
 
   return (
     <nav className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 hero-background`}>
@@ -31,7 +46,7 @@ const Navbar = () => {
               <a href={`#${link.id}`}>{link.title}</a>
             </li>
           ))}
-          <LoginButton />
+          <LoginButton/>
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
@@ -56,14 +71,6 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  );
-};
-
-const LoginButton = () => {
-  return (
-    <Link to="/login">
-      <button className=" rounded-full bg-primary-pink py-2 px-6 font-medium transition-transform transform hover:scale-110">Login</button>
-    </Link>
   );
 };
 

@@ -1,9 +1,29 @@
+import { useState, useEffect } from "react";
+import { useCookies } from 'react-cookie';
+import { useNavigate } from "react-router-dom";
+import { sendSignInLinkToEmail } from "firebase/auth";
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+import { auth } from "../../firebase_setup/FirebaseConfig";
+import { CONVERSATION_PAGE } from "../../constants";
 import { logo2 } from "../../assets";
-import { useState } from "react";
+import CircularIndicator from "../../components/CircularIndicator";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user] = useAuthState(auth);
+  const [cookies, setCookie] = useCookies(['user']);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [loginMsg, setLoginMsg] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/conversation');
+    }
+  }, [user])
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -15,6 +35,21 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoginLoading(true);
+    sendSignInLinkToEmail(auth, email, {
+      //url link to after clicking link in mailbox
+      url: CONVERSATION_PAGE,
+      handleCodeInApp: true
+    }).then(() => {
+      //path signifies availability for all pages on website
+      setCookie('email', email, { path: '/' }); //retrieve using cookies.email
+      setLoginLoading(false);
+      setLoginError('');
+      setLoginMsg("We have sent you an email with a link to sign in");
+    }).catch((err) => {
+      setLoginLoading(false);
+      setLoginError(err.message);
+    })
   };
 
   return (
@@ -42,12 +77,17 @@ const Login = () => {
         </div>
         <div className="flex items-center justify-between">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" onClick={handleSubmit}>
-            Sign In
+            {loginLoading ? <CircularIndicator /> : "Login"}
           </button>
           <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
             Forgot Password?
           </a>
         </div>
+          {loginError !== "" && (
+            <div className="text-red-500">
+              {loginError}
+            </div>
+          )}
       </form>
     </div>
   );
