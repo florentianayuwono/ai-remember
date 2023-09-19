@@ -14,13 +14,13 @@ const ReasonCard = ({ index, name, description, image }) => {
         options={{ max: 45, scale: 1, speed: 450 }}
         className=" bg-white bg-opacity-90 p-5 rounded-2xl w-full m-5"
       >
-        <div className="flex m-5">
+        <div className="flex m-5 flex-col sm:flex-row">
           <div className="text-[100px]">{image}</div>
           <div className="m-2">
-            <h3 className="text-purple-900 font-bold text-2xl sm:text-3xl">
+            <h3 className="text-purple-900 font-bold text-2xl">
               {name}
             </h3>
-            <p className="mt-2 text-secondary-brown text-md sm:text-lg">
+            <p className="mt-2 text-secondary-brown text-md">
               {description}
             </p>
           </div>

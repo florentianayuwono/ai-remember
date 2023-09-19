@@ -39,15 +39,15 @@ const FreePriceCard = () => {
 
 const ProPriceCard = () => {
   return (
-    <div className="min-w-[500px] max-w-[1000px] py-20 px-10 m-5 rounded-[20px] bg-primary-lightblue flex flex-col">
+    <div className="min-w-[50%] max-w-[1000px] py-20 px-10 m-5 rounded-[20px] bg-primary-lightblue flex flex-col">
       <h3 className="flex text-black font-bold text-2xl sm:text-3xl justify-center">Pro</h3>
       <p className="flex justify-center text-black text-lg font-medium">to unlock a world of memories</p>
-      <p className="text-[80px] flex justify-center items-center text-black">
+      <p className="text-[60px] flex justify-center items-center text-black">
         $0.99
         <span className="text-sm">/month</span>
       </p>
       <p className="text-black flex justify-center">or</p>
-      <p className="text-[80px] flex justify-center items-center text-black">
+      <p className="text-[60px] flex justify-center items-center text-black">
         $9.99
         <span className="text-sm">/lifetime</span>
       </p>
