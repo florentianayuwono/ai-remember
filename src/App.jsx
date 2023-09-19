@@ -30,9 +30,8 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forget" element={<Forget />} />
         <Route path="/verify" element={<Verify />} />
-        <Route path="/conversation" element={<Conversation />} />
-
         <Route element={<ProtectedRoute authorised={user} />}>
+          <Route path="/conversation" element={<Conversation />} />
           <Route path="/communities" element={<Communities />} />
           <Route path="/diary" element={<Diary />} />
         </Route>
