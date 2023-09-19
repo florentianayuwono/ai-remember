@@ -54,13 +54,6 @@ const Signup = () => {
             Login!
           </a>
         </p>
-
-        <div className="mt-8 flex items-center justify-between">
-          <button className="outline outline-purple-500 bg-white hover:bg-purple-400 text-black w-full  py-2 px-4 rounded-3xl flex items-center" type="submit" onClick={handleSubmit}>
-            <img src={googleicon} className="w-6 mr-4" />
-            Continue with Google
-          </button>
-        </div>
       </form>
     </div>
   );
