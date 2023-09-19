@@ -5,7 +5,7 @@ import OthersWords from "../components/landing_page/OthersWords";
 import WhyUs from "../components/landing_page/WhyUs";
 import Pricing from "../components/landing_page/Pricing";
 
-const Home = () => {
+const Landing = () => {
   return (
     <div className="relative z-0 bg-[#57375D]">
       <div className="bg-cover bg-no-repeat bg-center">
@@ -22,4 +22,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Landing;
