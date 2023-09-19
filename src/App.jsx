@@ -11,8 +11,8 @@ const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   useEffect(() => {
-    console.log(cookies.user)
-  },[cookies.user])
+    console.log(cookies.user);
+  }, [cookies.user]);
 
   const ProtectedRoute = ({ authorised, redirectPath = "/login", children, setShowMenus }) => {
     if (!authorised) {
@@ -26,12 +26,13 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing user={user} />} />
-        <Route path="/login" element={<Login setCookie = {setCookie}/>} />
+        <Route path="/login" element={<Login setCookie={setCookie} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forget" element={<Forget />} />
         <Route path="/verify" element={<Verify />} />
+        <Route path="/conversation" element={<Conversation />} />
+
         <Route element={<ProtectedRoute authorised={user} />}>
-          <Route path="/conversation" element={<Conversation />} />
           <Route path="/communities" element={<Communities />} />
           <Route path="/diary" element={<Diary />} />
         </Route>

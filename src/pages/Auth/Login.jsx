@@ -1,21 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { signInWithEmailAndPassword,GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
 
 import InputForm from "../../components/common/InputForm";
 import { auth } from "../../firebase_setup/FirebaseConfig";
 import { logo2, googleicon } from "../../assets";
 import CircularIndicator from "../../components/CircularIndicator";
 
-
-const Login = ( {setCookie} ) => {
+const Login = ({ setCookie }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [user] = useAuthState(auth);
   const provider = new GoogleAuthProvider();
-  
 
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
@@ -29,7 +27,7 @@ const Login = ( {setCookie} ) => {
   useEffect(() => {
     if (user) {
       //navigate("/conversation");
-      console.log(user)
+      console.log(user);
     } else {
     }
   }, [user]);
@@ -46,29 +44,31 @@ const Login = ( {setCookie} ) => {
     e.preventDefault();
     signInWithRedirect(auth, provider);
     getRedirectResult(auth)
-    .then((userCredential) => {
-      // This gives you a Google Access Token. You can use it to access Google APIs.
-      const credential = GoogleAuthProvider.credentialFromResult(userCredential);
-      const token = credential.accessToken;
-      setCookie('user', userCredential.user, { path: '/',})
-    }).catch((error) => {
-      console.log(error);
-      const credential = GoogleAuthProvider.credentialFromError(error);
-    });
-  } 
+      .then((userCredential) => {
+        // This gives you a Google Access Token. You can use it to access Google APIs.
+        const credential = GoogleAuthProvider.credentialFromResult(userCredential);
+        const token = credential.accessToken;
+        setCookie("user", userCredential.user, { path: "/" });
+      })
+      .catch((error) => {
+        console.log(error);
+        const credential = GoogleAuthProvider.credentialFromError(error);
+      });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoginLoading(true);
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      setLoginLoading(false);
-      //set cookie for the entire app
-      setCookie('user', userCredential.user, { path: '/',})
-    }).catch((err) => {
-      console.log(err);
-      setLoginLoading(false);
-    })
+      .then((userCredential) => {
+        setLoginLoading(false);
+        //set cookie for the entire app
+        setCookie("user", userCredential.user, { path: "/" });
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoginLoading(false);
+      });
   };
 
   return (

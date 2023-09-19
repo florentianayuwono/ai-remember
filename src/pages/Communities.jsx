@@ -1,8 +1,11 @@
-
+import HomeNavbar from "../components/common/HomeNavbar";
 const Communities = () => {
-    return (
+  return (
+    <>
+      <HomeNavbar />
       <div>Communities</div>
-    );
-  };
-  
-  export default Communities;
+    </>
+  );
+};
+
+export default Communities;

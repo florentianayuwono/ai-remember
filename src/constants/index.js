@@ -1,18 +1,11 @@
-import {
-  logo2,
-  shopee,
-  nus,
-  ncl,
-  incareasia,
-} from "../assets";
+import { logo2, shopee, nus, ncl, incareasia } from "../assets";
 
 var APP_URL;
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   APP_URL = "http://localhost:3000/";
-  
 } else {
-  APP_URL = "https://ai-remember.vercel.app/"
+  APP_URL = "https://ai-remember.vercel.app/";
 }
 export const LANDING_PAGE = APP_URL;
 export const LOGIN_PAGE = APP_URL + "login";
@@ -32,6 +25,21 @@ export const navLinks = [
   {
     id: "pricing",
     title: "Pricing",
+  },
+];
+
+export const homeNavLinks = [
+  {
+    id: "conversation",
+    title: "Chat with AI",
+  },
+  {
+    id: "diary",
+    title: "Diary",
+  },
+  {
+    id: "communities",
+    title: "Community",
   },
 ];
 
