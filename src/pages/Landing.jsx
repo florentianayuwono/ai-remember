@@ -7,14 +7,14 @@ import Pricing from "../components/landing_page/Pricing";
 
 const Landing = ({ user }) => {
   return (
-    <div className="relative z-0 bg-[#57375D]">
+    <div className="relative z-0 bg-primary-purple">
       <div className="bg-cover bg-no-repeat bg-center">
         <Navbar user = {user} />
         <Hero />
       </div>
       <Features />
-      <OthersWords />
       <WhyUs />
+      <OthersWords />
       <div className="relative z-0">
         <Pricing />
       </div>

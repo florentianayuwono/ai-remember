@@ -8,10 +8,10 @@ const Pricing = () => {
   return (
     <div>
       <motion.div variants={textVariant()}>
-        <h2 className={styles.sectionHeadText}>Pricing.</h2>
-        <p className="mt-3 text-primary-lightpink text-[17px] max-w-3xl leading-[30px]">Start for Free, Unlock Greater Benefits with Pro Upgrade.</p>
+        <h2 className={styles.sectionHeadText}>Have an AI-Remember today!</h2>
+        <p className="mt-3 text-black text-[17px] max-w-3xl leading-[30px]">It's free for everyone, and we have a pro for the special ones too.</p>
       </motion.div>
-      <div className="flex justify-center items-center mt-20">
+      <div className="flex flex-wrap justify-center items-center mt-10">
         <FreePriceCard />
         <ProPriceCard />
       </div>
@@ -21,17 +21,17 @@ const Pricing = () => {
 
 const FreePriceCard = () => {
   return (
-    <div className="w-[40%] p-5 rounded-[20px] bg-primary-purple flex flex-col">
-      <h3 className="flex text-purple-900 font-bold text-2xl sm:text-3xl justify-center">Free</h3>
-      <p className="flex justify-center text-purple-800 text-lg font-medium">to explore</p>
-      <p className="text-[80px] flex justify-center text-purple-900">$0</p>
-      <div className=" text-[rgb(87,55,93)]">
+    <div className="max-w-[500px] py-20 px-10 m-5 rounded-[20px] bg-secondary-lightgreen flex flex-col">
+      <h3 className="flex text-black font-bold text-2xl sm:text-3xl justify-center">Free</h3>
+      <p className="flex justify-center text-black text-lg font-medium">to explore</p>
+      <p className="text-[80px] flex justify-center text-black">$0</p>
+      <div className=" text-black">
         <p className="px-5 my-2"> ✔ Basic Messages (5 msg/day) </p>
         <p className="px-5 my-2"> ✔ Conversation History (7 days) </p>
         <p className="px-5 my-2"> ✔ Access to Community Features (7 days) </p>
       </div>
       <Link to="/login" className="flex flex-col">
-        <button className="divide-inherit rounded-full p-5 mt-4 bg-[#57375D]">Try Now</button>
+        <button className="divide-inherit rounded-full p-5 mt-4 bg-secondary-brown">Try Now</button>
       </Link>
     </div>
   );
@@ -39,19 +39,19 @@ const FreePriceCard = () => {
 
 const ProPriceCard = () => {
   return (
-    <div className="w-[60%] p-5 rounded-[20px] bg-white flex flex-col">
-      <h3 className="flex text-purple-900 font-bold text-2xl sm:text-3xl justify-center">Pro</h3>
-      <p className="flex justify-center text-purple-800 text-lg font-medium">to unlock a world of memories</p>
-      <p className="text-[80px] flex justify-center items-center text-purple-900">
+    <div className="min-w-[500px] max-w-[1000px] py-20 px-10 m-5 rounded-[20px] bg-primary-lightblue flex flex-col">
+      <h3 className="flex text-black font-bold text-2xl sm:text-3xl justify-center">Pro</h3>
+      <p className="flex justify-center text-black text-lg font-medium">to unlock a world of memories</p>
+      <p className="text-[80px] flex justify-center items-center text-black">
         $0.99
         <span className="text-sm">/month</span>
       </p>
-      <p className="text-[#57375D] flex justify-center">or</p>
-      <p className="text-[80px] flex justify-center items-center text-purple-900">
+      <p className="text-black flex justify-center">or</p>
+      <p className="text-[80px] flex justify-center items-center text-black">
         $9.99
         <span className="text-sm">/lifetime</span>
       </p>
-      <div className=" text-[#57375D] flex flex-col">
+      <div className=" text-black flex flex-col">
         <p className="px-5 my-2"> ✔ Unlimited Messages </p>
         <p className="px-5 my-2"> ✔ Unlimited Conversation History </p>
         <p className="px-5 my-2"> ✔ Ad-Free Experience </p>
@@ -59,7 +59,7 @@ const ProPriceCard = () => {
         <p className="px-5 my-2"> ✔ Priority Customer Support </p>
         <p className="px-5 my-2"> ✔ Early Access to New Features </p>
       </div>
-      <button className="rounded-full p-5 mt-4 bg-[#57375D]">Upgrade Now</button>
+      <button className="rounded-full p-5 mt-4 bg-secondary-brown">Upgrade Now</button>
     </div>
   );
 };

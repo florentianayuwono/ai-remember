@@ -12,14 +12,6 @@ const Navbar = ({ user }) => {
   const [toggle, setToggle] = useState(false);
   const navigate = useNavigate();
 
-  const LoginButton = () => {
-    return (
-        <button 
-        onClick={() => {user ? navigate('/conversation') : navigate('/login')}}
-        className=" rounded-full bg-primary-pink py-2 px-6 font-medium transition-transform transform hover:scale-110">Login</button>
-    );
-  };
-
   return (
     <nav className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 hero-background`}>
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
@@ -33,12 +25,12 @@ const Navbar = ({ user }) => {
         >
           <div className="flex items-center">
             <img src={logo} alt="logo" className="h-9 object-contain" />
-            <div className={"text-white font-bold mx-2"}>AI-Remember</div>
+            <div className={"text-secondary-purple font-bold mx-2"}>AI-Remember</div>
           </div>
         </Link>
         <ul className="list-none hidden sm:flex flex-row gap-10 items-center">
           {navLinks.map((link) => (
-            <li key={link.id} className={`${active === link.title ? "text-white" : "text-primary-lightpink"} hover:text-white text-[18px] font-medium cursor-pointer`} onClick={() => setActive(link.title)}>
+            <li key={link.id} className={`${active === link.title ? "text-secondary-lightbrown" : "text-secondary-brown"} hover:text-white text-[18px] font-medium cursor-pointer`} onClick={() => setActive(link.title)}>
               <a href={`#${link.id}`}>{link.title}</a>
             </li>
           ))}
@@ -67,6 +59,15 @@ const Navbar = ({ user }) => {
         </div>
       </div>
     </nav>
+  );
+};
+
+
+const LoginButton = () => {
+  return (
+    <Link to="/login">
+      <button className=" rounded-full bg-secondary-purple py-2 px-6 font-medium transition-transform transform hover:scale-110">Login</button>
+    </Link>
   );
 };
 
