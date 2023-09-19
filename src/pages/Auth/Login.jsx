@@ -45,8 +45,8 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-[#57375D] flex justify-center items-center min-h-screen text-black">
-      <form className="bg-white rounded-xl px-14 py-8 text-sm flex flex-col justify-center ">
+    <div className="bg-secondary-darkpurple flex justify-center items-center min-h-screen text-black">
+      <form className="bg-white rounded-xl px-14 py-8 text-sm flex flex-col justify-center m-10">
         <img className="w-24 m-auto mb-4" src={logo2} />
         <InputForm title="Email" value={email} htmlValue="email" handleChange={handleEmailChange} placeholder="your email*" />
         <InputForm title="Password" value={password} htmlValue="password" handleChange={handlePasswordChange} placeholder="password *" />
