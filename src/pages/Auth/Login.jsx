@@ -7,7 +7,6 @@ import { auth } from "../../firebase_setup/FirebaseConfig";
 import { logo2, googleicon } from "../../assets";
 import CircularIndicator from "../../components/CircularIndicator";
 
-
 const Login = ( {setCookie, cookies} ) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,8 +17,6 @@ const Login = ( {setCookie, cookies} ) => {
     error,
   ] = useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
-  
-
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [loginMsg, setLoginMsg] = useState("");

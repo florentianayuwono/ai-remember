@@ -1,8 +1,11 @@
-
+import HomeNavbar from "../components/common/HomeNavbar";
 const Conversation = () => {
-    return (
+  return (
+    <>
+      <HomeNavbar />
       <div>Conversation</div>
-    );
-  };
-  
-  export default Conversation;
+    </>
+  );
+};
+
+export default Conversation;
