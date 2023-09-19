@@ -54,7 +54,7 @@ const Login = ( {setCookie, cookies} ) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoginLoading(true);
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
       setLoginLoading(false);
       //set cookie for the entire app
