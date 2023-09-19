@@ -68,11 +68,11 @@ const Login = ( {setCookie, cookies} ) => {
   };
 
   return (
-    <div className="bg-[#57375D] flex justify-center items-center min-h-screen text-black">
-      <form className="bg-white rounded-xl px-14 py-8 text-sm flex flex-col justify-center ">
+    <div className="bg-secondary-darkpurple flex justify-center items-center min-h-screen text-black">
+      <form className="bg-white rounded-xl px-14 py-8 m-5 text-sm flex flex-col justify-center">
         <img className="w-24 m-auto mb-4" src={logo2} />
-        <InputForm title="Email" value={email} htmlValue="email" handleChange={handleEmailChange} placeholder="your email*" />
-        <InputForm title="Password" value={password} htmlValue="password" handleChange={handlePasswordChange} placeholder="password *" />
+        <InputForm title="Email" value={email} htmlValue="email" handleChange={handleEmailChange} placeholder="your email" />
+        <InputForm title="Password" value={password} htmlValue="password" handleChange={handlePasswordChange} placeholder="password" />
         <div className="flex items-center mt-4 mb-2">
           <button className=" bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl" type="submit" onClick={handleSubmit}>
             {loginLoading ? <CircularIndicator /> : "Login"}
