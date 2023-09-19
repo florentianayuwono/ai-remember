@@ -40,7 +40,7 @@ const WhyUs = () => {
         </p>
       </motion.div>
 
-      <div className="mt-10 flex flex-col">
+      <div className="mt-10 mr-10 flex flex-col">
         {reasons.map((reason, index) => (
           <ReasonCard key={`reason-${index}`} index={index} {...reason} />
         ))}
