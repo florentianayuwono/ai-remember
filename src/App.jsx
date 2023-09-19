@@ -1,26 +1,16 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Features, Pricing, OthersWords, Hero, Navbar, WhyUs } from './components';
+import { Login, Home } from "./components";
 
 const App = () => {
-
   return (
     <BrowserRouter>
-      <div className="relative z-0 bg-[#57375D]">
-        <div className="bg-cover bg-no-repeat bg-center">
-          <Navbar />
-          <Hero />
-        </div>
-        <Features />
-        <OthersWords />
-        <WhyUs />
-        <div className="relative z-0">
-          <Pricing />
-        </div>
-      </div>
-
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

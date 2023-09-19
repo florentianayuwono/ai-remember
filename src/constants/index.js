@@ -155,10 +155,7 @@ const othersWords = [
     icon: shopee,
     iconBg: "#383E56",
     date: "May 2023 - Present",
-    points: [
-      "Develop algorithm to automate classification of training datasets for Shopee homegrown Large Language Models.",
-      "Conduct data extraction, manipulation, and analysis to optimize product titles using PrestoSQL, Pandas, and Seaborn.",
-    ],
+    points: ["Develop algorithm to automate classification of training datasets for Shopee homegrown Large Language Models.", "Conduct data extraction, manipulation, and analysis to optimize product titles using PrestoSQL, Pandas, and Seaborn."],
   },
   {
     title: "Teaching Assistant",
@@ -189,29 +186,23 @@ const othersWords = [
     icon: incareasia,
     iconBg: "#E6DEDD",
     date: "February 2022 - April 2022",
-    points: [
-      "Conducted market research and competitor analysis on biodegradable packaging products.",
-      "Design prototypes for packaging products for various F&B Industry needs.",
-    ],
+    points: ["Conducted market research and competitor analysis on biodegradable packaging products.", "Design prototypes for packaging products for various F&B Industry needs."],
   },
 ];
 
 const testimonials = [
   {
-    testimonial:
-      "I can't imagine my life without this app now. It has turned my everyday conversations into beautiful memories in my personal diary.",
+    testimonial: "I can't imagine my life without this app now. It has turned my everyday conversations into beautiful memories in my personal diary.",
     name: "Sara Lee",
     image: "https://randomuser.me/api/portraits/women/4.jpg",
   },
   {
-    testimonial:
-      "For a diary enthusiast like me, this app is a dream come true. It turns my conversations into cherished memories effortlessly.",
+    testimonial: "For a diary enthusiast like me, this app is a dream come true. It turns my conversations into cherished memories effortlessly.",
     name: "Chris Brown",
     image: "https://randomuser.me/api/portraits/men/5.jpg",
   },
   {
-    testimonial:
-      "This diary app is my new best friend. It's like having a personal diary assistant that listens to my thoughts and helps me record them.",
+    testimonial: "This diary app is my new best friend. It's like having a personal diary assistant that listens to my thoughts and helps me record them.",
     name: "Lisa Wang",
     image: "https://randomuser.me/api/portraits/women/6.jpg",
   },
@@ -220,26 +211,22 @@ const testimonials = [
 const reasons = [
   {
     name: "Seamless Technology",
-    description:
-      "Our advanced AI-driven platform simplifies memory capture and retrieval, making it easier than ever to document and relive your life's moments.",
+    description: "Our advanced AI-driven platform simplifies memory capture and retrieval, making it easier than ever to document and relive your life's moments.",
     image: "🤖",
   },
   {
     name: "Emotional Connection",
-    description:
-      "Experience an AI companion like no other. Our AI is designed to understand your emotions, providing a unique and empathetic interaction that enhances your memories.",
+    description: "Experience an AI companion like no other. Our AI is designed to understand your emotions, providing a unique and empathetic interaction that enhances your memories.",
     image: "🤗",
   },
   {
     name: "Personalization",
-    description:
-      "Your diaries are not just records; they're artful creations. Customize them with photos, music, and stickers to make each memory uniquely yours.",
+    description: "Your diaries are not just records; they're artful creations. Customize them with photos, music, and stickers to make each memory uniquely yours.",
     image: "🎨",
   },
   {
     name: "Community & Connection",
-    description:
-      "Join a vibrant community of like-minded individuals who appreciate the power of storytelling. Share your stories and connect with others who understand and empathize.",
+    description: "Join a vibrant community of like-minded individuals who appreciate the power of storytelling. Share your stories and connect with others who understand and empathize.",
     image: "✨",
   },
 ];

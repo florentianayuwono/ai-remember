@@ -24,7 +24,7 @@ const Navbar = () => {
         >
           <div className="flex items-center">
             <img src={logo} alt="logo" className="h-9 object-contain" />
-            <div className={"text-white font-bold mx-2" }>AI-Remember</div>
+            <div className={"text-white font-bold mx-2"}>AI-Remember</div>
           </div>
         </Link>
         <ul className="list-none hidden sm:flex flex-row gap-10 items-center">
@@ -59,7 +59,9 @@ const Navbar = () => {
                 <li
                   key={link.id}
                   className={`${
-                    active === link.title ? "text-white" : "text-primary-lightpink"
+                    active === link.title
+                      ? "text-white"
+                      : "text-primary-lightpink"
                   } hover:text-white text-[16px] font-poppins font-medium cursor-pointer`}
                   onClick={() => {
                     setToggle(!toggle);
@@ -79,11 +81,16 @@ const Navbar = () => {
 };
 
 const LoginButton = () => {
-  return(<button 
-    onClick={() => null}
-    className=" rounded-full bg-primary-pink py-2 px-6 font-medium transition-transform transform hover:scale-110">
-      Login
-    </button>)
-}
+  return (
+    <Link to="/login">
+      <button
+        onClick={() => null}
+        className=" rounded-full bg-primary-pink py-2 px-6 font-medium transition-transform transform hover:scale-110"
+      >
+        Login
+      </button>
+    </Link>
+  );
+};
 
 export default Navbar;
