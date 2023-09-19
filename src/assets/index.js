@@ -7,7 +7,7 @@ import web from "./web.png";
 import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
-
+import googleicon from "./googleicon.svg";
 import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
 import starbucks from "./company/starbucks.png";
@@ -27,30 +27,4 @@ import digitalit from "./digitalit.png";
 
 import loveletter from "./loveletter.png";
 
-export {
-  logo,
-  logo2,
-  backend,
-  creator,
-  mobile,
-  web,
-  github,
-  menu,
-  close,
-  meta,
-  shopify,
-  starbucks,
-  tesla,
-  shopee,
-  nus,
-  ncl,
-  incareasia,
-  carrent,
-  jobit,
-  soconnect,
-  groundzero,
-  classroom360,
-  digitalit,
-  tripguide,
-  loveletter
-};
+export { logo, logo2, backend, creator, mobile, web, github, menu, close, meta, shopify, starbucks, tesla, shopee, nus, ncl, incareasia, carrent, jobit, soconnect, groundzero, classroom360, digitalit, tripguide, loveletter, googleicon };
