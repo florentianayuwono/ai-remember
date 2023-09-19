@@ -1,4 +1,7 @@
 import Login from "./Auth/Login";
-import Home from "./Landing";
+import Landing from "./Landing";
+import Forget from "./Auth/Forget";
+import Signup from "./Auth/Signup";
+import Verify from "./Auth/Verify";
 
-export { Home, Login };
+export { Landing, Login, Signup, Forget, Verify };

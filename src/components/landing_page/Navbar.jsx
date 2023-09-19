@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { styles } from "../../styles";
 import { navLinks } from "../../constants";
 import { logo, menu, close } from "../../assets";
 
-const Navbar = () => {
+
+
+const Navbar = ({ user }) => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 hero-background`}>
@@ -31,7 +34,7 @@ const Navbar = () => {
               <a href={`#${link.id}`}>{link.title}</a>
             </li>
           ))}
-          <LoginButton />
+          <LoginButton/>
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
@@ -58,6 +61,7 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 const LoginButton = () => {
   return (

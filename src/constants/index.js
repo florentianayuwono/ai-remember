@@ -4,8 +4,21 @@ import {
   nus,
   ncl,
   incareasia,
-  logo,
 } from "../assets";
+
+var APP_URL;
+
+if (process.env.NODE_ENV === 'development') {
+  APP_URL = "http://localhost:3000/";
+  
+} else {
+  APP_URL = "https://ai-remember.vercel.app/"
+}
+export const LANDING_PAGE = APP_URL;
+export const LOGIN_PAGE = APP_URL + "login";
+export const CONVERSATION_PAGE = APP_URL + "conversation";
+export const DIARY_PAGE = APP_URL + "diary";
+export const COMMUNITIES_PAGE = APP_URL + "communities";
 
 export const navLinks = [
   {

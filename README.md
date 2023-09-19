@@ -40,4 +40,4 @@ If you want to test AI-Remember locally, follow these steps:
    ```bash
    npm run preview
    ```
-6. Open a web browser and access AI-Remember at http://localhost:[port] as shown in the terminal 🚀
+6. Open a web browser and access AI-Remember at http://localhost:3000 🚀
