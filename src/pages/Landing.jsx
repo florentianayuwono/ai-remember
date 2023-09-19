@@ -13,8 +13,8 @@ const Home = () => {
         <Hero />
       </div>
       <Features />
-      <OthersWords />
       <WhyUs />
+      <OthersWords />
       <div className="relative z-0">
         <Pricing />
       </div>
