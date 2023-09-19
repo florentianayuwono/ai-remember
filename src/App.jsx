@@ -1,16 +1,18 @@
 import { BrowserRouter, Route, Routes, Navigate, Outlet } from "react-router-dom";
-
-import { Login, Landing, Forget, Signup, Verify } from "./pages";
-import Conversation from "./pages/Conversation";
+import { useCookies } from "react-cookie";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
-import Communities from "./pages/Communities";
-import Diary from "./pages/Diary";
+import { Login, Landing, Forget, Signup, Verify, Communities, Diary, Conversation } from "./pages";
+import { useEffect } from "react";
 
 const App = () => {
   const [user, error] = useAuthState(auth);
-  console.log(error);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+  useEffect(() => {
+    console.log(cookies.user)
+  },[cookies.user])
 
   const ProtectedRoute = ({ authorised, redirectPath = "/login", children, setShowMenus }) => {
     if (!authorised) {
@@ -24,7 +26,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing user={user} />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setCookie = {setCookie}/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forget" element={<Forget />} />
         <Route path="/verify" element={<Verify />} />

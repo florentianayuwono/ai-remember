@@ -1,12 +1,20 @@
-import { logo2, googleicon } from "../../assets";
+
 import { useState } from "react";
+import { auth } from "../../firebase_setup/FirebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import InputForm from "../../components/common/InputForm";
+import { logo2, googleicon } from "../../assets";
+import CircularIndicator from "../../components/CircularIndicator";
+
 
 
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [registerLoading, setRegisterLoading] = useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -18,6 +26,15 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setRegisterLoading(true);
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log(userCredential);
+      setRegisterLoading(false);
+    }).catch((err) => {
+      console.log(err);
+      setRegisterLoading(false);
+    })
   };
 
   return (
@@ -28,7 +45,7 @@ const Signup = () => {
         <InputForm title="Password" value={password} htmlValue="password" handleChange={handlePasswordChange} placeholder="password *" />
         <div className="flex items-center mt-4 mb-2">
           <button className=" bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl" type="submit" onClick={handleSubmit}>
-            Sign Up
+            {registerLoading ? <CircularIndicator /> : "Register"}
           </button>
         </div>
         <p>
