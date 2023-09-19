@@ -6,5 +6,6 @@ import Verify from "./Auth/Verify";
 import Communities from "./Communities";
 import Diary from "./Diary";
 import Conversation from "./Conversation";
+import Loading from "./Loading";
 
-export { Landing, Login, Signup, Forget, Verify, Communities, Diary, Conversation };
+export { Landing, Login, Signup, Loading, Forget, Verify, Communities, Diary, Conversation };

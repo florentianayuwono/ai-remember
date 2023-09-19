@@ -26,12 +26,6 @@ const Login = ( {setCookie, cookies} ) => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      navigate('/conversation')
-    }
-  },[user])
-
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
