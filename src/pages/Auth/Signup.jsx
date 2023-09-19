@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { auth } from "../../firebase_setup/FirebaseConfig";
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
 import InputForm from "../../components/common/InputForm";
 import { logo2, googleicon } from "../../assets";
