@@ -5,6 +5,8 @@ import Conversation from "./pages/Conversation";
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from "./firebase_setup/FirebaseConfig";
+import Communities from "./pages/Communities";
+import Diary from "./pages/Diary";
 
 const App = () => {
 
@@ -26,6 +28,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoute authorised={user} />}>
           <Route path="/conversation" element={<Conversation />} />
+          <Route path="/communities" element={<Communities />} />
+          <Route path="/diary" element={<Diary />} />
         </Route>
       </Routes>
     </BrowserRouter>
