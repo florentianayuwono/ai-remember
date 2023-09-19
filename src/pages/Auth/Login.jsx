@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { signInWithEmailAndPassword,GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 import InputForm from "../../components/common/InputForm";
 import { auth } from "../../firebase_setup/FirebaseConfig";
@@ -9,12 +8,16 @@ import { logo2, googleicon } from "../../assets";
 import CircularIndicator from "../../components/CircularIndicator";
 
 
-const Login = ( {setCookie} ) => {
+const Login = ( {setCookie, cookies} ) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const [user] = useAuthState(auth);
-  const provider = new GoogleAuthProvider();
+  const [
+    signInWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useSignInWithEmailAndPassword(auth);
+  const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
   
 
   const [loginLoading, setLoginLoading] = useState(false);
@@ -28,11 +31,9 @@ const Login = ( {setCookie} ) => {
 
   useEffect(() => {
     if (user) {
-      //navigate("/conversation");
-      console.log(user)
-    } else {
+      navigate('/conversation')
     }
-  }, [user]);
+  },[user])
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -44,16 +45,9 @@ const Login = ( {setCookie} ) => {
 
   const handleGoogleSignIn = (e) => {
     e.preventDefault();
-    signInWithRedirect(auth, provider);
-    getRedirectResult(auth)
-    .then((userCredential) => {
-      // This gives you a Google Access Token. You can use it to access Google APIs.
-      const credential = GoogleAuthProvider.credentialFromResult(userCredential);
-      const token = credential.accessToken;
-      setCookie('user', userCredential.user, { path: '/',})
-    }).catch((error) => {
-      console.log(error);
-      const credential = GoogleAuthProvider.credentialFromError(error);
+    signInWithGoogle().then((userCredential) => {
+      console.log(userCredential);
+      navigate('/conversation');
     });
   } 
 
@@ -64,7 +58,9 @@ const Login = ( {setCookie} ) => {
     .then((userCredential) => {
       setLoginLoading(false);
       //set cookie for the entire app
-      setCookie('user', userCredential.user, { path: '/',})
+      setCookie('email', email, { path: '/',})
+      setCookie('password', password, { path: '/',})
+      navigate("/conversation");
     }).catch((err) => {
       console.log(err);
       setLoginLoading(false);
