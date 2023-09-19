@@ -1,15 +1,32 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes,Navigate, Outlet } from "react-router-dom";
 
 import { Login, Landing } from "./pages";
 import Conversation from "./pages/Conversation";
 
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from "./firebase_setup/FirebaseConfig";
+
 const App = () => {
+
+  const[user, error] = useAuthState(auth);
+  console.log(error);
+
+  const ProtectedRoute = ({ authorised, redirectPath = "/login", children, setShowMenus }) => {
+    if (!authorised) {
+      return <Navigate to={redirectPath} replace />;
+    }
+    setTimeout(() => setShowMenus(true), 0);
+    return children ? children : <Outlet />;
+  };
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Landing user={user} />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/conversation" element={<Conversation />} />
+        <Route element={<ProtectedRoute authorised={user} />}>
+          <Route path="/conversation" element={<Conversation />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

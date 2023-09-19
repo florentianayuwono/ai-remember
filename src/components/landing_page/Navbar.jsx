@@ -5,16 +5,12 @@ import { styles } from "../../styles";
 import { navLinks } from "../../constants";
 import { logo, menu, close } from "../../assets";
 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from "../../firebase_setup/FirebaseConfig";
 
-const Navbar = () => {
+
+const Navbar = ({ user }) => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const navigate = useNavigate();
-
-  const[user, error] = useAuthState(auth);
-  console.log(error);
 
   const LoginButton = () => {
     return (
