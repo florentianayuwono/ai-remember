@@ -1,7 +1,12 @@
+import HomeNavbar from "../components/common/HomeNavbar";
+
 const Diary = () => {
-    return (
+  return (
+    <>
+      <HomeNavbar />
       <div>Diary</div>
-    );
-  };
-  
-  export default Diary;
+    </>
+  );
+};
+
+export default Diary;
