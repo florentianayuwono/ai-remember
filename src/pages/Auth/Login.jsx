@@ -1,4 +1,4 @@
-import { logo2 } from "../assets";
+import { logo2 } from "../../assets";
 import { useState } from "react";
 
 const Login = () => {

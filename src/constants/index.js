@@ -1,41 +1,9 @@
 import {
-  mobile,
-  backend,
-  creator,
-  web,
   logo2,
-  javascript,
-  typescript,
-  html,
-  css,
-  reactjs,
-  redux,
-  tailwind,
-  nodejs,
-  mongodb,
-  git,
-  figma,
-  docker,
-  meta,
-  starbucks,
-  tesla,
-  shopify,
   shopee,
   nus,
   ncl,
   incareasia,
-  carrent,
-  jobit,
-  soconnect,
-  groundzero,
-  classroom360,
-  digitalit,
-  tripguide,
-  threejs,
-  java,
-  flutter,
-  c,
-  python,
   logo,
 } from "../assets";
 
@@ -75,77 +43,6 @@ const features = [
     icon: logo2,
     description: "Craft unique diaries with music, photos, and stickers.",
   },
-];
-
-const technologies = [
-  {
-    name: "HTML 5",
-    icon: html,
-  },
-  {
-    name: "CSS 3",
-    icon: css,
-  },
-  {
-    name: "JavaScript",
-    icon: javascript,
-  },
-  {
-    name: "TypeScript",
-    icon: typescript,
-  },
-  {
-    name: "React JS",
-    icon: reactjs,
-  },
-  {
-    name: "Java",
-    icon: java,
-  },
-  {
-    name: "Python",
-    icon: python,
-  },
-  {
-    name: "C",
-    icon: c,
-  },
-  {
-    name: "flutter",
-    icon: flutter,
-  },
-  // {
-  //   name: "Redux Toolkit",
-  //   icon: redux,
-  // },
-  {
-    name: "Tailwind CSS",
-    icon: tailwind,
-  },
-  {
-    name: "Node JS",
-    icon: nodejs,
-  },
-  // {
-  //   name: "MongoDB",
-  //   icon: mongodb,
-  // },
-  // {
-  //   name: "Three JS",
-  //   icon: threejs,
-  // },
-  {
-    name: "git",
-    icon: git,
-  },
-  {
-    name: "figma",
-    icon: figma,
-  },
-  // {
-  //   name: "docker",
-  //   icon: docker,
-  // },
 ];
 
 const othersWords = [
@@ -231,4 +128,4 @@ const reasons = [
   },
 ];
 
-export { features, technologies, othersWords, testimonials, reasons };
+export { features, othersWords, testimonials, reasons };
