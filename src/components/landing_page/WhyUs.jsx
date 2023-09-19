@@ -12,7 +12,7 @@ const ReasonCard = ({ index, name, description, image }) => {
     <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
       <Tilt
         options={{ max: 45, scale: 1, speed: 450 }}
-        className=" bg-white bg-opacity-90 p-5 rounded-2xl w-full my-5"
+        className=" bg-white bg-opacity-90 p-5 rounded-2xl w-full m-5"
       >
         <div className="flex m-5">
           <div className="text-[100px]">{image}</div>
@@ -36,11 +36,11 @@ const WhyUs = () => {
       <motion.div variants={textVariant()}>
         <h2 className={styles.sectionHeadText}>Why AI-Remember?</h2>
         <p className="mt-3 text-black text-[17px] max-w-3xl leading-[30px]">
-          Because it's incredible! Here is why we love it...
+          Because it's incredible! Here is why we ❤️ it.
         </p>
       </motion.div>
 
-      <div className="mt-20 flex flex-col">
+      <div className="mt-10 flex flex-col">
         {reasons.map((reason, index) => (
           <ReasonCard key={`reason-${index}`} index={index} {...reason} />
         ))}
