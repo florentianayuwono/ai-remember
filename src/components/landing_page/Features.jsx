@@ -41,7 +41,7 @@ const Features = () => {
         className="mt-4 text-primary-lightpink text-[17px] max-w-3xl leading-[30px]"
       ></motion.p>
 
-      <div className="mt-20 flex flex-wrap gap-7">
+      <div className="mt-10 flex flex-wrap">
         {features.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service}/>
         ))}
