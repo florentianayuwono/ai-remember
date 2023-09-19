@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-
-import { SectionWrapper } from "../hoc";
-import { fadeIn, textVariant } from "../utils/motion";
-import { styles } from "../styles";
-
+import { SectionWrapper } from "../../hoc";
+import { fadeIn, textVariant } from "../../utils/motion";
+import { styles } from "../../styles";
+import { Link } from "react-router-dom";
 
 const Pricing = () => {
   return (
@@ -16,13 +15,12 @@ const Pricing = () => {
         <FreePriceCard />
         <ProPriceCard />
       </div>
-
     </div>
-  )
+  );
 };
 
 const FreePriceCard = () => {
-  return(
+  return (
     <div className="w-[40%] p-5 rounded-[20px] bg-primary-purple flex flex-col">
       <h3 className="flex text-purple-900 font-bold text-2xl sm:text-3xl justify-center">Free</h3>
       <p className="flex justify-center text-purple-800 text-lg font-medium">to explore</p>
@@ -32,13 +30,15 @@ const FreePriceCard = () => {
         <p className="px-5 my-2"> ✔ Conversation History (7 days) </p>
         <p className="px-5 my-2"> ✔ Access to Community Features (7 days) </p>
       </div>
-      <button className="rounded-full p-5 mt-4 bg-[#57375D]">Try Now</button>
+      <Link to="/login" className="flex flex-col">
+        <button className="divide-inherit rounded-full p-5 mt-4 bg-[#57375D]">Try Now</button>
+      </Link>
     </div>
-  )
-}
+  );
+};
 
 const ProPriceCard = () => {
-  return(
+  return (
     <div className="w-[60%] p-5 rounded-[20px] bg-white flex flex-col">
       <h3 className="flex text-purple-900 font-bold text-2xl sm:text-3xl justify-center">Pro</h3>
       <p className="flex justify-center text-purple-800 text-lg font-medium">to unlock a world of memories</p>
@@ -61,7 +61,7 @@ const ProPriceCard = () => {
       </div>
       <button className="rounded-full p-5 mt-4 bg-[#57375D]">Upgrade Now</button>
     </div>
-  )
-}
+  );
+};
 
 export default SectionWrapper(Pricing, "pricing");
