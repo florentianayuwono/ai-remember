@@ -18,15 +18,26 @@ const App = () => {
     return children ? children : <Outlet />;
   };
 
-  return ( loading ? <Loading /> :
+  const LoggedInRoute = ({ user, redirectPath = "/conversation", children }) => {
+    if (user) {
+      return <Navigate to={redirectPath} replace />;
+    }
+    return children ? children : <Outlet />;
+  };
+
+  return loading ? (
+    <Loading />
+  ) : (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login setCookie = {setCookie} cookies = {cookies}/>} />
+        <Route path="/" element={<Landing user={user} />} />
+        <Route element={<LoggedInRoute user={user} />}>
+          <Route path="/login" element={<Login setCookie={setCookie} cookies={cookies} />} />
+        </Route>
         <Route path="/signup" element={<Signup />} />
         <Route path="/forget" element={<Forget />} />
         <Route path="/verify" element={<Verify />} />
-        <Route element={<ProtectedRoute user={user}/>}>
+        <Route element={<ProtectedRoute user={user} />}>
           <Route path="/conversation" element={<Conversation />} />
           <Route path="/communities" element={<Communities />} />
           <Route path="/diary" element={<Diary />} />

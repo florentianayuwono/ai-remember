@@ -5,11 +5,11 @@ import OthersWords from "../components/landing_page/OthersWords";
 import WhyUs from "../components/landing_page/WhyUs";
 import Pricing from "../components/landing_page/Pricing";
 
-const Landing = () => {
+const Landing = ({ user }) => {
   return (
     <div className="relative z-0 bg-primary-purple">
       <div className="bg-cover bg-no-repeat bg-center">
-        <Navbar />
+        <Navbar loggedIn={user} />
         <Hero />
       </div>
       <Features />
