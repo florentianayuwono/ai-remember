@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signOut } from 'firebase/auth';
+import { auth } from "../../firebase_setup/FirebaseConfig";
+
 import { BsPersonCircle } from "react-icons/bs";
 import { styles } from "../../styles";
 import { homeNavLinks } from "../../constants";
@@ -67,16 +70,18 @@ const ProfileButton = ({ toggleProfile, setToggleProfile }) => {
     <div className="relative inline-block">
       <BsPersonCircle className="w-[30px] h-[30px] sm:text-secondary-brown text-primary-lightpink" onClick={() => setToggleProfile(!toggleProfile)} />
       {toggleProfile && (
-        <div className="absolute mt-2 w-48 rounded-md right-0 bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+        <div className="absolute mt-2 w-48 rounded-md right-0 bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
           <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-0">
             Your Profile
           </a>
           <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-1">
             Settings
           </a>
-          <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-2">
+          <button 
+          onClick={() => {signOut(auth)}}
+          className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-2">
             Sign out
-          </a>
+          </button>
         </div>
       )}
     </div>
