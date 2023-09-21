@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "../../firebase_setup/FirebaseConfig";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import ReactGA from "react-ga4";
 
 import InputForm from "../../components/common/InputForm";
@@ -13,16 +13,16 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [registerLoading, setRegisterLoading] = useState(false);
-  const [
-    createUserWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
 
   useEffect(() => {
-    ReactGA.send({ hitType: "pageview", page: "/signup", title: "Sign Up Page" });
-  }, [])
+    ReactGA.send({
+      hitType: "pageview",
+      page: "/signup",
+      title: "Sign Up Page",
+    });
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
