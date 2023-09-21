@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { firestore } from "../firebase_setup/FirebaseConfig";
 import { getDocs, addDoc, collection } from "firebase/firestore";
 
-const Communities = () => {
+const Communities = ({ user }) => {
   const openState = useState(false);
   const [isOpen, setIsOpen] = openState;
 
@@ -37,9 +37,9 @@ const Communities = () => {
     }
   };
 
-useEffect(() => {
+  useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: "/communities", title: "Communities Page" });
-  }, [])
+  }, []);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -114,13 +114,7 @@ const PostModal = ({ openState, handleClosePopup, title, content, handleSubmitPo
           className="relative mx-auto transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
         >
           <div className="flex flex-col gap-x-4 max-w-sm sm:flex-wrap mx-auto my-10">
-            <InputForm
-              title="Title"
-              value={title}
-              htmlValue="title"
-              handleChange={handleTitleChange}
-              placeholder="Title for your post"
-            />
+            <InputForm title="Title" value={title} htmlValue="title" handleChange={handleTitleChange} placeholder="Title for your post" />
             <InputForm
               title="Content"
               value={content}

@@ -52,8 +52,8 @@ const App = () => {
           <Route path="/verify" element={<Verify />} />
           <Route element={<ProtectedRoute user={user} />}>
             <Route path="/conversation" element={<Conversation />} />
-            <Route path="/communities" element={<Communities />} />
-            <Route path="/diary" element={<Diary user={user}/>} />
+            <Route path="/communities" element={<Communities user={user} />} />
+            <Route path="/diary" element={<Diary user={user} />} />
           </Route>
         </Routes>
       </BrowserRouter>
