@@ -1,21 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
 
 import InputForm from "../../components/common/InputForm";
 import { auth } from "../../firebase_setup/FirebaseConfig";
 import { logo2, googleicon } from "../../assets";
 import CircularIndicator from "../../components/CircularIndicator";
 
-const Login = ( {setCookie, cookies} ) => {
+const Login = ({ setCookie, cookies }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [
-    signInWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
@@ -37,24 +32,24 @@ const Login = ( {setCookie, cookies} ) => {
   const handleGoogleSignIn = (e) => {
     e.preventDefault();
     signInWithGoogle();
-  } 
+  };
 
   useEffect(() => {
     if (error || googleError) {
       console.log(error);
       setLoginLoading(false);
     }
-  },[error])
+  }, [error]);
 
   useEffect(() => {
     if (user || googleUser) {
       setLoginLoading(false);
       //set cookie for the entire app
-      setCookie('email', email, { path: '/',})
-      setCookie('password', password, { path: '/',})
+      setCookie("email", email, { path: "/" });
+      setCookie("password", password, { path: "/" });
       navigate("/conversation");
     }
-  }, [user, googleUser])
+  }, [user, googleUser]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,7 +64,11 @@ const Login = ( {setCookie, cookies} ) => {
         <InputForm title="Email" value={email} htmlValue="email" handleChange={handleEmailChange} placeholder="your email" />
         <InputForm title="Password" value={password} htmlValue="password" handleChange={handlePasswordChange} placeholder="password" />
         <div className="flex items-center mt-4 mb-2">
-          <button className=" bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl" type="submit" onClick={handleSubmit}>
+          <button
+            className=" bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl"
+            type="submit"
+            onClick={handleSubmit}
+          >
             {loginLoading ? <CircularIndicator /> : "Login"}
           </button>
         </div>
@@ -84,7 +83,11 @@ const Login = ( {setCookie, cookies} ) => {
         </a>
 
         <div className="mt-8 flex items-center justify-between">
-          <button className="outline outline-purple-500 bg-white hover:bg-purple-400 text-black w-full py-2 px-4 rounded-3xl flex items-center" type="submit" onClick={handleGoogleSignIn}>
+          <button
+            className="outline outline-purple-500 bg-white hover:bg-purple-400 text-black w-full py-2 px-4 rounded-3xl flex items-center"
+            type="submit"
+            onClick={handleGoogleSignIn}
+          >
             <img src={googleicon} className="w-6 mr-4" />
             Continue with Google
           </button>

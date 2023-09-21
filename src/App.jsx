@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate, Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { Toaster } from "react-hot-toast";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
@@ -28,22 +29,25 @@ const App = () => {
   return loading ? (
     <Loading />
   ) : (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing user={user} />} />
-        <Route element={<LoggedInRoute user={user} />}>
-          <Route path="/login" element={<Login setCookie={setCookie} cookies={cookies} />} />
-        </Route>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/forget" element={<Forget />} />
-        <Route path="/verify" element={<Verify />} />
-        <Route element={<ProtectedRoute user={user} />}>
-          <Route path="/conversation" element={<Conversation />} />
-          <Route path="/communities" element={<Communities />} />
-          <Route path="/diary" element={<Diary />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <Toaster position="top-center" />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing user={user} />} />
+          <Route element={<LoggedInRoute user={user} />}>
+            <Route path="/login" element={<Login setCookie={setCookie} cookies={cookies} />} />
+          </Route>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forget" element={<Forget />} />
+          <Route path="/verify" element={<Verify />} />
+          <Route element={<ProtectedRoute user={user} />}>
+            <Route path="/conversation" element={<Conversation />} />
+            <Route path="/communities" element={<Communities />} />
+            <Route path="/diary" element={<Diary />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
