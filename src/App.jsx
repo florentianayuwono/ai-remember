@@ -1,12 +1,22 @@
 import { BrowserRouter, Route, Routes, Navigate, Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Toaster } from "react-hot-toast";
+import ReactGA from "react-ga4";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
 import { Login, Loading, Landing, Forget, Signup, Verify, Communities, Diary, Conversation } from "./pages";
-import { useEffect } from "react";
-import CircularIndicator from "./components/CircularIndicator";
+
+const MEASUREMENT_ID_AI = "G-Q40RWCDB0B";
+const MEASUREMENT_ID_XY = "G-P3ZGZ14ZR6";
+ReactGA.initialize([
+  {
+  trackingId: MEASUREMENT_ID_AI,
+},{
+  trackingId: MEASUREMENT_ID_XY,
+},]
+);
+
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
@@ -25,7 +35,7 @@ const App = () => {
     }
     return children ? children : <Outlet />;
   };
-
+  
   return loading ? (
     <Loading />
   ) : (
@@ -43,7 +53,7 @@ const App = () => {
           <Route element={<ProtectedRoute user={user} />}>
             <Route path="/conversation" element={<Conversation />} />
             <Route path="/communities" element={<Communities />} />
-            <Route path="/diary" element={<Diary />} />
+            <Route path="/diary" element={<Diary user={user}/>} />
           </Route>
         </Routes>
       </BrowserRouter>

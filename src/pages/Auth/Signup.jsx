@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "../../firebase_setup/FirebaseConfig";
+import { signOut } from 'firebase/auth';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import ReactGA from "react-ga4";
 
 import InputForm from "../../components/common/InputForm";
-import { logo2, googleicon } from "../../assets";
+import { logo2 } from "../../assets";
 import CircularIndicator from "../../components/CircularIndicator";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -12,12 +15,22 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [registerLoading, setRegisterLoading] = useState(false);
+  const navigate = useNavigate();
+
   const [
     createUserWithEmailAndPassword,
     user,
     loading,
     error,
   ] = useCreateUserWithEmailAndPassword(auth);
+
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: "/signup",
+      title: "Sign Up Page",
+    });
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -34,10 +47,14 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setRegisterLoading(true);
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        signOut(auth);
         setRegisterLoading(false);
+        if (userCredential != undefined) {
+          navigate('/login')
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -72,7 +89,7 @@ const Signup = () => {
         />
         <div className="flex items-center mt-4 mb-2">
           <button
-            className=" bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl"
+            className=" flex justify-center bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl"
             type="submit"
             onClick={handleSubmit}
           >

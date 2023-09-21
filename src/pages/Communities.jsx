@@ -1,4 +1,5 @@
 import HomeNavbar from "../components/common/HomeNavbar";
+import ReactGA from "react-ga4";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import InputForm from "../components/common/InputForm";
 import { useState, useEffect } from "react";
@@ -35,6 +36,10 @@ const Communities = () => {
       toast.error(err.message);
     }
   };
+
+useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: "/communities", title: "Communities Page" });
+  }, [])
 
   useEffect(() => {
     const getPosts = async () => {
@@ -107,7 +112,6 @@ const PostModal = ({ openState, handleClosePopup, title, content, handleSubmitPo
           contentLabel="Post Modal"
           ariaHideApp={false}
           className="relative mx-auto transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
-          // onClick={(e) => e.stopPropagation()}
         >
           <div className="flex flex-col gap-x-4 max-w-sm sm:flex-wrap mx-auto my-10">
             <InputForm
