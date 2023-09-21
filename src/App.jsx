@@ -34,7 +34,7 @@ const App = () => {
     }
     return children ? children : <Outlet />;
   };
-
+  
   return loading ? (
     <Loading />
   ) : (
