@@ -1,9 +1,15 @@
-import { logo2, googleicon } from "../../assets";
+import { logo2 } from "../../assets";
 import { useState } from "react";
 import InputForm from "../../components/common/InputForm";
+import ReactGA from "react-ga4";
 
 const Verify = () => {
   const [token, setToken] = useState("");
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: "/verify", title: "Verify Password Page" });
+  }, [])
+
 
   const handleCodeChange = (e) => {
     setToken(e.target.value);
