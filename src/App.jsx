@@ -6,8 +6,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
 import { Login, Loading, Landing, Forget, Signup, Verify, Communities, Diary, Conversation } from "./pages";
 
-const MEASUREMENT_ID = "G-Q40RWCDB0B";
-ReactGA.initialize(MEASUREMENT_ID);
+const MEASUREMENT_ID_AI = "G-Q40RWCDB0B";
+const MEASUREMENT_ID_XY = "G-P3ZGZ14ZR6";
+ReactGA.initialize([
+  {
+  trackingId: MEASUREMENT_ID_AI,
+},{
+  trackingId: MEASUREMENT_ID_XY,
+},]
+);
 
 
 const App = () => {
