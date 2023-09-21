@@ -25,8 +25,12 @@ const Signup = () => {
   ] = useCreateUserWithEmailAndPassword(auth);
 
   useEffect(() => {
-    ReactGA.send({ hitType: "pageview", page: "/signup", title: "Sign Up Page" });
-  }, [])
+    ReactGA.send({
+      hitType: "pageview",
+      page: "/signup",
+      title: "Sign Up Page",
+    });
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
