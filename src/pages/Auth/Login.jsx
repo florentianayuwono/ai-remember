@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import ReactGA from "react-ga4";
 
 import InputForm from "../../components/common/InputForm";
 import { auth } from "../../firebase_setup/FirebaseConfig";
@@ -25,6 +26,10 @@ const Login = ( {setCookie, cookies} ) => {
   const [initialError, setInititialError] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: "/login", title: "Login Page" });
+  }, [])
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

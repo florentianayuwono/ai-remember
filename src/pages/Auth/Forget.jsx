@@ -1,10 +1,14 @@
 import { logo2 } from "../../assets";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputForm from "../../components/common/InputForm";
-
+import ReactGA from "react-ga4";
 
 const Forget = () => {
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: "/forget", title: "Forget Password Page" });
+  }, [])
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

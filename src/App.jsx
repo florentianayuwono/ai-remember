@@ -1,11 +1,21 @@
 import { BrowserRouter, Route, Routes, Navigate, Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import ReactGA from "react-ga4";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
 import { Login, Loading, Landing, Forget, Signup, Verify, Communities, Diary, Conversation } from "./pages";
-import { useEffect } from "react";
-import CircularIndicator from "./components/CircularIndicator";
+
+const MEASUREMENT_ID_AI = "G-Q40RWCDB0B";
+const MEASUREMENT_ID_XY = "G-P3ZGZ14ZR6";
+ReactGA.initialize([
+  {
+  trackingId: MEASUREMENT_ID_AI,
+},{
+  trackingId: MEASUREMENT_ID_XY,
+},]
+);
+
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);

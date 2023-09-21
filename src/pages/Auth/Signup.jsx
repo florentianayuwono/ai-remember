@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { auth } from "../../firebase_setup/FirebaseConfig";
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import ReactGA from "react-ga4";
 
 import InputForm from "../../components/common/InputForm";
-import { logo2, googleicon } from "../../assets";
+import { logo2 } from "../../assets";
 import CircularIndicator from "../../components/CircularIndicator";
 
 const Signup = () => {
@@ -18,6 +19,10 @@ const Signup = () => {
     loading,
     error,
   ] = useCreateUserWithEmailAndPassword(auth);
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: "/signup", title: "Sign Up Page" });
+  }, [])
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
