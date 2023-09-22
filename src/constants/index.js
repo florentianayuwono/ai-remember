@@ -1,4 +1,4 @@
-import { logo2 } from "../assets";
+import { crush, logo2 } from "../assets";
 
 var APP_URL;
 
