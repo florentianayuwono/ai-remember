@@ -26,5 +26,34 @@ import classroom360 from "./classroom360.jpg";
 import digitalit from "./digitalit.png";
 
 import loveletter from "./loveletter.png";
+import crush from "./crush.webp";
 
-export { logo, logo2, backend, creator, mobile, web, github, menu, close, meta, shopify, starbucks, tesla, shopee, nus, ncl, incareasia, carrent, jobit, soconnect, groundzero, classroom360, digitalit, tripguide, loveletter, googleicon };
+export {
+  logo,
+  logo2,
+  backend,
+  creator,
+  crush,
+  mobile,
+  web,
+  github,
+  menu,
+  close,
+  meta,
+  shopify,
+  starbucks,
+  tesla,
+  shopee,
+  nus,
+  ncl,
+  incareasia,
+  carrent,
+  jobit,
+  soconnect,
+  groundzero,
+  classroom360,
+  digitalit,
+  tripguide,
+  loveletter,
+  googleicon,
+};
