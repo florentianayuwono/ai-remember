@@ -42,27 +42,18 @@ const Diary = () => {
         const data = await getDocs(diaryCollectionRef);
         const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-        const diariesByMonth = diaries.reduce((acc, diary) => {
+        const diariesByMonth = Array.from({ length: 12 }, (_, monthKey) => ({
+          month: monthNames[monthKey],
+          diaries: [],
+        }));
+
+        diaries.forEach((diary) => {
           const dateObject = new Date(diary.id);
-          const monthKey = `${dateObject.getMonth()}`;
+          const monthKey = dateObject.getMonth();
+          diariesByMonth[monthKey].diaries.push(diary);
+        });
 
-          const month = [monthNames[monthKey]];
-          
-          if (!acc[month]) {
-            acc[month] = [];
-          }
-
-          acc[month].push(diary);
-
-          return acc;
-        }, {});
-
-        const processedDiaries = Object.keys(diariesByMonth).map(
-          (monthKey) => ({
-            month: monthKey,
-            diaries: diariesByMonth[monthKey],
-          })
-        );
+        const processedDiaries = Object.values(diariesByMonth);
 
         setDiaryList(processedDiaries);
         console.log(processedDiaries);
