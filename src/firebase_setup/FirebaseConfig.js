@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "@firebase/firestore"
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "@firebase/firestore"
 import { getAuth } from "firebase/auth"
 
 const firebaseConfig = {
@@ -17,4 +17,23 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 const auth = getAuth(app);
 
-export { auth, firestore };
+// Function to add a user
+const addDataForToday = async (email, date) => {
+  try {
+    const todayDocRef = doc(firestore, 'users',email,'dates',date);
+    const todayDocSnap = await getDoc(todayDocRef)
+    if (todayDocSnap.data() == undefined) {
+      await setDoc(todayDocRef, {
+        diary: "",
+        messages: []
+      });
+      console.log('Today data added with ID: ', todayDocRef.id);
+    } else {
+      console.log("Document data:", todayDocSnap.data());
+    }
+  } catch (error) {
+    console.error('Error adding user: ', error);
+  }
+};
+
+export { auth, firestore, addDataForToday };

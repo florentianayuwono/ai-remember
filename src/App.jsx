@@ -19,7 +19,7 @@ ReactGA.initialize([
 
 
 const App = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies, setCookie] = useCookies(["user"]);
   const [user, loading] = useAuthState(auth);
 
   const ProtectedRoute = ({ user, redirectPath = "/login", children }) => {
