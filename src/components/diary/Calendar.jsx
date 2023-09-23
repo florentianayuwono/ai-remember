@@ -1,20 +1,6 @@
 import { crush } from "../../assets";
 
 const Calendar = ({ diaries }) => {
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   return (
     <div className="container mx-auto pt-20">
