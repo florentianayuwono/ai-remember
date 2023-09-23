@@ -5,7 +5,7 @@ import VaraText from "../components/chat_page/VaraText";
 import { addDataForDay, auth, firestore } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection } from "firebase/firestore";
+import { collection, getCountFromServer } from "firebase/firestore";
 import Loading from "./Loading";
 import Chat from "../components/chat_page/Chat";
 import ChatInput from "../components/chat_page/ChatInput";
@@ -34,8 +34,8 @@ const Conversation = () => {
 
   const DisplayDate = () => {
     return (
-      <div className="mt-24 flex justify-end">
-        <VaraText text={displayDate} />
+      <div className="mt-24 flex justify-end mr-6">
+        <div className=" font-handwriting-user text-2xl">{displayDate}</div>
       </div>
     );
   };
@@ -44,13 +44,13 @@ const Conversation = () => {
     <Loading />
   ) : (
     <div className="relative z-0 h-screen justify-between flex flex-col bg-contain bg-note-paper text-secondary-brown overflow-hidden">
-      <div>
+      <div className=" overflow-auto">
         <HomeNavbar />  
         <DisplayDate />
         <Chat chats={chats}/>
       </div>
       
-      <ChatInput />
+      <ChatInput email={user?.email} date={displayDate} />
       
     </div>
   );

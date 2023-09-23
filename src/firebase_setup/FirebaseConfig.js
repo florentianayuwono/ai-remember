@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, updateDoc, setDoc, getDoc, addDoc, serverTimestamp,collection } from "@firebase/firestore"
+import { getFirestore, doc, updateDoc, getCountFromServer,setDoc, getDoc, addDoc, serverTimestamp,collection } from "@firebase/firestore"
 import { getAuth } from "firebase/auth"
 
 const firebaseConfig = {
@@ -23,15 +23,14 @@ const addDataForDay = async (email, date) => {
     const todayDocRef = doc(firestore, 'users', email,'dates',date);
     const todayDocSnap = await getDoc(todayDocRef)
     if (todayDocSnap.data() == undefined) {
-      await addDoc(
-        collection(firestore, 'users', email,'dates',date, "chats"), {
-          createdAt: serverTimestamp(),
+      const msg = {
+        createdAt: serverTimestamp(),
           chatId: 0,
           isUser: false,
           content: "Hello! How's your day going?",
           mood: "happy"
-        }
-      )
+      }
+      addMsg(email, date, msg);
       await setDoc(todayDocRef,{
         diary: ""
       })
@@ -40,6 +39,18 @@ const addDataForDay = async (email, date) => {
   } catch (error) {
     console.error('Error adding user: ', error);
   }
+  
 };
 
-export { auth, firestore, addDataForDay };
+const getChatCount = async (email,date) => {
+  const coll = collection(firestore, 'users', email,'dates',date, "chats");
+  const snapshot = await getCountFromServer(coll);
+  return snapshot.data().count
+};
+
+const addMsg = async (email, date, msg) => {
+  await addDoc(collection(firestore, 'users', email,'dates',date, "chats"), msg);
+}
+
+
+export { auth, firestore, addDataForDay, getChatCount, addMsg };
