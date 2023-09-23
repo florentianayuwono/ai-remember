@@ -18,7 +18,7 @@ const firestore = getFirestore(app);
 const auth = getAuth(app);
 
 // Function to add a user
-const addDataForToday = async (email, date) => {
+const addDataForDay = async (email, date) => {
   try {
     const todayDocRef = doc(firestore, 'users',email,'dates',date);
     const todayDocSnap = await getDoc(todayDocRef)
@@ -36,4 +36,4 @@ const addDataForToday = async (email, date) => {
   }
 };
 
-export { auth, firestore, addDataForToday };
+export { auth, firestore, addDataForDay };

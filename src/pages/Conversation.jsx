@@ -3,7 +3,7 @@ import ReactGA from "react-ga4";
 import { useEffect } from "react";
 import { logo2 } from "../assets";
 import VaraText from "../components/chat_page/VaraText";
-import { addDataForToday, auth } from "../firebase_setup/FirebaseConfig";
+import { addDataForDay, auth } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "./Loading";
 
@@ -14,7 +14,7 @@ const Conversation = () => {
 
   useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: "/conversation", title: "Conversation Page" });
-    addDataForToday(user.email, displayDate);
+    addDataForDay(user.email, displayDate);
   }, [])
 
 
