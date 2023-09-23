@@ -25,17 +25,23 @@ const addDataForDay = async (email, date) => {
     if (todayDocSnap.data() == undefined) {
       const msg = {
         createdAt: serverTimestamp(),
-          chatId: 0,
           isUser: false,
           content: "Hello! How's your day going?",
           mood: "happy"
       }
-      addMsg(email, date, msg);
       await setDoc(todayDocRef,{
         diary: ""
       })
+      addMsg(email,date,msg,'0');
       console.log('Today data added with ID: ', todayDocRef.id);
     } 
+    const msg = {
+      createdAt: serverTimestamp(),
+        isUser: false,
+        content: "Hello! How's your day going?",
+        mood: "happy"
+    }
+
   } catch (error) {
     console.error('Error adding user: ', error);
   }
@@ -48,8 +54,10 @@ const getChatCount = async (email,date) => {
   return snapshot.data().count
 };
 
-const addMsg = async (email, date, msg) => {
-  await addDoc(collection(firestore, 'users', email,'dates',date, "chats"), msg);
+const addMsg = async (email, date, msg, chatId) => {
+  const coll = collection(firestore, 'users', email,'dates',date, "chats");
+  const ref = doc(coll,chatId);
+  await setDoc(ref, msg);
 }
 
 

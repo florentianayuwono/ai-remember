@@ -5,7 +5,7 @@ const Chat = ({ chats }) => {
   
   return (
     <div className="flex flex-col">
-      {chats?.docs.slice(0).reverse().map((chat) => (
+      {chats?.docs.map((chat) => (
         <ChatRow chat={chat.data()} key={chat.data().chatId} />
       ))}
     </div>

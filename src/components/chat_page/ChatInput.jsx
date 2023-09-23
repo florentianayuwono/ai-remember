@@ -24,7 +24,7 @@ const ChatInput = ({email,date}) => {
       mood: "", //chatai api generated
     };
     
-    await addMsg(email,date,msg);
+    await addMsg(email,date,msg, count.toString());
 
     //toast notification
 
@@ -33,7 +33,7 @@ const ChatInput = ({email,date}) => {
   };
 
   return (
-    <div className="flex flex-row justify-center mb-10">
+    <form onSubmit={sendMessage} className="flex flex-row justify-center mb-10">
       <input
         className=" rounded-2xl p-4 my-2 w-2/3 bg-secondary-brown text-white placeholder:text-gray-300"
         type="text"
@@ -42,11 +42,11 @@ const ChatInput = ({email,date}) => {
         placeholder={CHAT_PLACEHOLDER}
       />
       <button
-        onClick={sendMessage}
+        type="submit"
        className="text-white bg-secondary-brown rounded-2xl p-4 m-2">
         <BsFillPencilFill />
       </button>
-    </div>
+    </form>
   );
 };
 
