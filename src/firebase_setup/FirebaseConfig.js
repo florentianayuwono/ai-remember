@@ -20,7 +20,7 @@ const auth = getAuth(app);
 // Function to add a user
 const addDataForDay = async (email, date) => {
   try {
-    const todayDocRef = doc(firestore, 'users',email,'dates',date);
+    const todayDocRef = doc(firestore, 'users', email,'dates',date);
     const todayDocSnap = await getDoc(todayDocRef)
     if (todayDocSnap.data() == undefined) {
       await setDoc(todayDocRef, {
