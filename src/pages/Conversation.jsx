@@ -20,7 +20,7 @@ const Conversation = () => {
 
   const Bearly = () => {
     return (
-    <div className=" text-secondary-brown min-w-[100px] max-w-[300px] w-[100px]">
+    <div className=" text-secondary-brown min-w-[100px] flex flex-col justify-center items-center max-w-[300px] w-[100px]">
           <img src={logo2} alt="AI-Bear"/>
           <div className=" pt-2 italic font-bold text-lg">
             Bearly
