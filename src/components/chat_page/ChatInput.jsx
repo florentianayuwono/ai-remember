@@ -18,7 +18,6 @@ const ChatInput = ({email,date}) => {
     setPrompt("");
     const msg = {
       createdAt: serverTimestamp(),
-      chatId: count, //after getting number of docs
       isUser: true,
       content: input,
       mood: "", //chatai api generated

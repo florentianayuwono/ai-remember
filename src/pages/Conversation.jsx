@@ -1,11 +1,10 @@
 import HomeNavbar from "../components/common/HomeNavbar";
 import ReactGA from "react-ga4";
 import { useEffect } from "react";
-import VaraText from "../components/chat_page/VaraText";
 import { addDataForDay, auth, firestore } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, getCountFromServer } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import Loading from "./Loading";
 import Chat from "../components/chat_page/Chat";
 import ChatInput from "../components/chat_page/ChatInput";
