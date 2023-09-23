@@ -22,6 +22,9 @@ module.exports = {
         "black-200": "#03250b",
         "white-100": "#f3f3f3",
       },
+      fontFamily: {
+        "handwriting": ['Shadows Into Light']
+      },
       boxShadow: {
         card: "0px 35px 120px -15px #1e351f",
       },

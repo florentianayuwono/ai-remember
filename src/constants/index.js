@@ -13,6 +13,8 @@ export const CONVERSATION_PAGE = APP_URL + "conversation";
 export const DIARY_PAGE = APP_URL + "diary";
 export const COMMUNITIES_PAGE = APP_URL + "communities";
 
+export const CHAT_PLACEHOLDER = "Write to Bearly";
+
 export const navLinks = [
   {
     id: "features",
