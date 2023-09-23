@@ -19,6 +19,21 @@ const Diary = () => {
     "dates"
   );
 
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: "/diary", title: "Diary Page" });
 
@@ -26,8 +41,22 @@ const Diary = () => {
       try {
         const data = await getDocs(diaryCollectionRef);
         const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-        setDiaryList(diaries);
-        console.log(diaries);
+
+        const diariesByMonth = Array.from({ length: 12 }, (_, monthKey) => ({
+          month: monthNames[monthKey],
+          diaries: [],
+        }));
+
+        diaries.forEach((diary) => {
+          const dateObject = new Date(diary.id);
+          const monthKey = dateObject.getMonth();
+          diariesByMonth[monthKey].diaries.push(diary);
+        });
+
+        const processedDiaries = Object.values(diariesByMonth);
+
+        setDiaryList(processedDiaries);
+        console.log(processedDiaries);
       } catch (error) {
         console.error(error);
       }
@@ -41,10 +70,10 @@ const Diary = () => {
   ) : (
     <div className="relative z-0 bg-primary-lightpink">
       <HomeNavbar />
-      {/* {diaryList.map((diary) => (
-        <div key={diary.id} className="text-white">Hello WOrld! {diary.id} {diary.diary} {diary.message}</div>
-      ))} */}
-      <Calendar diaries={diaryList} />
+      {diaryList.map((entry) => {
+        const { month, diaries } = entry;
+        return <Calendar key={month} month={month} diaries={diaries} />;
+      })}
     </div>
   );
 };
