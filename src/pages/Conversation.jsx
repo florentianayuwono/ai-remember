@@ -17,7 +17,6 @@ const Conversation = () => {
     addDataForDay(user.email, displayDate);
   }, [])
 
-
   const Bearly = () => {
     return (
     <div className=" text-secondary-brown min-w-[100px] flex flex-col justify-center items-center max-w-[300px] w-[100px]">

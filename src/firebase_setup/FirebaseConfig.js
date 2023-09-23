@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 const auth = getAuth(app);
 
-// Function to add a user
+// Function to create a document for each day
 const addDataForDay = async (email, date) => {
   try {
     const todayDocRef = doc(firestore, 'users',email,'dates',date);
