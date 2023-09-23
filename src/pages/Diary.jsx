@@ -47,7 +47,7 @@ const Diary = () => {
           const monthKey = `${dateObject.getMonth()}`;
 
           const month = [monthNames[monthKey]];
-
+          
           if (!acc[month]) {
             acc[month] = [];
           }
@@ -57,10 +57,12 @@ const Diary = () => {
           return acc;
         }, {});
 
-        const processedDiaries = Object.keys(diariesByMonth).map((monthKey) => ({
-          month: monthKey,
-          diaries: diariesByMonth[monthKey],
-        }));
+        const processedDiaries = Object.keys(diariesByMonth).map(
+          (monthKey) => ({
+            month: monthKey,
+            diaries: diariesByMonth[monthKey],
+          })
+        );
 
         setDiaryList(processedDiaries);
         console.log(processedDiaries);
@@ -77,7 +79,10 @@ const Diary = () => {
   ) : (
     <div className="relative z-0 bg-primary-lightpink">
       <HomeNavbar />
-      <Calendar diaries={diaryList} />
+      {diaryList.map((entry) => {
+        const { month, diaries } = entry;
+        return <Calendar key={month} month={month} diaries={diaries} />;
+      })}
     </div>
   );
 };

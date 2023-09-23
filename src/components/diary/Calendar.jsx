@@ -1,13 +1,13 @@
 import { crush } from "../../assets";
 
-const Calendar = ({ diaries }) => {
+const Calendar = ({ month, diaries }) => {
 
   return (
     <div className="container mx-auto pt-20">
       <div className="wrapper bg-white rounded w-full">
         <div className="header flex justify-center border-b p-2">
           <span className="text-secondary-brown text-lg font-bold">
-            2023 September
+            2023 {month}
           </span>
         </div>
         <table className="w-full">
@@ -82,7 +82,6 @@ const Calendar = ({ diaries }) => {
                       let day = dateObject.getDate();
                       let month = dateObject.getMonth() + 1;
                       let year = dateObject.getFullYear();
-                      console.log(day, month, year);
                       return (
                         <span key={diary.id} className="text-gray-500">
                           {day}
