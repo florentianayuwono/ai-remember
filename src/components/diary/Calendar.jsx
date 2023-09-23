@@ -1,6 +1,21 @@
 import { crush } from "../../assets";
 
-const Calendar = () => {
+const Calendar = ({ diaries }) => {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   return (
     <div className="container mx-auto pt-20">
       <div className="wrapper bg-white rounded w-full">
@@ -75,10 +90,22 @@ const Calendar = () => {
               <td className="border p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-secondary-lightgreen ">
                 <div className="flex flex-col h-40 mx-auto xl:w-40 lg:w-30 md:w-30 sm:w-full w-10 overflow-hidden">
                   <div className="top h-5 w-full">
-                    <span className="text-gray-500">1</span>
+                    {diaries.map((diary) => {
+                      let date = diary.id;
+                      let dateObject = new Date(date);
+                      let day = dateObject.getDate();
+                      let month = dateObject.getMonth() + 1;
+                      let year = dateObject.getFullYear();
+                      console.log(day, month, year);
+                      return (
+                        <span key={diary.id} className="text-gray-500">
+                          {day}
+                        </span>
+                      );
+                    })}
                   </div>
                   <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer">
-                  <img src={crush} className="object-contain" />
+                    <img src={crush} className="object-contain" />
                   </div>
                 </div>
               </td>
@@ -119,8 +146,7 @@ const Calendar = () => {
                   <div className="top h-5 w-full">
                     <span className="text-gray-500">7</span>
                   </div>
-                  <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer">
-                  </div>
+                  <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer"></div>
                 </div>
               </td>
               <td className="border p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300">
