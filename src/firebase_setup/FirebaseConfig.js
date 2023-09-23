@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "@firebase/firestore"
+import { getFirestore, doc, updateDoc, getCountFromServer,setDoc, getDoc, addDoc, serverTimestamp,collection } from "@firebase/firestore"
 import { getAuth } from "firebase/auth"
 
 const firebaseConfig = {
@@ -17,23 +17,48 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 const auth = getAuth(app);
 
-// Function to add a user
+// Function to create a document for each day
 const addDataForDay = async (email, date) => {
   try {
     const todayDocRef = doc(firestore, 'users', email,'dates',date);
     const todayDocSnap = await getDoc(todayDocRef)
     if (todayDocSnap.data() == undefined) {
-      await setDoc(todayDocRef, {
-        diary: "",
-        messages: []
-      });
+      const msg = {
+        createdAt: serverTimestamp(),
+          isUser: false,
+          content: "Hello! How's your day going?",
+          mood: "happy"
+      }
+      await setDoc(todayDocRef,{
+        diary: ""
+      })
+      addMsg(email,date,msg,'0');
       console.log('Today data added with ID: ', todayDocRef.id);
-    } else {
-      console.log("Document data:", todayDocSnap.data());
+    } 
+    const msg = {
+      createdAt: serverTimestamp(),
+        isUser: false,
+        content: "Hello! How's your day going?",
+        mood: "happy"
     }
+
   } catch (error) {
     console.error('Error adding user: ', error);
   }
+  
 };
 
-export { auth, firestore, addDataForDay };
+const getChatCount = async (email,date) => {
+  const coll = collection(firestore, 'users', email,'dates',date, "chats");
+  const snapshot = await getCountFromServer(coll);
+  return snapshot.data().count
+};
+
+const addMsg = async (email, date, msg, chatId) => {
+  const coll = collection(firestore, 'users', email,'dates',date, "chats");
+  const ref = doc(coll,chatId);
+  await setDoc(ref, msg);
+}
+
+
+export { auth, firestore, addDataForDay, getChatCount, addMsg };

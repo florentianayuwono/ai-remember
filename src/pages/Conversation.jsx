@@ -1,11 +1,13 @@
 import HomeNavbar from "../components/common/HomeNavbar";
 import ReactGA from "react-ga4";
 import { useEffect } from "react";
-import { logo2 } from "../assets";
-import VaraText from "../components/chat_page/VaraText";
-import { addDataForDay, auth } from "../firebase_setup/FirebaseConfig";
+import { addDataForDay, auth, firestore } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection } from "firebase/firestore";
 import Loading from "./Loading";
+import Chat from "../components/chat_page/Chat";
+import ChatInput from "../components/chat_page/ChatInput";
 
 const Conversation = () => {
   const [user, loading] = useAuthState(auth);
@@ -15,6 +17,9 @@ const Conversation = () => {
     month: "long",
     day: "numeric",
   });
+  const [chats, loadingc, error] = useCollection(
+    collection(firestore, "users", user.email,"dates",displayDate,"chats")
+  )
 
   useEffect(() => {
     ReactGA.send({
@@ -25,19 +30,11 @@ const Conversation = () => {
     addDataForDay(user.email, displayDate);
   }, []);
 
-  const Bearly = () => {
-    return (
-      <div className=" text-secondary-brown min-w-[100px] flex flex-col justify-center items-center max-w-[300px] w-[100px]">
-        <img src={logo2} alt="AI-Bear" />
-        <div className=" pt-2 italic font-bold text-lg">Bearly</div>
-      </div>
-    );
-  };
 
   const DisplayDate = () => {
     return (
-      <div className="">
-        <VaraText text={displayDate} />
+      <div className="mt-24 flex justify-end mr-6">
+        <div className=" font-handwriting-user text-2xl">{displayDate}</div>
       </div>
     );
   };
@@ -45,12 +42,15 @@ const Conversation = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div className="relative z-0 h-screen bg-contain bg-note-paper text-secondary-brown overflow-y-scroll">
-      <HomeNavbar />
-      <div className="mt-24 mx-6 flex justify-between items-start">
-        <Bearly />
+    <div className="relative z-0 h-screen justify-between flex flex-col bg-contain bg-note-paper text-secondary-brown overflow-hidden">
+      <div className=" overflow-auto">
+        <HomeNavbar />  
         <DisplayDate />
+        <Chat chats={chats}/>
       </div>
+      
+      <ChatInput email={user?.email} date={displayDate} />
+      
     </div>
   );
 };
