@@ -25,6 +25,9 @@ module.exports = {
       boxShadow: {
         card: "0px 35px 120px -15px #1e351f",
       },
+      backgroundImage: {
+        'note-paper': "url('/src/assets/chat_page/note-paper.jpg')",
+      },
       screens: {
         'xs': "450px",
 
