@@ -7,27 +7,21 @@ import { AiFillDelete, AiOutlineDelete } from "react-icons/ai";
 import { BiPencil } from "react-icons/bi";
 import { firestore } from "../../firebase_setup/FirebaseConfig";
 
-const PostCard = ({ post, user, postsRef, handleDeletePost }) => {
-  const [newTitle, setNewTitle] = useState(post.title);
-  const [newContent, setNewContent] = useState(post.content);
-
-  // const handleEditPost = async (post, title, content) => {
-  //   await updateDoc(doc(firestore, "community", post.id), { title: title, content: content });
-  // };
-
+const PostCard = ({ post, user, title, content, id, handleDeletePost }) => {
   return (
-    // <></>
     <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-32 overflow-y-hidden flex justify-between">
       <div>
-        <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-        <p className="text-gray-600">{post.content}</p>
+        <h2 className="text-xl font-semibold mb-2">{title}</h2>
+        <p className="text-gray-600">{content}</p>
       </div>
-      {user.uid === post.author_uid ? <AiFillDelete className="cursor-pointer w-6 h-6" onClick={() => handleDeletePost(post.id)} /> : null}
+      {user.uid === post.data().author_uid ? (
+        <AiFillDelete className="cursor-pointer w-6 h-6" onClick={() => handleDeletePost(post.id)} />
+      ) : null}
     </div>
   );
 };
 
-const PostModal = ({ openState, handleClosePopup, title, content, setTitle, setContent, handleSubmitPost, handleEditPost }) => {
+const PostModal = ({ openState, handleClosePopup, title, content, setTitle, setContent, handleSubmitPost }) => {
   const [isOpen, setIsOpen] = openState;
 
   const handleTitleChange = (e) => {

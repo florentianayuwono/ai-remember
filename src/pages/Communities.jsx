@@ -59,13 +59,6 @@ const Communities = ({ user }) => {
   };
 
   useEffect(() => {
-    const q = query(postsCollectionRef);
-    onSnapshot(q, (querySnapshot) => {
-      setPostList(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    });
-  }, []);
-
-  useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: "/communities", title: "Communities Page" });
   }, []);
 
@@ -91,7 +84,7 @@ const Communities = ({ user }) => {
         </div>
 
         <div>
-          {posts?.map((post, index) => {
+          {posts?.docs.map((post, index) => {
             return (
               <PostCard
                 key={index}
