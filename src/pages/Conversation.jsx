@@ -1,7 +1,7 @@
 import HomeNavbar from "../components/common/HomeNavbar";
 import ReactGA from "react-ga4";
-import { useEffect } from "react";
 import { GiFairyWand } from "react-icons/gi";
+import { useEffect, useRef } from "react";
 import { addDataForDay, auth, firestore } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -12,6 +12,7 @@ import ChatInput from "../components/chat_page/ChatInput";
 
 const Conversation = () => {
   const [user, loading] = useAuthState(auth);
+  const bottomRef = useRef(null);
   let newDate = new Date();
   let displayDate = newDate.toLocaleDateString("en-En", {
     year: "numeric",
@@ -30,6 +31,11 @@ const Conversation = () => {
     });
     addDataForDay(user.email, displayDate);
   }, []);
+
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+  }, [chats]);
 
   const DisplayDate = () => {
     return (
@@ -52,10 +58,11 @@ const Conversation = () => {
     <Loading />
   ) : (
     <div className="relative z-0 h-screen justify-between flex flex-col bg-contain bg-note-paper text-secondary-brown overflow-hidden">
+      <HomeNavbar />  
+      <DisplayDate />
       <div className=" overflow-auto">
-        <HomeNavbar />
-        <DisplayDate />
-        <Chat chats={chats} />
+        <Chat chats={chats}/>
+        <div ref={bottomRef}/>
       </div>
       <div className="flex flex-col">
         <DiaryButton />
