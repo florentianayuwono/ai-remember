@@ -1,4 +1,4 @@
-import { logo2, shopee, nus, ncl, incareasia } from "../assets";
+import { crush, logo2 } from "../assets";
 
 var APP_URL;
 
@@ -12,6 +12,8 @@ export const LOGIN_PAGE = APP_URL + "login";
 export const CONVERSATION_PAGE = APP_URL + "conversation";
 export const DIARY_PAGE = APP_URL + "diary";
 export const COMMUNITIES_PAGE = APP_URL + "communities";
+
+export const CHAT_PLACEHOLDER = "Write to Bearly";
 
 export const navLinks = [
   {
@@ -66,48 +68,6 @@ const features = [
   },
 ];
 
-const othersWords = [
-  {
-    title: "Machine Translation Intern",
-    company_name: "Shopee",
-    icon: shopee,
-    iconBg: "#383E56",
-    date: "May 2023 - Present",
-    points: ["Develop algorithm to automate classification of training datasets for Shopee homegrown Large Language Models.", "Conduct data extraction, manipulation, and analysis to optimize product titles using PrestoSQL, Pandas, and Seaborn."],
-  },
-  {
-    title: "Teaching Assistant",
-    company_name: "National University of Singapore",
-    icon: nus,
-    iconBg: "#E6DEDD",
-    date: "August 2022 - Present",
-    points: [
-      "Mentor for relevant technology stack and Software Engineering principles as Adviser for CP2106 Orbital Summer Project 2023.",
-      "Teach fundamental computing concepts for CS1101S Programming Methodology I, ranging from Data Abstraction & Structures, Modularity, State, Streams (5.0/5.0 teaching feedback rating).",
-    ],
-  },
-  {
-    title: "Frontend Engineer Intern",
-    company_name: "National Cybersecurity R&D Laboratory",
-    icon: ncl,
-    iconBg: "#383E56",
-    date: "May 2022 - July 2022",
-    points: [
-      "Teamed up with 4 other members to build a Flutter web application for visualization and gamification of cybersecurity threats and vulnerabilities.",
-      "Automated creation of new learning pages using OOP and wrote comprehensive documentation to ease future maintenance for non-technical employees.",
-      "Delivered new features and bug fixes using Dart, completing ~10 PRs in 2 months.",
-    ],
-  },
-  {
-    title: "Product Management Intern",
-    company_name: "InCare Asia",
-    icon: incareasia,
-    iconBg: "#E6DEDD",
-    date: "February 2022 - April 2022",
-    points: ["Conducted market research and competitor analysis on biodegradable packaging products.", "Design prototypes for packaging products for various F&B Industry needs."],
-  },
-];
-
 const testimonials = [
   {
     testimonial: "I can't imagine my life without this app now. It has turned my everyday conversations into beautiful memories in my personal diary.",
@@ -149,4 +109,4 @@ const reasons = [
   },
 ];
 
-export { features, othersWords, testimonials, reasons };
+export { features, testimonials, reasons };

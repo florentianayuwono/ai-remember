@@ -22,8 +22,15 @@ module.exports = {
         "black-200": "#03250b",
         "white-100": "#f3f3f3",
       },
+      fontFamily: {
+        "handwriting-bear": ['Shadows Into Light'],
+        "handwriting-user": ['Caveat'],
+      },
       boxShadow: {
         card: "0px 35px 120px -15px #1e351f",
+      },
+      backgroundImage: {
+        'note-paper': "url('/src/assets/chat_page/note-paper.jpg')",
       },
       screens: {
         'xs': "450px",

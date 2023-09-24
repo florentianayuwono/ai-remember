@@ -5,17 +5,17 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { PostCard, PostModal } from "../components/community/Post";
 import { firestore } from "../firebase_setup/FirebaseConfig";
-import { getDocs, addDoc, collection, query, orderBy, onSnapshot, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, query, onSnapshot, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 const Communities = ({ user }) => {
   const openState = useState(false);
   const [isOpen, setIsOpen] = openState;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [postList, setPostList] = useState([]);
 
   const postsCollectionRef = collection(firestore, "community");
-  const document = postsCollectionRef.id;
+  const [posts, loading, error] = useCollection(postsCollectionRef);
 
   const handleClosePopup = () => {
     setIsOpen(false);
@@ -91,14 +91,15 @@ const Communities = ({ user }) => {
         </div>
 
         <div>
-          {postList.map((post, index) => {
+          {posts?.map((post, index) => {
             return (
               <PostCard
-                key={post.id}
+                key={index}
                 user={user}
+                title={post.data().title}
+                content={post.data().content}
                 post={post}
-                postsRef={postsCollectionRef}
-                id={post.id}
+                id={post.data().id}
                 handleDeletePost={handleDeletePost}
               ></PostCard>
             );

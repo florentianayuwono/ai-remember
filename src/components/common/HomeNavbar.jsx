@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { signOut } from 'firebase/auth';
 import { auth } from "../../firebase_setup/FirebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import { BsPersonCircle } from "react-icons/bs";
 import { styles } from "../../styles";
 import { homeNavLinks } from "../../constants";
 import { logo, menu, close } from "../../assets";
 
-const HomeNavbar = ({ user }) => {
+const HomeNavbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [toggleProfile, setToggleProfile] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <nav className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 hero-background`}>
@@ -66,9 +66,15 @@ const HomeNavbar = ({ user }) => {
 };
 
 const ProfileButton = ({ toggleProfile, setToggleProfile }) => {
+  const [user] = useAuthState(auth);
+
   return (
     <div className="relative inline-block">
-      <BsPersonCircle className="w-[30px] h-[30px] sm:text-secondary-brown text-primary-lightpink" onClick={() => setToggleProfile(!toggleProfile)} />
+      <div className="flex flex-row cursor-pointer" onClick={() => setToggleProfile(!toggleProfile)}>
+      <BsPersonCircle className="w-[30px] h-[30px] mx-2 items-center sm:text-secondary-brown text-primary-lightpink" />
+        <div className="select-none">{user?.displayName}</div>
+      </div>
+      
       {toggleProfile && (
         <div className="absolute mt-2 w-48 rounded-md right-0 bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
           <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-0">
