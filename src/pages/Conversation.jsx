@@ -1,7 +1,12 @@
 import HomeNavbar from "../components/common/HomeNavbar";
 import ReactGA from "react-ga4";
 import { useEffect } from "react";
-import { addDataForDay, auth, firestore } from "../firebase_setup/FirebaseConfig";
+import { GiFairyWand } from "react-icons/gi";
+import {
+  addDataForDay,
+  auth,
+  firestore,
+} from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
@@ -18,8 +23,8 @@ const Conversation = () => {
     day: "numeric",
   });
   const [chats, loadingc, error] = useCollection(
-    collection(firestore, "users", user.email,"dates",displayDate,"chats")
-  )
+    collection(firestore, "users", user.email, "dates", displayDate, "chats")
+  );
 
   useEffect(() => {
     ReactGA.send({
@@ -30,27 +35,36 @@ const Conversation = () => {
     addDataForDay(user.email, displayDate);
   }, []);
 
-
   const DisplayDate = () => {
     return (
-      <div className="mt-24 flex justify-end mr-6">
+      <div className="mt-24 flex flex-col items-end mr-12">
         <div className=" font-handwriting-user text-2xl">{displayDate}</div>
       </div>
     );
   };
+
+  const DiaryButton = () => (
+    <div className="flex items-center justify-center cursor-pointer">
+      <div className="flex items-center justify-center mb-2 py-2 px-4 rounded-2xl bg-primary-lightpink text-secondary-purple select-none">
+        <GiFairyWand />
+        Generate Diary
+      </div>
+    </div>
+  );
 
   return loading ? (
     <Loading />
   ) : (
     <div className="relative z-0 h-screen justify-between flex flex-col bg-contain bg-note-paper text-secondary-brown overflow-hidden">
       <div className=" overflow-auto">
-        <HomeNavbar />  
+        <HomeNavbar />
         <DisplayDate />
-        <Chat chats={chats}/>
+        <Chat chats={chats} />
       </div>
-      
-      <ChatInput email={user?.email} date={displayDate} />
-      
+      <div className="flex flex-col">
+        <DiaryButton />
+        <ChatInput email={user?.email} date={displayDate} />
+      </div>
     </div>
   );
 };
