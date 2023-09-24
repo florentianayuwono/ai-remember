@@ -15,7 +15,6 @@ const ChatInput = ({email,date}) => {
     const count = await getChatCount(email,date);
 
     // get mood based on content
-
     const input = prompt.trim();
     setPrompt("");
     const msg = {
@@ -35,7 +34,6 @@ const ChatInput = ({email,date}) => {
 
   return (
     <form onSubmit={sendMessage} className="flex justify-center mb-10">
-      
       <input
         className=" rounded-2xl p-4 my-2 w-2/3 bg-secondary-brown text-white placeholder:text-gray-300"
         type="text"

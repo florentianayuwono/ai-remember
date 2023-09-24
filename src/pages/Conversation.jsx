@@ -2,11 +2,7 @@ import HomeNavbar from "../components/common/HomeNavbar";
 import ReactGA from "react-ga4";
 import { useEffect } from "react";
 import { GiFairyWand } from "react-icons/gi";
-import {
-  addDataForDay,
-  auth,
-  firestore,
-} from "../firebase_setup/FirebaseConfig";
+import { addDataForDay, auth, firestore } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
@@ -45,7 +41,7 @@ const Conversation = () => {
 
   const DiaryButton = () => (
     <div className="flex items-center justify-center cursor-pointer">
-      <div className="flex items-center justify-center mb-2 py-2 px-4 rounded-2xl bg-primary-lightpink text-secondary-purple select-none">
+      <div className="flex items-center justify-center mb-2 py-2 px-4 rounded-2xl bg-primary-pink bg-opacity-50 text-secondary-purple select-none">
         <GiFairyWand />
         Generate Diary
       </div>
@@ -64,7 +60,7 @@ const Conversation = () => {
       <div className="flex flex-col">
         <DiaryButton />
         <ChatInput email={user?.email} date={displayDate} />
-      </div>
+      </div>  
     </div>
   );
 };
