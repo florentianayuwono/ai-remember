@@ -1,5 +1,6 @@
 import HomeNavbar from "../components/common/HomeNavbar";
 import ReactGA from "react-ga4";
+import { GiFairyWand } from "react-icons/gi";
 import { useEffect, useRef } from "react";
 import { addDataForDay, auth, firestore } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -19,8 +20,8 @@ const Conversation = () => {
     day: "numeric",
   });
   const [chats, loadingc, error] = useCollection(
-    collection(firestore, "users", user.email,"dates",displayDate,"chats")
-  )
+    collection(firestore, "users", user.email, "dates", displayDate, "chats")
+  );
 
   useEffect(() => {
     ReactGA.send({
@@ -36,14 +37,22 @@ const Conversation = () => {
     bottomRef.current?.scrollIntoView({behavior: 'smooth'});
   }, [chats]);
 
-
   const DisplayDate = () => {
     return (
-      <div className="mt-24 flex justify-end mr-6">
+      <div className="mt-24 flex flex-col items-end mr-12">
         <div className=" font-handwriting-user text-2xl">{displayDate}</div>
       </div>
     );
   };
+
+  const DiaryButton = () => (
+    <div className="flex items-center justify-center cursor-pointer">
+      <div className="flex items-center justify-center mb-2 py-2 px-4 rounded-2xl bg-primary-pink bg-opacity-50 text-secondary-purple select-none">
+        <GiFairyWand />
+        Generate Diary
+      </div>
+    </div>
+  );
 
   return loading ? (
     <Loading />
@@ -55,9 +64,10 @@ const Conversation = () => {
         <Chat chats={chats}/>
         <div ref={bottomRef}/>
       </div>
-      
-      <ChatInput email={user?.email} date={displayDate} />
-      
+      <div className="flex flex-col">
+        <DiaryButton />
+        <ChatInput email={user?.email} date={displayDate} />
+      </div>  
     </div>
   );
 };

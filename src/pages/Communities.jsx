@@ -7,6 +7,7 @@ import Modal from "react-modal";
 import toast from "react-hot-toast";
 import { firestore } from "../firebase_setup/FirebaseConfig";
 import { getDocs, addDoc, collection } from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 const Communities = ({ user }) => {
   const openState = useState(false);
@@ -15,9 +16,8 @@ const Communities = ({ user }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const [postList, setPostList] = useState([]);
-
   const postsCollectionRef = collection(firestore, "community");
+  const [posts,loading, error] = useCollection(postsCollectionRef)
 
   const handleClosePopup = () => {
     setIsOpen(false);
@@ -39,15 +39,6 @@ const Communities = ({ user }) => {
 
   useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: "/communities", title: "Communities Page" });
-  }, []);
-
-  useEffect(() => {
-    const getPosts = async () => {
-      const data = await getDocs(postsCollectionRef);
-      setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getPosts();
   }, []);
 
   return (
@@ -72,8 +63,8 @@ const Communities = ({ user }) => {
         </div>
 
         <div>
-          {postList.map((post, index) => {
-            return <PostCard key={index} title={post.title} content={post.content}></PostCard>;
+          {posts?.docs.map((post, index) => {
+            return <PostCard key={index} title={post.data().title} content={post.data().content}></PostCard>;
           })}
         </div>
       </div>
