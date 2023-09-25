@@ -18,3 +18,5 @@ const VaraText = ({ text }) => {
 
   return <div id="vara-container" className="z-[20]"></div>;
 };
+
+export default VaraText;
