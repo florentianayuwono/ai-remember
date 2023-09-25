@@ -27,7 +27,9 @@
     "react-router-dom": "^6.16.0",
     "react-tilt": "^1.0.2",
     "react-type-animation": "^3.1.0",
-    "react-vertical-timeline-component": "^3.6.0"
+    "react-vertical-timeline-component": "^3.6.0",
+    "tw-elements-react": "^1.0.0-alpha1",
+    "vara": "^1.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
