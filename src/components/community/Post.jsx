@@ -3,8 +3,8 @@ import Modal from "react-modal";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { AiFillDelete, AiOutlineDelete } from "react-icons/ai";
+import { collection, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { AiFillDelete, AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { BiPencil } from "react-icons/bi";
 import { firestore } from "../../firebase_setup/FirebaseConfig";
 
@@ -13,9 +13,25 @@ const PostCard = ({ post, user, id, handleDeletePost, openEditPost }) => {
   const [isEditPostModalOpen, setIsEditPostModalOpen] = editPostModalState;
   const [title, setTitle] = useState(post.data().title);
   const [content, setContent] = useState(post.data().content);
+  const postDocRef = doc(firestore, "community", post.id);
 
-  const handleEditPost = async (id, newTitle, newContent) => {
-    await updateDoc(doc(firestore, "community", id), { title: newTitle, content: newContent });
+  const likes = post.data().likes;
+  const userLiked = likes.includes(user?.uid);
+
+  // const handleEditPost = async (id, newTitle, newContent) => {
+  //   await updateDoc(postDoc, { title: newTitle, content: newContent });
+  // };
+
+  const handleLike = async () => {
+    try {
+      if (userLiked) {
+        await updateDoc(postDocRef, { likes: arrayRemove(user?.uid) });
+      } else {
+        await updateDoc(postDocRef, { likes: arrayUnion(user?.uid) });
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   return (
@@ -38,11 +54,18 @@ const PostCard = ({ post, user, id, handleDeletePost, openEditPost }) => {
           </div>
           <h2 className="text-xl font-semibold mb-2">{title}</h2>
           <p className="text-gray-600">{content}</p>
+          <div className="flex flex-row items-center gap-x-1">
+            {!userLiked && <AiOutlineLike className="cursor-pointer" onClick={handleLike} />}
+            {userLiked && <AiFillLike className="cursor-pointer" onClick={handleLike} />}
+            {likes.length}
+          </div>
         </div>
-        {user.uid === post.data().author_uid ? (
-          <AiFillDelete className="cursor-pointer w-6 h-6" onClick={() => handleDeletePost(post.id)} />
-        ) : null}
-        <BiPencil className="cursor-pointer w-6 h-6" onClick={() => setIsEditPostModalOpen(true)} />
+        <div>
+          {user?.uid === post.data().author_uid ? (
+            <AiFillDelete className="cursor-pointer w-6 h-6" onClick={() => handleDeletePost(post.id)} />
+          ) : null}
+          <BiPencil className="cursor-pointer w-6 h-6" onClick={() => setIsEditPostModalOpen(true)} />
+        </div>
       </div>
     </>
   );
@@ -157,4 +180,5 @@ const EditPostModal = ({ openState, id, title, content, setTitle, setContent, ha
     </>
   );
 };
+
 export { PostCard, CreatePostModal, EditPostModal };

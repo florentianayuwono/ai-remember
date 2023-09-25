@@ -43,6 +43,7 @@ const Communities = ({ user }) => {
           content,
           author_uid: user?.uid,
           author_name: user?.displayName,
+          likes: [],
           timestamp: serverTimestamp(),
         });
         handleCloseCreatePostModal();
