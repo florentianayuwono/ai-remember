@@ -1,20 +1,27 @@
 import HomeNavbar from "../components/common/HomeNavbar";
 import ReactGA from "react-ga4";
-import { useEffect } from "react";
-import { logo2 } from "../assets";
-import VaraText from "../components/chat_page/VaraText";
-import { addDataForDay, auth } from "../firebase_setup/FirebaseConfig";
+import { GiFairyWand } from "react-icons/gi";
+import { useEffect, useRef } from "react";
+import { addDataForDay, auth, firestore } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection } from "firebase/firestore";
 import Loading from "./Loading";
+import Chat from "../components/chat_page/Chat";
+import ChatInput from "../components/chat_page/ChatInput";
 
 const Conversation = () => {
   const [user, loading] = useAuthState(auth);
+  const bottomRef = useRef(null);
   let newDate = new Date();
   let displayDate = newDate.toLocaleDateString("en-En", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+  const [chats, loadingc, error] = useCollection(
+    collection(firestore, "users", user.email, "dates", displayDate, "chats")
+  );
 
   useEffect(() => {
     ReactGA.send({
@@ -25,32 +32,42 @@ const Conversation = () => {
     addDataForDay(user.email, displayDate);
   }, []);
 
-  const Bearly = () => {
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+  }, [chats]);
+
+  const DisplayDate = () => {
     return (
-      <div className=" text-secondary-brown min-w-[100px] flex flex-col justify-center items-center max-w-[300px] w-[100px]">
-        <img src={logo2} alt="AI-Bear" />
-        <div className=" pt-2 italic font-bold text-lg">Bearly</div>
+      <div className="mt-24 flex flex-col items-end mr-12">
+        <div className=" font-handwriting-user text-2xl">{displayDate}</div>
       </div>
     );
   };
 
-  const DisplayDate = () => {
-    return (
-      <div className="">
-        <VaraText text={displayDate} />
+  const DiaryButton = () => (
+    <div className="flex items-center justify-center cursor-pointer">
+      <div className="flex items-center justify-center mb-2 py-2 px-4 rounded-2xl bg-primary-pink bg-opacity-50 text-secondary-purple select-none">
+        <GiFairyWand />
+        Generate Diary
       </div>
-    );
-  };
+    </div>
+  );
 
   return loading ? (
     <Loading />
   ) : (
-    <div className="relative z-0 h-screen bg-contain bg-note-paper text-secondary-brown overflow-y-scroll">
-      <HomeNavbar />
-      <div className="mt-24 mx-6 flex justify-between items-start">
-        <Bearly />
-        <DisplayDate />
+    <div className="relative z-0 h-screen justify-between flex flex-col bg-contain bg-note-paper text-secondary-brown overflow-hidden">
+      <HomeNavbar />  
+      <DisplayDate />
+      <div className=" overflow-auto">
+        <Chat chats={chats}/>
+        <div ref={bottomRef}/>
       </div>
+      <div className="flex flex-col">
+        <DiaryButton />
+        <ChatInput email={user?.email} date={displayDate} />
+      </div>  
     </div>
   );
 };
