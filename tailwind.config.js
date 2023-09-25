@@ -31,6 +31,7 @@ module.exports = {
       },
       backgroundImage: {
         'note-paper': "url('/src/assets/chat_page/note-paper.jpg')",
+        'diary-paper': "url('/src/assets/chat_page/diary-paper.png')"
       },
       screens: {
         'xs': "450px",

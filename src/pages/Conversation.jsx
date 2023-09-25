@@ -78,7 +78,7 @@ const DiaryButton = () => {
     setIsDiaryModalOpen(false);
   };
 
-  const handleSubmitPost = async (e) => {
+  const handleSubmitDiary = async (e) => {
     e.preventDefault();
 
     // try {
@@ -113,14 +113,14 @@ const DiaryButton = () => {
       {isDiaryModalOpen ? (
         // Step 2: Use the imported DiaryModal component
         <DiaryModal
-          openState={openState}
-          handleClosePopup={handleClosePopup}
-          title={title}
-          content={content}
-          handleSubmitPost={handleSubmitPost}
-          setTitle={setTitle}
-          setContent={setContent}
-        />
+        openState={openState}
+        handleClosePopup={handleClosePopup}
+        title={title}
+        content={content}
+        handleSubmitDiary={handleSubmitDiary}
+        setTitle={setTitle}
+        setContent={setContent}
+      />
       ) : (
         <div
           className="flex items-center justify-center mb-2 py-2 px-4 rounded-2xl bg-primary-pink bg-opacity-50 text-secondary-purple select-none"
