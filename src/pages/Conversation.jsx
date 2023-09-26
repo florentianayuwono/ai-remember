@@ -9,12 +9,11 @@ import {
 } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection } from "firebase/firestore";
+import { addDoc, collection, query, onSnapshot, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import Loading from "./Loading";
 import Chat from "../components/chat_page/Chat";
 import ChatInput from "../components/chat_page/ChatInput";
 import DiaryModal from "../components/diary/DiaryModal";
-import toast from "react-hot-toast";
 
 const Conversation = () => {
   const [user, loading] = useAuthState(auth);
@@ -70,38 +69,15 @@ const Conversation = () => {
 };
 
 const DiaryButton = () => {
+  const [user, loading] = useAuthState(auth);
   const openState = useState(false);
   const [isDiaryModalOpen, setIsDiaryModalOpen] = openState;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  
   const handleClosePopup = () => {
     setIsDiaryModalOpen(false);
-  };
-
-  const handleSubmitDiary = async (e) => {
-    e.preventDefault();
-
-    // try {
-    //   if (title !== "" && content !== "") {
-    //     await addDoc(postsCollectionRef, {
-    //       title,
-    //       content,
-    //       author_uid: user?.uid,
-    //       // logo: user?.photoURL,
-    //       // name: user?.displayName || userData?.name,
-    //       // email: user?.email || userData?.email,
-    //       timestamp: serverTimestamp(),
-    //     });
-    //     handleClosePopup();
-    //     setTitle("");
-    //     setContent("");
-    //     toast.success("Successful created post!");
-    //   } else {
-    //     toast.error("Title and content can't be empty!");
-    //   }
-    // } catch (err) {
-    //   toast.error(err.message);
-    // }
   };
 
   const openDiaryModal = () => {
@@ -117,9 +93,9 @@ const DiaryButton = () => {
         handleClosePopup={handleClosePopup}
         title={title}
         content={content}
-        handleSubmitDiary={handleSubmitDiary}
         setTitle={setTitle}
         setContent={setContent}
+        email={user.email}
       />
       ) : (
         <div

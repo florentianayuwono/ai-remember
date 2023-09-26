@@ -136,7 +136,7 @@ const Calendar = ({ month, diaries }) => {
                                 isDiaryModalOpen && diaryEntry ? (
                                   <>
                                     <div
-                                      className="event bg-primary-blue text-black rounded-full px-5 py-1 text-sm mb-1 truncate cursor-pointer"
+                                      className="event bg-primary-blue text-black rounded-full px-4 py-1 text-sm mb-1 truncate cursor-pointer"
                                       onClick={openDiaryModal}
                                     >
                                       <span className="event-name">
