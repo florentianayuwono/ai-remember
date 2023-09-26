@@ -5,27 +5,35 @@ import OthersWords from "../components/landing_page/OthersWords";
 import WhyUs from "../components/landing_page/WhyUs";
 import Pricing from "../components/landing_page/Pricing";
 import ReactGA from "react-ga4";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AlertDialog } from "../components";
 
 const Landing = ({ user }) => {
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleChange = (state) => {
+    setOpenDialog(state);
+  }
 
   useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: "/", title: "Landing Page" });
-  }, [])
+  }, []);
 
   return (
-    <div className="relative z-0 bg-primary-purple">
-      <div className="bg-cover bg-no-repeat bg-center">
-        <Navbar loggedIn={user} />
-        <Hero />
+    <>
+      {openDialog && <AlertDialog handleChange={handleChange} title={"Under development..."} description={"coming soon... or will it?"}/>}
+      <div className="relative z-0 bg-primary-purple">
+        <div className="bg-cover bg-no-repeat bg-center">
+          <Navbar loggedIn={user} />
+          <Hero />
+        </div>
+        <Features />
+        <WhyUs />
+        <OthersWords />
+        <div className="relative z-0">
+          <Pricing />
+        </div>
       </div>
-      <Features />
-      <WhyUs />
-      <OthersWords />
-      <div className="relative z-0">
-        <Pricing />
-      </div>
-    </div>
+    </>
   );
 };
 
