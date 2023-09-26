@@ -18,7 +18,7 @@ const firestore = getFirestore(app);
 const auth = getAuth(app);
 
 // Function to create a document for each day
-const addDataForDay = async (email, date) => {
+const addDataForDay = async (email, date, content) => {
   try {
     const todayDocRef = doc(firestore, 'users', email,'dates',date);
     const todayDocSnap = await getDoc(todayDocRef)
@@ -26,7 +26,7 @@ const addDataForDay = async (email, date) => {
       const msg = {
         createdAt: serverTimestamp(),
           isUser: false,
-          content: "Hello! How's your day going?",
+          content: content.text,
           mood: "happy"
       }
       await setDoc(todayDocRef,{
@@ -60,9 +60,14 @@ const addMsg = async (email, date, msg, chatId) => {
   await setDoc(ref, msg);
 }
 
+const getAllMsg = async() => {
+  const coll = collection(firestore, 'users', email,'dates',date, "chats");
+
+}
+
 //not very safe for public repo
-const getOpenAIAPIKey = async() => {
-  const docRef = doc(firestore,"api_key","openai_api_key");
+const getOpenAIAPIKey = async(docName) => {
+  const docRef = doc(firestore,"api_key",docName);
   const docSnap = await getDoc(docRef);
   return docSnap?.data().api_key;
   

@@ -15,6 +15,7 @@ import Chat from "../components/chat_page/Chat";
 import ChatInput from "../components/chat_page/ChatInput";
 import DiaryModal from "../components/diary/DiaryModal";
 import toast from "react-hot-toast";
+import { startChat } from "../langchain_setup/ChatLangchainConfig";
 
 const Conversation = () => {
   const [user, loading] = useAuthState(auth);
@@ -35,8 +36,21 @@ const Conversation = () => {
       page: "/conversation",
       title: "Conversation Page",
     });
-    addDataForDay(user.email, displayDate);
+    
+    
   }, []);
+
+  useEffect(() => {
+    let content = {};
+
+    const getContent = async() => {
+      content = await startChat();
+      addDataForDay(user.email, displayDate, content);
+    }
+    if (chats?.docs.length == 0 && !loadingc) {
+      getContent();
+    } 
+  }, [loadingc])
 
   useEffect(() => {
     // 👇️ scroll to bottom every time messages change
@@ -51,7 +65,7 @@ const Conversation = () => {
     );
   };
 
-  return loading ? (
+  return (loading || loadingc) ? (
     <Loading />
   ) : (
     <div className="relative z-0 h-screen justify-between flex flex-col bg-contain bg-note-paper text-secondary-brown overflow-hidden">
