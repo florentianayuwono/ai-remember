@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import ReactGA from "react-ga4";
 
-import InputForm from "../../components/common/InputForm";
 import { auth } from "../../firebase_setup/FirebaseConfig";
 import { logo2, googleicon } from "../../assets";
-import CircularIndicator from "../../components/CircularIndicator";
+import {CircularIndicator, InputForm} from "../../components";
 
 const Login = ({ setCookie, cookies }) => {
   const [email, setEmail] = useState("");

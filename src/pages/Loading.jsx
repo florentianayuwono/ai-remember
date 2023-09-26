@@ -1,4 +1,4 @@
-import CircularIndicator from "../components/CircularIndicator";
+import CircularIndicator from "../components/common/CircularIndicator";
 
 
 const Loading = () => {

@@ -1,19 +1,19 @@
-import HomeNavbar from "../components/common/HomeNavbar";
 import ReactGA from "react-ga4";
 import { GiFairyWand } from "react-icons/gi";
 import { useState, useEffect, useRef } from "react";
-import {
-  addDataForDay,
-  auth,
-  firestore,
-} from "../firebase_setup/FirebaseConfig";
+import {auth,firestore} from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { addDoc, collection, query, onSnapshot, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import Loading from "./Loading";
+<<<<<<< HEAD
 import Chat from "../components/chat_page/Chat";
 import ChatInput from "../components/chat_page/ChatInput";
 import DiaryModal from "../components/diary/DiaryModal";
+=======
+import { Chat, ChatInput, DiaryModal, HomeNavbar } from "../components";
+import { continueChat, startChat } from "../langchain_setup/ChatLangchainConfig";
+>>>>>>> main
 
 const Conversation = () => {
   const [user, loading] = useAuthState(auth);
@@ -34,8 +34,26 @@ const Conversation = () => {
       page: "/conversation",
       title: "Conversation Page",
     });
-    addDataForDay(user.email, displayDate);
   }, []);
+
+  useEffect(() => {
+    
+    //create message for today
+    const getNewContent = async () => {
+      await startChat(user.email, displayDate);
+    };
+
+    //get old chat content
+    const getOldContent = async () => {
+      await continueChat(user.email,displayDate);
+    }
+
+    if (chats?.docs.length == 0 && (!loadingc && !loading)) {
+      getNewContent();
+    } else {
+      getOldContent();
+    }
+  }, [loadingc]);
 
   useEffect(() => {
     // 👇️ scroll to bottom every time messages change
@@ -50,21 +68,24 @@ const Conversation = () => {
     );
   };
 
-  return loading ? (
+  return (loading || loadingc) ? (
     <Loading />
   ) : (
-    <div className="relative z-0 h-screen justify-between flex flex-col bg-contain bg-note-paper text-secondary-brown overflow-hidden">
-      <HomeNavbar />
-      <DisplayDate />
-      <div className=" overflow-auto">
-        <Chat chats={chats} />
-        <div ref={bottomRef} />
+    <>
+      <div className="relative z-0 h-screen justify-between flex flex-col bg-contain bg-note-paper text-secondary-brown overflow-hidden">
+        <HomeNavbar />
+        <DisplayDate />
+
+        <div className=" overflow-auto">
+          <Chat chats={chats} />
+          <div ref={bottomRef} />
+        </div>
+        <div className="flex flex-col">
+          <DiaryButton />
+          <ChatInput email={user?.email} date={displayDate} />
+        </div>
       </div>
-      <div className="flex flex-col">
-        <DiaryButton />
-        <ChatInput email={user?.email} date={displayDate} />
-      </div>
-    </div>
+    </>
   );
 };
 

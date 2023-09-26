@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { CHAT_PLACEHOLDER } from "../../constants";
 import { BsFillPencilFill } from "react-icons/bs";
-import { getCountFromServer, serverTimestamp } from "firebase/firestore";
-import { getChatCount, addMsg } from "../../firebase_setup/FirebaseConfig";
+import { serverTimestamp } from "firebase/firestore";
+import { getChatCount } from "../../firebase_setup/FirebaseConfig";
+import toast from "react-hot-toast";
+import { processHumanResponse } from "../../langchain_setup/ChatLangchainConfig";
 
 const ChatInput = ({email,date}) => {
+
   const [prompt, setPrompt] = useState("");
 
 
@@ -12,24 +15,25 @@ const ChatInput = ({email,date}) => {
     e.preventDefault();
     if (!prompt) return;
 
+    //get chat count
     const count = await getChatCount(email,date);
 
-    // get mood based on content
-    const input = prompt.trim();
-    setPrompt("");
-    const msg = {
-      createdAt: serverTimestamp(),
-      isUser: true,
-      content: input,
-      mood: "", //chatai api generated
-    };
-    
-    await addMsg(email,date,msg, count.toString());
-
-    //toast notification
-
-    //send to backend api
-    
+    //send only if ai has sent and user less than 5 msgs
+    if (count % 2 == 1 && count < 10) {
+      // get mood based on content
+      const response = prompt.trim();
+      setPrompt("");
+      
+      await processHumanResponse(email, date, response, count.toString());
+    } else if (count % 2 == 0) {
+      //toast notification to wait
+      toast('paw paw is sorry for being slow... please BEAR it', {
+        icon: '⌛',
+      });
+    } else if (count >= 10) {
+      //alert dialogue to upgrade to pro
+      toast.error("Please upgrade to pro to send more than 5 messages per day")
+    }    
   };
 
   return (
