@@ -52,6 +52,7 @@ let chat_input = [
 //get and store the past chats
 
 
+
 //create initial prompts
 const createMsgToday = () => {
 

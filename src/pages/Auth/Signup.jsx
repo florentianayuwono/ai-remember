@@ -4,9 +4,8 @@ import { signOut } from 'firebase/auth';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import ReactGA from "react-ga4";
 
-import InputForm from "../../components/common/InputForm";
 import { logo2 } from "../../assets";
-import CircularIndicator from "../../components/CircularIndicator";
+import {CircularIndicator, InputForm} from "../../components";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
