@@ -42,21 +42,25 @@ const Diary = () => {
         const data = await getDocs(diaryCollectionRef);
         const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-        const diariesByMonth = Array.from({ length: 12 }, (_, monthKey) => ({
-          month: monthNames[monthKey],
-          diaries: [],
-        }));
+        const diariesByMonth = []
 
         diaries.forEach((diary) => {
           const dateObject = new Date(diary.id);
           const monthKey = dateObject.getMonth();
+
+          if (!diariesByMonth[monthKey]) {
+
+            diariesByMonth[monthKey] = {
+              month: monthNames[monthKey],
+              diaries: []
+            }
+          }
           diariesByMonth[monthKey].diaries.push(diary);
         });
 
         const processedDiaries = Object.values(diariesByMonth);
 
         setDiaryList(processedDiaries);
-        console.log(processedDiaries);
       } catch (error) {
         console.error(error);
       }
