@@ -61,7 +61,6 @@ const Diary = () => {
         const processedDiaries = Object.values(diariesByMonth);
 
         setDiaryList(processedDiaries);
-        console.log(processedDiaries);
       } catch (error) {
         console.error(error);
       }
