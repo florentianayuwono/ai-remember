@@ -1,16 +1,13 @@
 import ReactGA from "react-ga4";
 import { GiFairyWand } from "react-icons/gi";
 import { useState, useEffect, useRef } from "react";
-import {
-  auth,
-  firestore,
-} from "../firebase_setup/FirebaseConfig";
+import {auth,firestore} from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
 import Loading from "./Loading";
-import { Chat, ChatInput, DiaryModal, HomeNavbar, AlertDialog } from "../components";
-import { startChat } from "../langchain_setup/ChatLangchainConfig";
+import { Chat, ChatInput, DiaryModal, HomeNavbar } from "../components";
+import { continueChat, startChat } from "../langchain_setup/ChatLangchainConfig";
 
 const Conversation = () => {
   const [user, loading] = useAuthState(auth);
@@ -34,15 +31,21 @@ const Conversation = () => {
   }, []);
 
   useEffect(() => {
-    let content = {};
-
+    
     //create message for today
-    const getContent = async () => {
+    const getNewContent = async () => {
       await startChat(user.email, displayDate);
     };
 
+    //get old chat content
+    const getOldContent = async () => {
+      await continueChat(user.email,displayDate);
+    }
+
     if (chats?.docs.length == 0 && (!loadingc && !loading)) {
-      getContent();
+      getNewContent();
+    } else {
+      getOldContent();
     }
   }, [loadingc]);
 
