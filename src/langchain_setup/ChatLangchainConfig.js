@@ -3,7 +3,7 @@ import { LLMChain } from "langchain/chains";
 import { ChatPromptTemplate } from "langchain/prompts";
 import { AIMessage, HumanMessage, SystemMessage } from "langchain/schema";
 
-import { addDataForDay, getAllMsg, getOpenAIAPIKey } from "../firebase_setup/FirebaseConfig.js";
+import { addDataForDay, getAllMsg, getOpenAIAPIKey, addMsg } from "../firebase_setup/FirebaseConfig.js";
 
 //get api key from firebase
 const chat_api_key = await getOpenAIAPIKey("openai_api_key");
@@ -24,7 +24,7 @@ const CONVO_PROMPT = "When the user shares their feelings or experiences, respon
 const RELEVANCE_PROMPT = "Prioritize relevant and meaningful conversations. Avoid engaging in topics or discussions that do not contribute to the user's memory journaling or emotional well-being. If the user introduces an unrelated or off-topic subject, gently guide the conversation back to the user's daily experiences, emotions, or memories."
 
 //initialise chats for the user today
-export let chat_input = [
+let chatInput = [
     new SystemMessage(INTRO_PROMPT),
     new SystemMessage(CONVO_PROMPT),
     new SystemMessage(RELEVANCE_PROMPT),
@@ -44,7 +44,7 @@ export const startChat = async(email, date) => {
     })
     
     const startChatData = await startChatChain.call({});
-    chat_input.push(new AIMessage(startChatData.text))
+    chatInput.push(new AIMessage(startChatData.text))
     //text being the text
     addDataForDay(email, date, startChatData);
 }
@@ -54,17 +54,30 @@ export const continueChat = async(email,date) => {
     const chats = await getAllMsg(email,date);
     chats.forEach((chat) => {
         if (chat.isUser) {
-            chat_input.push(new HumanMessage(chat.content))
+            chatInput.push(new HumanMessage(chat.content))
         } else {
-            chat_input.push(new AIMessage(chat.content))
+            chatInput.push(new AIMessage(chat.content))
         }
     })
 }
 
 //continueChat("xuyi9272@gmail.com","September 26, 2023")
 
+//function to receive human message, give response and store both to firebase
+export const processHumanResponse = async(email, date, response, count) => {
+    //add human response
+    await addMsg(email,date, response, count, true);
+    chatInput.push(new HumanMessage(response));
 
-//function to receive human message, give response and store to firebase
-const processHumanResponse = async(email, date) => {
-    
+    //process human reponse to get ai response
+    const chatPrompt = ChatPromptTemplate.fromMessages(chatInput);
+    const chatChain = new LLMChain({
+        llm: chatModel,
+        prompt: chatPrompt,
+    })
+    const chatData = await chatChain.call({});
+
+    //add ai response
+    await addMsg(email,date, chatData.text, count+1, false);
+    chatInput.push(new AIMessage(chatData.text))
 }

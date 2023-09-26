@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { CHAT_PLACEHOLDER } from "../../constants";
 import { BsFillPencilFill } from "react-icons/bs";
 import { serverTimestamp } from "firebase/firestore";
-import { getChatCount, addMsg } from "../../firebase_setup/FirebaseConfig";
+import { getChatCount } from "../../firebase_setup/FirebaseConfig";
 import toast from "react-hot-toast";
+import { processHumanResponse } from "../../langchain_setup/ChatLangchainConfig";
 
 const ChatInput = ({email,date}) => {
 
@@ -20,15 +21,10 @@ const ChatInput = ({email,date}) => {
     //send only if ai has sent and user less than 5 msgs
     if (count % 2 == 1 && count < 10) {
       // get mood based on content
-      const input = prompt.trim();
+      const response = prompt.trim();
       setPrompt("");
-      const msg = {
-        createdAt: serverTimestamp(),
-        isUser: true,
-        content: input,
-      };
       
-      await addMsg(email,date,msg, count.toString());
+      await processHumanResponse(email, date, response, count.toString());
     } else if (count % 2 == 0) {
       //toast notification to wait
       toast('paw paw is sorry for being slow... please BEAR it', {
