@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 
 const ChatInput = ({email,date}) => {
 
-
   const [prompt, setPrompt] = useState("");
 
 
@@ -27,7 +26,6 @@ const ChatInput = ({email,date}) => {
         createdAt: serverTimestamp(),
         isUser: true,
         content: input,
-        mood: "", //chatai api generated
       };
       
       await addMsg(email,date,msg, count.toString());

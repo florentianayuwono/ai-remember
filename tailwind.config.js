@@ -23,8 +23,8 @@ module.exports = {
         "white-100": "#f3f3f3",
       },
       fontFamily: {
-        "handwriting-bear": ['Shadows Into Light'],
-        "handwriting-user": ['Caveat'],
+        "handwriting-user": ['Shadows Into Light'],
+        "handwriting-bear": ['Caveat'],
       },
       boxShadow: {
         card: "0px 35px 120px -15px #1e351f",

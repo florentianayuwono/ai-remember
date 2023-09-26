@@ -11,7 +11,6 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
 import Loading from "./Loading";
 import { Chat, ChatInput, DiaryModal, HomeNavbar, AlertDialog } from "../components";
-import toast from "react-hot-toast";
 import { startChat } from "../langchain_setup/ChatLangchainConfig";
 
 const Conversation = () => {
@@ -38,10 +37,12 @@ const Conversation = () => {
   useEffect(() => {
     let content = {};
 
+    //create message for today
     const getContent = async () => {
       content = await startChat();
       addDataForDay(user.email, displayDate, content);
     };
+
     if (chats?.docs.length == 0 && !loadingc) {
       getContent();
     }

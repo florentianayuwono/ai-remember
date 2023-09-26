@@ -52,12 +52,6 @@ let chat_input = [
 //get and store the past chats
 
 
-
-//create initial prompts
-const createMsgToday = () => {
-
-}
-
 //get initial response and store response for chat model
 
 //function to receive human message, give response and store to firebase
