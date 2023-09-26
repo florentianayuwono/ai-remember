@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, updateDoc, getCountFromServer,setDoc, getDoc, addDoc, serverTimestamp,collection } from "@firebase/firestore"
+import { getFirestore, doc, query, updateDoc, where, getCountFromServer,setDoc, getDoc, getDocs, addDoc, serverTimestamp,collection } from "@firebase/firestore"
 import { getAuth } from "firebase/auth"
 
 const firebaseConfig = {
@@ -60,10 +60,32 @@ const addMsg = async (email, date, msg, chatId) => {
   await setDoc(ref, msg);
 }
 
-const getAllMsg = async() => {
+const getAllMsg = async(email,date) => {
+  let chats = []
   const coll = collection(firestore, 'users', email,'dates',date, "chats");
-
+  const q = query(collection(firestore, 'users', email,'dates',date, "chats"));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    chats.push(doc.data())
+  });
+  return chats
 }
+
+//getAllMsg("xuyi9272@gmail.com","September 26, 2023")
+
+const getHumanMsg = async(email,date) => {
+  let chats = []
+  const q = query(collection(firestore, 'users', email,'dates',date, "chats"), where("isUser", "==", true));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    chats.push(doc.data())
+  });
+  return chats
+}
+
+//getHumanMsg("xuyi9272@gmail.com","September 26, 2023")
 
 //not very safe for public repo
 const getOpenAIAPIKey = async(docName) => {
@@ -74,4 +96,4 @@ const getOpenAIAPIKey = async(docName) => {
 }
 
 
-export { auth, firestore, getOpenAIAPIKey, addDataForDay, getChatCount, addMsg };
+export { auth, firestore, getOpenAIAPIKey, getAllMsg, getHumanMsg, addDataForDay, getChatCount, addMsg };

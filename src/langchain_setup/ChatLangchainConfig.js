@@ -3,7 +3,7 @@ import { LLMChain } from "langchain/chains";
 import { ChatPromptTemplate } from "langchain/prompts";
 import { HumanMessage, SystemMessage } from "langchain/schema";
 
-import { getOpenAIAPIKey } from "../firebase_setup/FirebaseConfig.js";
+import { addDataForDay, getOpenAIAPIKey } from "../firebase_setup/FirebaseConfig.js";
 
 //get api key from firebase
 const chat_api_key = await getOpenAIAPIKey("openai_api_key");
@@ -24,7 +24,7 @@ const CONVO_PROMPT = "When the user shares their feelings or experiences, respon
 const RELEVANCE_PROMPT = "Prioritize relevant and meaningful conversations. Avoid engaging in topics or discussions that do not contribute to the user's memory journaling or emotional well-being. If the user introduces an unrelated or off-topic subject, gently guide the conversation back to the user's daily experiences, emotions, or memories."
 
 //input to start the chat from AI
-export const startChat = async() => {
+export const startChat = async(email, date) => {
     const startChatInput = [
         new SystemMessage(INTRO_PROMPT),
         new SystemMessage(CONVO_START_PROMPT)
@@ -38,18 +38,16 @@ export const startChat = async() => {
     
     const startChatData = await startChatChain.call({});
     //text being the text
-    return startChatData;
+    addDataForDay(email, date, startChatData);
 }
 
 
 //initialise chats for the user today
-let chat_input = [
+export let chat_input = [
     new SystemMessage(INTRO_PROMPT),
     new SystemMessage(CONVO_PROMPT),
     new SystemMessage(RELEVANCE_PROMPT),
 ]
-
-//get and store the past chats
 
 
 //get initial response and store response for chat model

@@ -2,7 +2,6 @@ import ReactGA from "react-ga4";
 import { GiFairyWand } from "react-icons/gi";
 import { useState, useEffect, useRef } from "react";
 import {
-  addDataForDay,
   auth,
   firestore,
 } from "../firebase_setup/FirebaseConfig";
@@ -39,11 +38,10 @@ const Conversation = () => {
 
     //create message for today
     const getContent = async () => {
-      content = await startChat();
-      addDataForDay(user.email, displayDate, content);
+      await startChat(user.email, displayDate);
     };
 
-    if (chats?.docs.length == 0 && !loadingc) {
+    if (chats?.docs.length == 0 && (!loadingc && !loading)) {
       getContent();
     }
   }, [loadingc]);
