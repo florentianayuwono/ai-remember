@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import {auth,firestore} from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection } from "firebase/firestore";
+import { addDoc, collection, query, onSnapshot, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import Loading from "./Loading";
 import { Chat, ChatInput, DiaryModal, HomeNavbar } from "../components";
 import { continueChat, startChat } from "../langchain_setup/ChatLangchainConfig";
@@ -84,38 +84,15 @@ const Conversation = () => {
 };
 
 const DiaryButton = () => {
+  const [user, loading] = useAuthState(auth);
   const openState = useState(false);
   const [isDiaryModalOpen, setIsDiaryModalOpen] = openState;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  
   const handleClosePopup = () => {
     setIsDiaryModalOpen(false);
-  };
-
-  const handleSubmitDiary = async (e) => {
-    e.preventDefault();
-
-    // try {
-    //   if (title !== "" && content !== "") {
-    //     await addDoc(postsCollectionRef, {
-    //       title,
-    //       content,
-    //       author_uid: user?.uid,
-    //       // logo: user?.photoURL,
-    //       // name: user?.displayName || userData?.name,
-    //       // email: user?.email || userData?.email,
-    //       timestamp: serverTimestamp(),
-    //     });
-    //     handleClosePopup();
-    //     setTitle("");
-    //     setContent("");
-    //     toast.success("Successful created post!");
-    //   } else {
-    //     toast.error("Title and content can't be empty!");
-    //   }
-    // } catch (err) {
-    //   toast.error(err.message);
-    // }
   };
 
   const openDiaryModal = () => {
@@ -127,14 +104,14 @@ const DiaryButton = () => {
       {isDiaryModalOpen ? (
         // Step 2: Use the imported DiaryModal component
         <DiaryModal
-          openState={openState}
-          handleClosePopup={handleClosePopup}
-          title={title}
-          content={content}
-          handleSubmitDiary={handleSubmitDiary}
-          setTitle={setTitle}
-          setContent={setContent}
-        />
+        openState={openState}
+        handleClosePopup={handleClosePopup}
+        title={title}
+        content={content}
+        setTitle={setTitle}
+        setContent={setContent}
+        email={user.email}
+      />
       ) : (
         <div
           className="flex items-center justify-center mb-2 py-2 px-4 rounded-2xl bg-primary-pink bg-opacity-50 text-secondary-purple select-none"

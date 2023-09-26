@@ -1,7 +1,8 @@
-import { useEffect } from "react";
 import Vara from "vara";
+import { useEffect } from "react";
 
 const VaraText = ({ text, color, size }) => {
+
   useEffect(() => {
     let vara = null;
 
@@ -29,16 +30,14 @@ const VaraText = ({ text, color, size }) => {
       }
     };
 
-    // Initialize Vara when the component mounts
     initializeVara();
-
     // Clear the Vara container when the text prop changes or when the component unmounts
     return () => {
       clearVaraContainer();
     };
-  }, [text]);
+  }, [color, size, text]);
 
-  return <div id="vara-container" className="z-[20]"></div>;
+  return <div id="vara-container" className={`z-[20]`}></div>;
 };
 
 export default VaraText;

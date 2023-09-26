@@ -1,10 +1,8 @@
-import { useState } from "react";
 import Modal from "react-modal";
-import InputForm from "../common/InputForm";
-import VaraText from "./VaraText";
 import { close } from "../../assets";
+import { updateDiaryContent } from "../../firebase_setup/FirebaseConfig";
 
-const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, setContent, handleSubmitDiary }) => {
+const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, setContent, email, date }) => {
   const [isDiaryOpen, setIsDiaryOpen] = openState;
 
   const handleTitleChange = (e) => {
@@ -14,6 +12,17 @@ const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, set
   const handleContentChange = (e) => {
     setContent(e.target.value);
   };
+
+  const handleSubmitDiary = async () => {
+    let newDate = new Date();
+    let displayDate = newDate.toLocaleDateString("en-En", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    await updateDiaryContent(email, displayDate, content);
+    handleClosePopup();
+  }
 
   return (
     <>

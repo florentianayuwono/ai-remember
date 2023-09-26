@@ -1,4 +1,3 @@
-import { crush } from "../../assets";
 import { useState } from "react";
 import DiaryStaticModal from "./DiaryStaticModal";
 
@@ -38,8 +37,10 @@ const Calendar = ({ month, diaries }) => {
 
   const openState = useState(false);
   const [isDiaryModalOpen, setIsDiaryModalOpen] = openState;
+  const [selectedDiary, setSelectedDiary] = useState(null);
   const handleClosePopup = () => {
     setIsDiaryModalOpen(false);
+    setSelectedDiary(null);
   };
 
   const handleEditDiary = async (e) => {
@@ -68,8 +69,17 @@ const Calendar = ({ month, diaries }) => {
     // }
   };
 
-  const openDiaryModal = () => {
+  const openDiaryModal = (day) => {
     setIsDiaryModalOpen(true);
+    const formattedCurrentDay = `${
+      monthNames[monthNames.indexOf(month)]
+    } ${day}, ${year}`;
+    const diaryEntry = diaries.find(
+      (diary) => diary.id === formattedCurrentDay
+    );
+
+    // Set the selected diary entry
+    setSelectedDiary(diaryEntry.diary);
   };
 
   return (
@@ -114,7 +124,6 @@ const Calendar = ({ month, diaries }) => {
                     const diaryEntry = diaries.find(
                       (diary) => diary.id === formattedCurrentDay
                     );
-                    console.log(diaryEntry);
                     return (
                       <td
                         key={colIndex}
@@ -133,36 +142,16 @@ const Calendar = ({ month, diaries }) => {
                             </div>
                             <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer">
                               {diaryEntry && diaryEntry.diary !== "" ? (
-                                isDiaryModalOpen && diaryEntry ? (
-                                  <>
-                                    <div
-                                      className="event bg-primary-blue text-black rounded-full px-5 py-1 text-sm mb-1 truncate cursor-pointer"
-                                      onClick={openDiaryModal}
-                                    >
-                                      <span className="event-name">
-                                        {diaryEntry ? diaryEntry.diary : ""}
-                                      </span>
-                                    </div>
-                                    <DiaryStaticModal
-                                      openState={openState}
-                                      handleClosePopup={handleClosePopup}
-                                      title="Dear diary,"
-                                      content={diaryEntry.diary}
-                                      handleEditDiary={handleEditDiary}
-                                    />
-                                  </>
-                                ) : (
-                                  <div
-                                    className="event bg-primary-blue text-black rounded-full px-5 py-1 text-sm mb-1 truncate cursor-pointer"
-                                    onClick={openDiaryModal}
-                                  >
-                                    <span className="event-name">
-                                      {diaryEntry ? diaryEntry.diary : ""}
-                                    </span>
-                                  </div>
-                                )
+                                <div
+                                  className="event bg-primary-blue text-black rounded-full px-4 py-1 mx-auto text-sm mb-1 truncate cursor-pointer"
+                                  onClick={() => openDiaryModal(day)}
+                                >
+                                  <span className="event-name">
+                                    {diaryEntry ? diaryEntry.diary : ""}
+                                  </span>
+                                </div>
                               ) : (
-                                <div className="event bg-gray-100 text-black rounded-full px-5 py-1 text-sm mb-1 truncate">
+                                <div className="event bg-gray-100 text-black rounded-full px-5 py-1 text-sm mb-1 truncate invisible sm:visible">
                                   <span className="event-name">
                                     No diary yet
                                   </span>
@@ -179,6 +168,16 @@ const Calendar = ({ month, diaries }) => {
               )
             )}
           </tbody>
+          {/* Render individual modal components */}
+          {selectedDiary !== null && (
+            <DiaryStaticModal
+              openState={openState}
+              handleClosePopup={handleClosePopup}
+              title="Dear diary,"
+              content={selectedDiary} // You can pass the content corresponding to the selected day here
+              handleEditDiary={handleEditDiary}
+            />
+          )}
         </table>
       </div>
     </div>
