@@ -153,7 +153,7 @@ const Calendar = ({ month, diaries }) => {
                                   </>
                                 ) : (
                                   <div
-                                    className="event bg-primary-blue text-black rounded-full px-5 py-1 text-sm mb-1 truncate cursor-pointer"
+                                    className="event bg-primary-blue text-black rounded-full px-4 py-1 mx-auto text-sm mb-1 truncate cursor-pointer"
                                     onClick={openDiaryModal}
                                   >
                                     <span className="event-name">
@@ -162,7 +162,7 @@ const Calendar = ({ month, diaries }) => {
                                   </div>
                                 )
                               ) : (
-                                <div className="event bg-gray-100 text-black rounded-full px-5 py-1 text-sm mb-1 truncate">
+                                <div className="event bg-gray-100 text-black rounded-full px-5 py-1 text-sm mb-1 truncate invisible sm:visible">
                                   <span className="event-name">
                                     No diary yet
                                   </span>
