@@ -132,21 +132,35 @@ const Calendar = ({ month, diaries }) => {
                               <span className="text-gray-500">{day}</span>
                             </div>
                             <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer">
-                              {diaryEntry && diaryEntry.diary != "" ? (
-                                <div className="event bg-primary-blue text-black rounded-full px-5 py-1 text-sm mb-1 truncate cursor-pointer" onClick={openDiaryModal}>
-                                  <span className="event-name">
-                                    {diaryEntry.diary}
-                                  </span>
-                                  {isDiaryModalOpen ? (
-                                    // Step 2: Use the imported DiaryModal component
+                              {diaryEntry && diaryEntry.diary !== "" ? (
+                                isDiaryModalOpen && diaryEntry ? (
+                                  <>
+                                    <div
+                                      className="event bg-primary-blue text-black rounded-full px-5 py-1 text-sm mb-1 truncate cursor-pointer"
+                                      onClick={openDiaryModal}
+                                    >
+                                      <span className="event-name">
+                                        {diaryEntry ? diaryEntry.diary : ""}
+                                      </span>
+                                    </div>
                                     <DiaryStaticModal
-                                    openState={openState}
-                                    handleClosePopup={handleClosePopup}
-                                    title={diaryEntry.diary}
-                                    content={diaryEntry.diary}
-                                    handleEditDiary={handleEditDiary}
-                                  />) : ""}
-                                </div>
+                                      openState={openState}
+                                      handleClosePopup={handleClosePopup}
+                                      title={diaryEntry.diary}
+                                      content={diaryEntry.diary}
+                                      handleEditDiary={handleEditDiary}
+                                    />
+                                  </>
+                                ) : (
+                                  <div
+                                    className="event bg-primary-blue text-black rounded-full px-5 py-1 text-sm mb-1 truncate cursor-pointer"
+                                    onClick={openDiaryModal}
+                                  >
+                                    <span className="event-name">
+                                      {diaryEntry ? diaryEntry.diary : ""}
+                                    </span>
+                                  </div>
+                                )
                               ) : (
                                 <div className="event bg-gray-100 text-black rounded-full px-5 py-1 text-sm mb-1 truncate">
                                   <span className="event-name">
