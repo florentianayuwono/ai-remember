@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Modal from "react-modal";
 import { close } from "../../assets";
 import { updateDiaryContent } from "../../firebase_setup/FirebaseConfig";
