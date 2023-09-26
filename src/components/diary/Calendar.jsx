@@ -1,5 +1,6 @@
-import { AiFillPrinter } from "react-icons/ai";
 import { crush } from "../../assets";
+import { useState } from "react";
+import DiaryStaticModal from "./DiaryStaticModal";
 
 const Calendar = ({ month, diaries }) => {
   const monthNames = [
@@ -34,6 +35,42 @@ const Calendar = ({ month, diaries }) => {
       return day;
     }
   );
+
+  const openState = useState(false);
+  const [isDiaryModalOpen, setIsDiaryModalOpen] = openState;
+  const handleClosePopup = () => {
+    setIsDiaryModalOpen(false);
+  };
+
+  const handleEditDiary = async (e) => {
+    e.preventDefault();
+
+    // try {
+    //   if (title !== "" && content !== "") {
+    //     await addDoc(postsCollectionRef, {
+    //       title,
+    //       content,
+    //       author_uid: user?.uid,
+    //       // logo: user?.photoURL,
+    //       // name: user?.displayName || userData?.name,
+    //       // email: user?.email || userData?.email,
+    //       timestamp: serverTimestamp(),
+    //     });
+    //     handleClosePopup();
+    //     setTitle("");
+    //     setContent("");
+    //     toast.success("Successful created post!");
+    //   } else {
+    //     toast.error("Title and content can't be empty!");
+    //   }
+    // } catch (err) {
+    //   toast.error(err.message);
+    // }
+  };
+
+  const openDiaryModal = () => {
+    setIsDiaryModalOpen(true);
+  };
 
   return (
     <div className="container mx-auto pt-20 py-10">
@@ -96,10 +133,19 @@ const Calendar = ({ month, diaries }) => {
                             </div>
                             <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer">
                               {diaryEntry && diaryEntry.diary != "" ? (
-                                <div className="event bg-primary-blue text-black rounded-full px-5 py-1 text-sm mb-1 truncate">
+                                <div className="event bg-primary-blue text-black rounded-full px-5 py-1 text-sm mb-1 truncate cursor-pointer" onClick={openDiaryModal}>
                                   <span className="event-name">
                                     {diaryEntry.diary}
                                   </span>
+                                  {isDiaryModalOpen ? (
+                                    // Step 2: Use the imported DiaryModal component
+                                    <DiaryStaticModal
+                                    openState={openState}
+                                    handleClosePopup={handleClosePopup}
+                                    title={diaryEntry.diary}
+                                    content={diaryEntry.diary}
+                                    handleEditDiary={handleEditDiary}
+                                  />) : ""}
                                 </div>
                               ) : (
                                 <div className="event bg-gray-100 text-black rounded-full px-5 py-1 text-sm mb-1 truncate">
