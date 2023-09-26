@@ -130,10 +130,6 @@ const getOpenAIAPIKey = async (docName) => {
   return docSnap?.data().api_key;
 };
 
-<<<<<<< HEAD
-
-export { auth, firestore, getOpenAIAPIKey, addDataForDay, updateDiaryContent, getChatCount, addMsg };
-=======
 export {
   auth,
   firestore,
@@ -143,5 +139,5 @@ export {
   addDataForDay,
   getChatCount,
   addMsg,
+  updateDiaryContent
 };
->>>>>>> main

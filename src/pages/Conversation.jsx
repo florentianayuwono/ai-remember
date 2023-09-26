@@ -6,14 +6,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { addDoc, collection, query, onSnapshot, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import Loading from "./Loading";
-<<<<<<< HEAD
-import Chat from "../components/chat_page/Chat";
-import ChatInput from "../components/chat_page/ChatInput";
-import DiaryModal from "../components/diary/DiaryModal";
-=======
 import { Chat, ChatInput, DiaryModal, HomeNavbar } from "../components";
 import { continueChat, startChat } from "../langchain_setup/ChatLangchainConfig";
->>>>>>> main
 
 const Conversation = () => {
   const [user, loading] = useAuthState(auth);
