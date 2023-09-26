@@ -60,5 +60,13 @@ const addMsg = async (email, date, msg, chatId) => {
   await setDoc(ref, msg);
 }
 
+//not very safe for public repo
+const getOpenAIAPIKey = async() => {
+  const docRef = doc(firestore,"api_key","openai_api_key");
+  const docSnap = await getDoc(docRef);
+  return docSnap?.data().api_key;
+  
+}
 
-export { auth, firestore, addDataForDay, getChatCount, addMsg };
+
+export { auth, firestore, getOpenAIAPIKey, addDataForDay, getChatCount, addMsg };
