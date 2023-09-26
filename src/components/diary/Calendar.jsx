@@ -146,7 +146,7 @@ const Calendar = ({ month, diaries }) => {
                                     <DiaryStaticModal
                                       openState={openState}
                                       handleClosePopup={handleClosePopup}
-                                      title={diaryEntry.diary}
+                                      title="Dear diary,"
                                       content={diaryEntry.diary}
                                       handleEditDiary={handleEditDiary}
                                     />

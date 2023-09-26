@@ -18,8 +18,8 @@ const DiaryStaticModal = ({ openState, handleClosePopup, title, content, handleE
         >
           <div className="flex flex-col gap-x-4 max-w-sm flex-wrap m-5 sm:mx-auto my-10">
           <img src={close} alt="menu" className="w-[30px] h-[30px] object-contain cursor-pointer fixed right-5 top-5 bg-pink-500 p-1" onClick={handleClosePopup} />
-            <span className="bg-transparent sm:text-[20px] text-[16px] text-red-600 placeholder:text-red-600 italic" value={title} placeholder="A day in my 🌟life🌟!" />
-            <span className="bg-transparent sm:text-[18px] text-[14px] text-black italic" rows="10" value={content} placeholder="Dear diary, today I spilled the tea hehe." />
+            <div className="bg-transparent sm:text-[20px] text-[16px] text-red-600 placeholder:text-red-600 italic"><VaraText text={title} color="purple" size="20" /></div> 
+            <div className="bg-transparent sm:text-[18px] text-[14px] text-black italic text-ellipsis"><VaraText text={content} color="black" size="16" /></div>
 
             <div className="flex flex-wrap gap-x-10 my-6 justify-start absolute bottom-10">
               <button
