@@ -7,7 +7,7 @@ const ChatRow = ({ chat }) => {
     return (
       <div className=" text-secondary-brown min-w-[100px] flex flex-col justify-center items-center max-w-[300px] w-[100px] mr-2">
         <img src={logo2} alt="AI-Bear" />
-        <div className="italic font-bold text-lg ">Bearly</div>
+        <div className="italic font-bold text-lg ">paw paw</div>
       </div>
     );
   };
