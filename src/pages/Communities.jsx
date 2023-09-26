@@ -3,22 +3,34 @@ import ReactGA from "react-ga4";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { PostCard, PostModal } from "../components/community/Post";
+import { PostCard, CreatePostModal, EditPostModal } from "../components/community/Post";
 import { firestore } from "../firebase_setup/FirebaseConfig";
-import { addDoc, collection, query, onSnapshot, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 
 const Communities = ({ user }) => {
-  const openState = useState(false);
-  const [isOpen, setIsOpen] = openState;
+  const [currentPost, setCurrentPost] = useState();
+  const createPostModalState = useState(false);
+  const [isCreatePostModalOpen, setIsCreatePostModalOpen] = createPostModalState;
+  const editPostModalState = useState(false);
+  const [isEditPostModalOpen, setIsEditPostModalOpen] = editPostModalState;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const postsCollectionRef = collection(firestore, "community");
   const [posts, loading, error] = useCollection(postsCollectionRef);
 
-  const handleClosePopup = () => {
-    setIsOpen(false);
+  const openEditPost = (post) => {
+    setCurrentPost(post);
+    setIsEditPostModalOpen(true);
+  };
+
+  const handleCloseCreatePostModal = () => {
+    setIsCreatePostModalOpen(false);
+  };
+
+  const handleCloseEditPostModal = () => {
+    setIsEditPostModalOpen(false);
   };
 
   const handleSubmitPost = async (e) => {
@@ -30,12 +42,11 @@ const Communities = ({ user }) => {
           title,
           content,
           author_uid: user?.uid,
-          // logo: user?.photoURL,
-          // name: user?.displayName || userData?.name,
-          // email: user?.email || userData?.email,
+          author_name: user?.displayName,
+          likes: [],
           timestamp: serverTimestamp(),
         });
-        handleClosePopup();
+        handleCloseCreatePostModal();
         setTitle("");
         setContent("");
         toast.success("Successful created post!");
@@ -45,6 +56,10 @@ const Communities = ({ user }) => {
     } catch (err) {
       toast.error(err.message);
     }
+  };
+
+  const handleEditPost = async (id, newTitle, newContent) => {
+    await updateDoc(doc(firestore, "community", id), { title: newTitle, content: newContent });
   };
 
   const handleDeletePost = async (id) => {
@@ -65,19 +80,25 @@ const Communities = ({ user }) => {
   return (
     <div className="relative z-0 h-screen bg-primary-lightpink text-secondary-brown overflow-y-scroll">
       <HomeNavbar />
-      <PostModal
-        openState={openState}
-        handleClosePopup={handleClosePopup}
+      <CreatePostModal
+        openState={createPostModalState}
+        handleClosePopup={handleCloseCreatePostModal}
         title={title}
         content={content}
         handleSubmitPost={handleSubmitPost}
         setTitle={setTitle}
         setContent={setContent}
       />
+      {/* <EditPostModal
+        openState={editPostModalState}
+        post={currentPost}
+        handleClosePopup={handleCloseEditPostModal}
+        handleEditPost={handleEditPost}
+      /> */}
       <div className="absolute top-[120px] w-screen">
         <div
-          className="bg-white rounded-lg shadow-xl p-4 mx-auto max-w-screen-md max-h-64 flex flex-col items-center justify-center mb-10 cursor-pointer"
-          onClick={() => setIsOpen(true)}
+          className="bg-white rounded-lg shadow-xl p-4 mx-auto max-w-screen-sm max-h-64 flex flex-col items-center justify-center mb-10 cursor-pointer"
+          onClick={() => setIsCreatePostModalOpen(true)}
         >
           Have something to share?
           <BsFillPlusSquareFill className="w-8 h-8 m-12" />
@@ -89,11 +110,11 @@ const Communities = ({ user }) => {
               <PostCard
                 key={index}
                 user={user}
-                title={post.data().title}
-                content={post.data().content}
                 post={post}
                 id={post.data().id}
                 handleDeletePost={handleDeletePost}
+                openEditPost={() => setIsEditPostModalOpen(true)}
+                handleEditPost={handleEditPost}
               ></PostCard>
             );
           })}
