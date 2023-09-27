@@ -73,7 +73,7 @@ export const startChat = async (email, date) => {
 
   const startChatData = await startChatChain.call({});
   let text = startChatData.text;
-  text = text.substr(
+  text = text.slice(
     0,
     Math.max(
       text.lastIndexOf("!") + 1,
@@ -110,7 +110,7 @@ export const processHumanResponse = async (email, date, response, count) => {
       prompt: chatPrompt,
     });
     const chatData = await chatChain.call({});
-    text = chatData.text;
+    let text = chatData.text;
     text = text.slice(
       0,
       Math.max(
@@ -152,5 +152,5 @@ const askingForPastEvents = async(email, response) => {
         diary: diary,
         response: response
     });
-    text = chatData.text;
+    let text = chatData.text;
 }
