@@ -1,13 +1,14 @@
 import ReactGA from "react-ga4";
 import { GiFairyWand } from "react-icons/gi";
 import { useState, useEffect, useRef } from "react";
-import {auth,firestore} from "../firebase_setup/FirebaseConfig";
+import {auth,firestore, getHumanMsg} from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { addDoc, collection, query, onSnapshot, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import Loading from "./Loading";
 import { Chat, ChatInput, DiaryModal, HomeNavbar } from "../components";
 import { continueChat, startChat } from "../langchain_setup/ChatLangchainConfig";
+import { diaryGenerator } from "../langchain_setup/DiaryLangChainConfig";
 
 const Conversation = () => {
   const [user, loading] = useAuthState(auth);
@@ -87,10 +88,36 @@ const DiaryButton = () => {
   const [user, loading] = useAuthState(auth);
   const openState = useState(false);
   const [isDiaryModalOpen, setIsDiaryModalOpen] = openState;
+
+  let newDate = new Date();
+  let displayDate = newDate.toLocaleDateString("en-En", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  
+  useEffect(() => {
+    // Perform the asynchronous operation and update the state when it's done
+    const fetchDiaryContent = async () => {
+      try {
+        const userChats = await getHumanMsg(user.email, displayDate);
+        console.log("chat:"+ userChats)
+        const content = await diaryGenerator(userChats);
+        console.log(content)
+        setContent(content);
+        
+      } catch (error) {
+        // Handle errors if needed
+        console.error("An error occurred:", error);
+      }
+    };
+
+    fetchDiaryContent(); // Call the async function when the component mounts
+  }, [displayDate, user.email]); 
+
   const handleClosePopup = () => {
     setIsDiaryModalOpen(false);
   };
@@ -98,6 +125,17 @@ const DiaryButton = () => {
   const openDiaryModal = () => {
     setIsDiaryModalOpen(true);
   };
+
+  const handleRegenerateDiary = async () => {
+    try {
+      const userChats = await getHumanMsg(user.email, displayDate);
+      const newContent = await diaryGenerator(userChats);
+      setContent(newContent);
+    } catch (error) {
+      // Handle errors if needed
+      console.error("An error occurred while regenerating the diary:", error);
+    }
+  }
 
   return (
     <div className="flex items-center justify-center cursor-pointer">
@@ -111,6 +149,7 @@ const DiaryButton = () => {
         setTitle={setTitle}
         setContent={setContent}
         email={user.email}
+        handleRegenerateDiary={handleRegenerateDiary}
       />
       ) : (
         <div

@@ -1,8 +1,11 @@
 import Modal from "react-modal";
 import { close } from "../../assets";
 import { updateDiaryContent } from "../../firebase_setup/FirebaseConfig";
+import { auth, getHumanMsg } from "../../firebase_setup/FirebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { diaryGenerator } from "../../langchain_setup/DiaryLangChainConfig";
 
-const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, setContent, email, date }) => {
+const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, setContent, email, handleRegenerateDiary }) => {
   const [isDiaryOpen, setIsDiaryOpen] = openState;
 
   const handleTitleChange = (e) => {
@@ -38,7 +41,7 @@ const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, set
           <div className="flex flex-col gap-x-4 max-w-sm flex-wrap m-5 sm:mx-auto my-10">
           <img src={close} alt="menu" className="w-[30px] h-[30px] object-contain cursor-pointer fixed right-5 top-5 bg-pink-500 p-1" onClick={handleClosePopup} />
             <textarea className="bg-transparent sm:text-[20px] text-[16px] text-red-600 placeholder:text-red-600 italic" value={title} onChange={handleTitleChange} placeholder="A day in my 🌟life🌟!" />
-            <textarea className="bg-transparent sm:text-[18px] text-[14px] text-black italic" rows="10" value={content} onChange={handleContentChange} placeholder="Dear diary, today I spilled the tea hehe." />
+            <textarea className="bg-transparent sm:text-[18px] text-[14px] text-black italic" rows="10" value={content} onChange={handleContentChange} placeholder="Dear diary, today I spilled the tea hehe.">{content}</textarea>
 
             <div className="flex flex-wrap gap-x-10 my-6 justify-start absolute bottom-10">
               <button
@@ -51,7 +54,7 @@ const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, set
               <button
                 className="border border-purple-500 bg-white text-purple-700 hover:bg-purple-500 hover:text-white w-auto h-10 py-2 px-4 rounded-3xl "
                 type="submit"
-                onClick={handleClosePopup}
+                onClick={handleRegenerateDiary}
               >
                 Regenerate diary
               </button>
