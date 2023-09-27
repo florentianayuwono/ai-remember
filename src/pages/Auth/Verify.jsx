@@ -1,5 +1,5 @@
 import { logo2 } from "../../assets";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputForm from "../../components/common/InputForm";
 import ReactGA from "react-ga4";
 
