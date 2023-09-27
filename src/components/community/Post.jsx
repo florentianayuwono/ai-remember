@@ -293,7 +293,6 @@ const ChooseDiary = ({ user, setTitle, setContent }) => {
 
     setSelectedTitle(id);
     setSelectedContent(option.target.value);
-    console.log(selectedTitle);
   };
 
   const handleImportDiary = () => {
@@ -308,6 +307,10 @@ const ChooseDiary = ({ user, setTitle, setContent }) => {
     <div className="text-gray-900 flex flex-col gap-y-2 mb-4">
       Select a diary to import the content!
       <select className="w-full px-4 py-2 border bg-white rounded-xl focus:ring-1 focus:ring-black" onChange={handleSelectChange}>
+        <option value="none" selected disabled hidden>
+          Select an Option
+        </option>
+
         {diaries?.docs.map((x, index) => {
           return (
             <option value={x.data().diary || ""} key={index} data-key={x.id} onClick={() => handleSelectChange(x)}>
