@@ -17,6 +17,7 @@ const Communities = ({ user }) => {
   const [isEditPostModalOpen, setIsEditPostModalOpen] = editPostModalState;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [isAnon, setIsAnon] = useState(false);
 
   const postsCollectionRef = collection(firestore, "community");
   const [posts, loading, error] = useCollection(postsCollectionRef);
@@ -44,6 +45,7 @@ const Communities = ({ user }) => {
           content,
           author_uid: user?.uid,
           author_name: user?.displayName,
+          is_anon: isAnon,
           likes: [],
           comment_count: 0,
           timestamp: serverTimestamp(),
@@ -79,9 +81,11 @@ const Communities = ({ user }) => {
         handleClosePopup={handleCloseCreatePostModal}
         title={title}
         content={content}
-        handleSubmitPost={handleSubmitPost}
+        isAnon={isAnon}
         setTitle={setTitle}
         setContent={setContent}
+        setIsAnon={setIsAnon}
+        handleSubmitPost={handleSubmitPost}
       />
       {/* <EditPostModal
         openState={editPostModalState}

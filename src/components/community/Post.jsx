@@ -31,7 +31,7 @@ const Post = ({ user }) => {
       <div className="absolute top-[120px] w-screen">
         <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-fit overflow-y-hidden flex justify-between">
           <div>
-            <h1 className="text-sm">{post.data().author_name}</h1>
+            <h1 className="text-sm">{post.data().is_anon ? "Anon" : post.data().author_name}</h1>
             <h2 className="text-xl font-semibold mb-2">{post.data().title}</h2>
             <p className="text-gray-600">{post.data().content}</p>
             <div className="flex gap-x-2">
@@ -74,7 +74,7 @@ const PostCard = ({ post, user }) => {
       <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm h-40 overflow-y-hidden flex justify-between">
         <div>
           <div className="flex flex-row gap-x-2 items-center text-sm">
-            <h1>{post.data().author_name ?? "Anon"}</h1>
+            <h1>{post.data().is_anon ? "Anon" : post.data().author_name}</h1>
           </div>
           <Link to={`/post/${post.id}`}>
             <div className="w-full overflow-y-hidden text-ellipsis">
@@ -98,7 +98,18 @@ const PostCard = ({ post, user }) => {
   );
 };
 
-const CreatePostModal = ({ user, openState, handleClosePopup, title, content, setTitle, setContent, handleSubmitPost }) => {
+const CreatePostModal = ({
+  user,
+  openState,
+  handleClosePopup,
+  title,
+  content,
+  isAnon,
+  setTitle,
+  setContent,
+  setIsAnon,
+  handleSubmitPost,
+}) => {
   const [isOpen, setIsOpen] = openState;
 
   const handleTitleChange = (e) => {
@@ -107,6 +118,10 @@ const CreatePostModal = ({ user, openState, handleClosePopup, title, content, se
 
   const handleContentChange = (e) => {
     setContent(e.target.value);
+  };
+
+  const handleCheckboxChange = () => {
+    setIsAnon(!isAnon);
   };
 
   return (
@@ -136,7 +151,16 @@ const CreatePostModal = ({ user, openState, handleClosePopup, title, content, se
               handleChange={handleContentChange}
               placeholder="Content for your post"
             />
-
+            <div className="flex items-center mb-4 bg-white">
+              <input
+                id="default-checkbox"
+                type="checkbox"
+                value={isAnon}
+                className=" h-6 w-6 accent-gray-700  bg-grey-700 text-red-500  rounded cursor-pointer"
+                onChange={handleCheckboxChange}
+              />
+              <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Post anonymously?</label>
+            </div>
             <div className="flex flex-wrap gap-x-10 my-6 ">
               <button
                 className="bg-purple-500 hover:bg-purple-700 text-white w-24 h-10 py-2 px-4 rounded-3xl "
