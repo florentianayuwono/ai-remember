@@ -14,6 +14,23 @@ import {
 //get api key from firebase
 const chat_api_key = await getOpenAIAPIKey("openai_api_key");
 
+//extraction schema
+const extractionFunctionSchema = {
+  name: "extractor",
+  description: "Extracts fields from the input.",
+  parameters: {
+    type: "object",
+    properties: {
+      asking_for_past_events: {
+        enum: [true, false],
+        description:
+          "Set this to 'true' if the previous response from the user is about events that have already occurred in the past; otherwise, set it to 'false' for future events or current events.",
+      },
+    },
+    required: ["asking_for_past_events"],
+  },
+};
+
 //initialise chat model
 const chatModel = new ChatOpenAI({
   openAIApiKey: chat_api_key,
@@ -94,7 +111,6 @@ export const processHumanResponse = async (email, date, response, count) => {
     });
     const chatData = await chatChain.call({});
     text = chatData.text;
-
     text = text.slice(
       0,
       Math.max(
