@@ -123,41 +123,40 @@ const DiaryButton = () => {
     "dates"
   );
 
-  useEffect(() => {
-    const getDiary = async () => {
-      try {
-        const data = await getDocs(diaryCollectionRef);
-        const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  const getDiary = async () => {
+    try {
+      const data = await getDocs(diaryCollectionRef);
+      const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-        const foundDiary = diaries.find((diary) => diary.id === displayDate);
+      const foundDiary = diaries.find((diary) => diary.id === displayDate);
 
-        if (foundDiary && foundDiary.diary !== "") {
-          setContent(foundDiary.diary);
-          setGenerateCount(foundDiary.generateDiaryCount);
-        } else {
-          fetchDiaryContent();
-          setGenerateCount(generateCount + 1);
-          updateDiaryCount(user.email, displayDate, generateCount);
-        }
-      } catch (error) {
-        console.error(error);
+      if (foundDiary && foundDiary.diary !== "") {
+        setContent(foundDiary.diary);
+        setGenerateCount(foundDiary.generateDiaryCount);
+      } else {
+        fetchDiaryContent();
+        setGenerateCount(async (prevCount) => {
+          const updatedCount = prevCount + 1;
+          await updateDiaryCount(user.email, displayDate, updatedCount);
+          return updatedCount
+        });
       }
-    };
-    // Perform the asynchronous operation and update the state when it's done
-    const fetchDiaryContent = async () => {
-      try {
-        const userChats = await getHumanMsg(user.email, displayDate);
-        const content = await diaryGenerator(userChats);
-        setContent(content);
-        console.log(content);
-      } catch (error) {
-        // Handle errors if needed
-        console.error("An error occurred:", error);
-      }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    getDiary();
-  }, []);
+  // Perform the asynchronous operation and update the state when it's done
+  const fetchDiaryContent = async () => {
+    try {
+      const userChats = await getHumanMsg(user.email, displayDate);
+      const content = await diaryGenerator(userChats);
+      setContent(content);
+    } catch (error) {
+      // Handle errors if needed
+      console.error("An error occurred:", error);
+    }
+  };
 
   const handleClosePopup = () => {
     setIsDiaryModalOpen(false);
@@ -165,39 +164,47 @@ const DiaryButton = () => {
 
   const openDiaryModal = () => {
     setIsDiaryModalOpen(true);
+    getDiary();
   };
 
   const handleRegenerateDiary = async () => {
     try {
-        const data = await getDocs(diaryCollectionRef);
-        const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      const data = await getDocs(diaryCollectionRef);
+      const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-        const foundDiary = diaries.find((diary) => diary.id === displayDate);
+      const foundDiary = diaries.find((diary) => diary.id === displayDate);
 
-        if (foundDiary) {
-          setGenerateCount(foundDiary.generateDiaryCount);
-          console.log(generateCount);
-          if (generateCount >= 5) {
-            console.error("You can only generate diaries 5 times a day.");
-            setTitle(
-              "Sorry, but your current plan can only generate diaries 5 times a day😥. Uprade to pro for unlimited diaries!"
+      if (foundDiary) {
+        setGenerateCount(foundDiary.generateDiaryCount);
+        console.log(generateCount)
+        if (foundDiary.generateDiaryCount >= 5) {
+          console.error("You can only generate diaries 5 times a day.");
+          setTitle(
+            "Sorry, but your current plan can only generate diaries 5 times a day😥. Uprade to pro for unlimited diaries!"
+          );
+        } else {
+          try {
+            const userChats = await getHumanMsg(user.email, displayDate);
+            const newContent = await diaryGenerator(userChats);
+            setGenerateCount(async (prevCount) => {
+              const updatedCount = prevCount + 1;
+              await updateDiaryCount(user.email, displayDate, updatedCount);
+              return updatedCount
+            });
+            setContent(newContent)
+            console.log(generateCount)
+          } catch (error) {
+            // Handle errors if needed
+            console.error(
+              "An error occurred while regenerating the diary:",
+              error
             );
-          } else {
-            try {
-              const userChats = await getHumanMsg(user.email, displayDate);
-              const newContent = await diaryGenerator(userChats);
-              setGenerateCount(generateCount + 1);
-              setContent(newContent);
-              updateDiaryCount(user.email, displayDate, generateCount);
-            } catch (error) {
-              // Handle errors if needed
-              console.error("An error occurred while regenerating the diary:", error);
-            }
           }
         }
-      } catch (error) {
-        console.error(error);
       }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
