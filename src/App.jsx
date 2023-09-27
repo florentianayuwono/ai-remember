@@ -6,6 +6,7 @@ import ReactGA from "react-ga4";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
 import { Login, Loading, Landing, Forget, Signup, Verify, Communities, Diary, Conversation } from "./pages";
+import { Post } from "./components/community/Post";
 
 const MEASUREMENT_ID_AI = "G-Q40RWCDB0B";
 const MEASUREMENT_ID_XY = "G-P3ZGZ14ZR6";
@@ -54,6 +55,7 @@ const App = () => {
             <Route path="/conversation" element={<Conversation />} />
             <Route path="/communities" element={<Communities user={user} />} />
             <Route path="/diary" element={<Diary />} />
+            <Route path="/post/:id" element={<Post user={user} />} />
           </Route>
         </Routes>
       </BrowserRouter>

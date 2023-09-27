@@ -62,17 +62,6 @@ const Communities = ({ user }) => {
     await updateDoc(doc(firestore, "community", id), { title: newTitle, content: newContent });
   };
 
-  const handleDeletePost = async (id) => {
-    const postDocRef = doc(firestore, "community", id);
-
-    try {
-      await deleteDoc(postDocRef);
-      toast.success("Successfully deleted post!");
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
-
   useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: "/communities", title: "Communities Page" });
   }, []);
@@ -112,8 +101,7 @@ const Communities = ({ user }) => {
                 user={user}
                 post={post}
                 id={post.data().id}
-                handleDeletePost={handleDeletePost}
-                openEditPost={() => setIsEditPostModalOpen(true)}
+                // openEditPost={() => setIsEditPostModalOpen(true)}
                 handleEditPost={handleEditPost}
               ></PostCard>
             );
