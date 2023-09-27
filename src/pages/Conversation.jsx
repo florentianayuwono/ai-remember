@@ -12,6 +12,7 @@ import {
   doc,
   serverTimestamp,
   deleteDoc,
+  getDocs,
 } from "firebase/firestore";
 import Loading from "./Loading";
 import { Chat, ChatInput, DiaryModal, HomeNavbar } from "../components";
@@ -110,21 +111,46 @@ const DiaryButton = () => {
   const [content, setContent] = useState("");
   const [generateCount, setGenerateCount] = useState(0);
 
+  const diaryCollectionRef = collection(
+    firestore,
+    "users",
+    user.email,
+    "dates"
+  );
+
   useEffect(() => {
+    const getDiary = async () => {
+      try {
+        const data = await getDocs(diaryCollectionRef);
+        const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+        const foundDiary = diaries.find((diary) => diary.id === displayDate);
+
+        if (foundDiary && foundDiary !== "") {
+          console.log(foundDiary);
+          setContent(foundDiary.diary);
+        } else {
+          fetchDiaryContent();
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
     // Perform the asynchronous operation and update the state when it's done
     const fetchDiaryContent = async () => {
       try {
         const userChats = await getHumanMsg(user.email, displayDate);
         const content = await diaryGenerator(userChats);
         setContent(content);
+        console.log(content);
       } catch (error) {
         // Handle errors if needed
         console.error("An error occurred:", error);
       }
     };
 
-    fetchDiaryContent(); // Call the async function when the component mounts
-  }, [displayDate, user.email]);
+    getDiary();
+  }, []);
 
   const handleClosePopup = () => {
     setIsDiaryModalOpen(false);
