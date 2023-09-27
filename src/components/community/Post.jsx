@@ -57,10 +57,11 @@ const PostCard = ({ post, user }) => {
 
   return (
     <>
-      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm h-40 overflow-y-hidden flex justify-between">
+      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm h-40 overflow-y-hidden ">
         <div>
-          <div className="flex flex-row gap-x-2 items-center text-sm">
+          <div className="flex flex-row gap-x-10 items-center text-sm justify-between">
             <h1>{post.data().is_anon ? "Anon" : post.data().author_name}</h1>
+            <p>{new Date(post?.data().timestamp?.toDate())?.toUTCString()}</p>
           </div>
           <Link to={`/post/${post.id}`}>
             <div className="w-full overflow-y-hidden text-ellipsis">
@@ -68,15 +69,15 @@ const PostCard = ({ post, user }) => {
               <p className="text-gray-600 h-12 overflow-y-hidden text-ellipsis ">{content}</p>
             </div>
           </Link>
-          <div className="flex gap-x-2">
-            <LikePost post={post} user={user} />
-            <Link to={`/post/${post.id}`}>
-              <CommentPost post={post} />
-            </Link>
+          <div className="flex justify-between">
+            <div className="flex gap-x-2">
+              <LikePost post={post} user={user} />
+              <Link to={`/post/${post.id}`}>
+                <CommentPost post={post} />
+              </Link>
+            </div>{" "}
+            <DeletePost post={post} user={user} />
           </div>
-        </div>
-        <div>
-          <DeletePost post={post} user={user} />
         </div>
       </div>
     </>

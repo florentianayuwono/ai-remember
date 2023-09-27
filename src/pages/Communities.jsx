@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { PostCard, CreatePostModal } from "../components/community/Post";
 import { firestore } from "../firebase_setup/FirebaseConfig";
-import { addDoc, collection, updateDoc, doc, serverTimestamp, deleteDoc, getDocs } from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc, serverTimestamp, deleteDoc, getDocs, query, orderBy } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Loading from "./Loading";
 
@@ -18,7 +18,7 @@ const Communities = ({ user }) => {
   const [isAnon, setIsAnon] = useState(false);
 
   const postsCollectionRef = collection(firestore, "community");
-  const [posts, loading, error] = useCollection(postsCollectionRef);
+  const [posts, loading, error] = useCollection(query(postsCollectionRef, orderBy("timestamp")));
 
   const handleCloseCreatePostModal = () => {
     setIsCreatePostModalOpen(false);
