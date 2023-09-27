@@ -33,7 +33,7 @@ export const navLinks = [
 export const homeNavLinks = [
   {
     id: "conversation",
-    title: "Chat with AI",
+    title: "Chat",
   },
   {
     id: "diary",
