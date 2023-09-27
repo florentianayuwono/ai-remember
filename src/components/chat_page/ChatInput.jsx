@@ -1,55 +1,101 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CHAT_PLACEHOLDER } from "../../constants";
 import { BsFillPencilFill } from "react-icons/bs";
-import { serverTimestamp } from "firebase/firestore";
+import { BiSolidMicrophone } from "react-icons/bi";
 import { getChatCount } from "../../firebase_setup/FirebaseConfig";
 import toast from "react-hot-toast";
 import { processHumanResponse } from "../../langchain_setup/ChatLangchainConfig";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+import "regenerator-runtime/runtime";
+import { AiOutlineClose } from "react-icons/ai";
 
-const ChatInput = ({email,date}) => {
-
+const ChatInput = ({ email, date }) => {
   const [prompt, setPrompt] = useState("");
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
 
+  useEffect(() => {
+    setPrompt(transcript);
+  }, [transcript]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!prompt) return;
 
     //get chat count
-    const count = await getChatCount(email,date);
+    const count = await getChatCount(email, date);
 
     //send only if ai has sent and user less than 5 msgs
     if (count % 2 == 1 && count < 10) {
       // get mood based on content
       const response = prompt.trim();
       setPrompt("");
-      
+
       await processHumanResponse(email, date, response, count.toString());
     } else if (count % 2 == 0) {
       //toast notification to wait
-      toast('paw paw is sorry for being slow... please BEAR it', {
-        icon: '⌛',
+      toast("paw paw is sorry for being slow... please BEAR it", {
+        icon: "⌛",
       });
     } else if (count >= 10) {
       //alert dialogue to upgrade to pro
-      toast.error("Please upgrade to pro to send more than 5 messages per day")
-    }    
+      toast.error("Please upgrade to pro to send more than 5 messages per day");
+    }
   };
 
   return (
     <form onSubmit={sendMessage} className="flex justify-center mb-10">
-      <input
-        className=" rounded-2xl p-4 my-2 w-2/3 bg-secondary-brown text-white placeholder:text-gray-300"
-        type="text"
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        placeholder={CHAT_PLACEHOLDER}
-      />
+      <div className="flex items-center rounded-2xl p-4 my-2 w-2/3 bg-secondary-brown text-white ">
+        <input
+          className="flex w-full outline-none placeholder:text-gray-300 bg-transparent"
+          type="text"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder={CHAT_PLACEHOLDER}
+        />
+        <div
+          onClick={() => {
+            setPrompt("");
+            resetTranscript();
+          }}
+          className="cursor-pointer"
+        >
+          <AiOutlineClose />
+        </div>
+      </div>
+
       <button
         type="submit"
-       className="text-white bg-secondary-brown rounded-2xl p-4 m-2">
+        className="text-white bg-secondary-brown rounded-2xl p-4 m-2"
+      >
         <BsFillPencilFill />
       </button>
+      {!browserSupportsSpeechRecognition ? (
+        <></>
+      ) : (
+        <button
+          onClick={() => {
+            if (listening) {
+              SpeechRecognition.stopListening();
+            } else {
+              SpeechRecognition.startListening();
+            }
+          }}
+          className={
+            listening
+              ? "text-white rounded-2xl p-4 my-2 bg-red-400"
+              : "text-white rounded-2xl p-4 my-2 bg-secondary-brown"
+          }
+        >
+          <BiSolidMicrophone />
+        </button>
+      )}
     </form>
   );
 };
