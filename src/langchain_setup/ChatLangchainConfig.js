@@ -15,7 +15,7 @@ const chatModel = new ChatOpenAI({
     topP:0.5,
     frequencyPenalty: 0,
     presencePenalty: 0,
-    maxTokens: 250,
+    maxTokens: 100,
 })
 
 //initialise chain with prompts
