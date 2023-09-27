@@ -40,14 +40,9 @@ const addDataForDay = async (email, date, content) => {
         diary: "",
         generateDiaryCount: 0
       });
-      addMsg(email, date, content.text, "0",false);
+      addMsg(email, date, content, "0",false);
       console.log("Today data added with ID: ", todayDocRef.id);
     }
-    const msg = {
-      createdAt: serverTimestamp(),
-      isUser: false,
-      content: "Hello! How's your day going?",
-    };
   } catch (error) {
     console.error("Error adding user: ", error);
   }
