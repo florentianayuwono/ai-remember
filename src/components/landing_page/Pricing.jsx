@@ -27,6 +27,7 @@ const FreePriceCard = () => {
       <p className="text-[80px] flex justify-center text-black">$0</p>
       <div className=" text-black">
         <p className="px-5 my-2"> ✔ Basic Messages (5 msg/day) </p>
+        <p className="px-5 my-2"> ✔ Basic Diaries (5 diaries/day) </p>
         <p className="px-5 my-2"> ✔ Conversation History (7 days) </p>
         <p className="px-5 my-2"> ✔ Access to Community Features (7 days) </p>
       </div>
