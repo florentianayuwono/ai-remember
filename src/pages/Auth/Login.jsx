@@ -12,12 +12,6 @@ const Login = ({ setCookie, cookies }) => {
   const [password, setPassword] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
-  const [loginLoading, setLoginLoading] = useState(false);
-  const [loginError, setLoginError] = useState("");
-  const [loginMsg, setLoginMsg] = useState("");
-
-  const [initialLoading, setInitialLoading] = useState(false);
-  const [initialError, setInititialError] = useState("");
 
   const navigate = useNavigate();
 
@@ -39,15 +33,7 @@ const Login = ({ setCookie, cookies }) => {
   };
 
   useEffect(() => {
-    if (error || googleError) {
-      console.log(error);
-      setLoginLoading(false);
-    }
-  }, [error]);
-
-  useEffect(() => {
     if (user || googleUser) {
-      setLoginLoading(false);
       //set cookie for the entire app
       setCookie("email", email, { path: "/" });
       setCookie("password", password, { path: "/" });
@@ -57,7 +43,6 @@ const Login = ({ setCookie, cookies }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoginLoading(true);
     await signInWithEmailAndPassword(email, password);
   };
 
@@ -67,13 +52,14 @@ const Login = ({ setCookie, cookies }) => {
         <img className="w-24 m-auto mb-4" src={logo2} />
         <InputForm title="Email" value={email} htmlValue="email" handleChange={handleEmailChange} placeholder="your email" />
         <InputForm title="Password" value={password} htmlValue="password" handleChange={handlePasswordChange} placeholder="password" />
+        {error !== undefined && <div className="text-red-500">Invalid email or password</div>}
         <div className="flex items-center mt-4 mb-2">
           <button
-            className=" bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl"
+            className=" bg-purple-500 justify-center flex items-center hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl"
             type="submit"
             onClick={handleSubmit}
           >
-            {loginLoading ? <CircularIndicator /> : "Login"}
+            {loading ? <CircularIndicator /> : "Login"}
           </button>
         </div>
         <p className="text-center">
@@ -96,8 +82,6 @@ const Login = ({ setCookie, cookies }) => {
             Continue with Google
           </button>
         </div>
-        {loginError !== "" && <div className="text-red-500">{loginError}</div>}
-        {loginMsg !== "" && <div className="text-green-500">{loginMsg}</div>}
       </form>
     </div>
   );

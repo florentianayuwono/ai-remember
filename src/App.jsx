@@ -6,7 +6,7 @@ import "regenerator-runtime/runtime";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
-import { Login, Loading, Landing, Forget, Signup, Verify, Communities, Diary, Conversation } from "./pages";
+import { Login, Loading, Landing, Forget, Signup, Verify, Communities, Diary, Conversation, PrivacyPolicy } from "./pages";
 import { Post } from "./components/community/Post";
 
 const MEASUREMENT_ID_AI = "G-Q40RWCDB0B";
@@ -52,6 +52,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/forget" element={<Forget />} />
           <Route path="/verify" element={<Verify />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route element={<ProtectedRoute user={user} />}>
             <Route path="/conversation" element={<Conversation />} />
             <Route path="/communities" element={<Communities user={user} />} />

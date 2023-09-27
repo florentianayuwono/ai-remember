@@ -12,5 +12,6 @@ import googleicon from "./googleicon.svg";
 
 import loveletter from "./loveletter.png";
 import crush from "./crush.webp";
+import sleepybear from "./sleep_logo.png"
 
-export { logo, logo2, crush, backend, creator, mobile, web, github, menu, close, loveletter, googleicon };
+export { logo, logo2, crush, backend, creator, mobile, web, github, menu, close, loveletter, googleicon, sleepybear };
