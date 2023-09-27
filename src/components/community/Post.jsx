@@ -13,11 +13,14 @@ import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 
 import HomeNavbar from "../common/HomeNavbar";
 import { Comment } from "./Comment";
+import DiaryStaticModal from "../diary/DiaryStaticModal";
 
 const Post = ({ user }) => {
   const { id } = useParams();
   const docRef = doc(firestore, "community", id);
   const [post, loading, error] = useDocument(docRef);
+  const openState = useState(false);
+  const [isDiaryModalOpen, setIsDiaryModalOpen] = openState;
 
   if (error) {
     toast.error("Error occured: " + error);
@@ -31,27 +34,46 @@ const Post = ({ user }) => {
       <div className="absolute top-[120px] w-screen">
         <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-fit overflow-y-hidden flex justify-between">
           <div>
-            <h1 className="text-sm">{post.data().is_anon ? "Anon" : post.data().author_name}</h1>
+            <GoBack />
+            <div className="flex flex-row gap-x-10 items-center text-sm justify-between">
+              <h1>{post.data().is_anon ? "Anon" : post.data().author_name}</h1>
+              <p>{new Date(post?.data().timestamp?.toDate())?.toUTCString()}</p>
+            </div>
+
             <h2 className="text-xl font-semibold mb-2">{post.data().title}</h2>
             <p className="text-gray-600">{post.data().content}</p>
-            <div className="flex gap-x-2">
-              <LikePost post={post} user={user} />
-              <CommentPost post={post} />
+            <div className="flex justify-between">
+              <div className="flex gap-x-2">
+                <LikePost post={post} user={user} />
+                <CommentPost post={post} />
+              </div>
+              <DeletePost post={post} user={user} />
             </div>
-          </div>
-          <div>
-            <DeletePost user={user} post={post} />
+            <div className="w-full flex justify-center">
+              <button
+                className="bg-purple-500 hover:bg-purple-700 text-white w-fit h-10 py-2 px-4 rounded-3xl "
+                type="submit"
+                onClick={() => setIsDiaryModalOpen(true)}
+              >
+                View as Diary
+              </button>
+            </div>
           </div>
         </div>
         <Comment user={user} post={post} />
       </div>
+      <DiaryStaticModal
+        openState={openState}
+        handleClosePopup={() => setIsDiaryModalOpen(false)}
+        title={post.data().title}
+        content={post.data().content} // You can pass the content corresponding to the selected day here
+        handleEditDiary={() => {}}
+      />
     </div>
   );
 };
 
 const PostCard = ({ post, user }) => {
-  const editPostModalState = useState(false);
-  const [isEditPostModalOpen, setIsEditPostModalOpen] = editPostModalState;
   const [title, setTitle] = useState(post.data().title);
   const [content, setContent] = useState(post.data().content);
 
@@ -75,7 +97,7 @@ const PostCard = ({ post, user }) => {
               <Link to={`/post/${post.id}`}>
                 <CommentPost post={post} />
               </Link>
-            </div>{" "}
+            </div>
             <DeletePost post={post} user={user} />
           </div>
         </div>
@@ -332,9 +354,11 @@ const ChooseDiary = ({ user, setTitle, setContent }) => {
 
 const GoBack = () => {
   return (
-    <button className="mx-auto bg-white rounded-2xl">
-      <BiArrowBack className="w-8 h-8 text-background group-hover:text-text" />
-    </button>
+    <Link to="/communities">
+      <button className="mx-auto bg-white rounded-2xl hover:bg-gray-100">
+        <BiArrowBack className="w-8 h-8 text-background" />
+      </button>
+    </Link>
   );
 };
 export { ChooseDiary, CommentPost, DeletePost, LikePost, Post, PostCard, CreatePostModal };
