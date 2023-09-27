@@ -55,22 +55,8 @@ const PostCard = ({ post, user }) => {
   const [title, setTitle] = useState(post.data().title);
   const [content, setContent] = useState(post.data().content);
 
-  // const handleEditPost = async (id, newTitle, newContent) => {
-  //   await updateDoc(postDoc, { title: newTitle, content: newContent });
-  // };
-
   return (
     <>
-      {/* <EditPostModal
-        openState={editPostModalState}
-        id={post.id}
-        title={title}
-        content={content}
-        setTitle={setTitle}
-        setContent={setContent}
-        handleClosePopup={() => setIsEditPostModalOpen(false)}
-        handleEditPost={handleEditPost}
-      /> */}
       <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm h-40 overflow-y-hidden flex justify-between">
         <div>
           <div className="flex flex-row gap-x-2 items-center text-sm">
@@ -91,7 +77,6 @@ const PostCard = ({ post, user }) => {
         </div>
         <div>
           <DeletePost post={post} user={user} />
-          {/* <BiPencil className="cursor-pointer w-6 h-6" onClick={() => setIsEditPostModalOpen(true)} /> */}
         </div>
       </div>
     </>
@@ -348,4 +333,4 @@ const GoBack = () => {
     </button>
   );
 };
-export { ChooseDiary, CommentPost, DeletePost, LikePost, Post, PostCard, CreatePostModal, EditPostModal };
+export { ChooseDiary, CommentPost, DeletePost, LikePost, Post, PostCard, CreatePostModal };
