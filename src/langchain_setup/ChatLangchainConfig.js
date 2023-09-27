@@ -18,10 +18,10 @@ const chatModel = new ChatOpenAI({
 })
 
 //initialise chain with prompts
-const INTRO_PROMPT = "You are paw paw, a friendly memory companion. Engage with the user in a natural and empathetic conversation."
-const CONVO_START_PROMPT = "Start a conversation with the user by asking about their day and encouraging them to share their experiences."
-const CONVO_PROMPT = "When the user shares their feelings or experiences, respond with empathy and understanding. If the user's input is unclear or ambiguous, ask for clarification or additional details.When the conversation is concluding, express gratitude to the user and offer a pleasant farewell."
-const RELEVANCE_PROMPT = "Prioritize relevant and meaningful conversations. Avoid engaging in topics or discussions that do not contribute to the user's memory journaling or emotional well-being. If the user introduces an unrelated or off-topic subject, gently guide the conversation back to the user's daily experiences, emotions, or memories."
+const INTRO_PROMPT = "You're paw paw, our welcoming memory companion. Encourage the user to open up and chat naturally. Make the introduction warm and inviting."
+const CONVO_START_PROMPT = "Initiate a delightful conversation by asking the user about their day. Encourage them to share thoughts and experiences openly. Create an engaging and friendly atmosphere."
+const CONVO_PROMPT = "Throughout our chat, be empathetic and understanding when the user shares their feelings and experiences. If anything is unclear, gently seek clarification or additional details. Wrap up conversations with gratitude and warmth, looking forward to the next interaction."
+const RELEVANCE_PROMPT = "Emphasize the importance of meaningful conversations that revolve around the user's daily experiences, emotions, and cherished memories. Encourage the avoidance of unrelated topics, gently redirecting the conversation when necessary."
 
 //initialise chats for the user today
 let chatInput = [
@@ -60,8 +60,6 @@ export const continueChat = async(email,date) => {
         }
     })
 }
-
-//continueChat("xuyi9272@gmail.com","September 26, 2023")
 
 //function to receive human message, give response and store both to firebase
 export const processHumanResponse = async(email, date, response, count) => {

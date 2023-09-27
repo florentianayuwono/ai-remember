@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { SectionWrapper } from "../../hoc";
-import { fadeIn, textVariant } from "../../utils/motion";
+import { textVariant } from "../../utils/motion";
 import { styles } from "../../styles";
 import { Link } from "react-router-dom";
 
