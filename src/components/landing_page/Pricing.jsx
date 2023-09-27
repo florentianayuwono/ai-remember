@@ -54,6 +54,7 @@ const ProPriceCard = () => {
       </p>
       <div className=" text-black flex flex-col">
         <p className="px-5 my-2"> ✔ Unlimited Messages </p>
+        <p className="px-5 my-2"> ✔ Unlimited Diaries </p>
         <p className="px-5 my-2"> ✔ Unlimited Conversation History </p>
         <p className="px-5 my-2"> ✔ Ad-Free Experience </p>
         <p className="px-5 my-2"> ✔ Full Customization Options </p>
