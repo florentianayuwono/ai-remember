@@ -110,9 +110,7 @@ const addMsg = async (email, date, content, chatId, isUser) => {
 const getAllMsg = async (email, date) => {
   let chats = [];
   const coll = collection(firestore, "users", email, "dates", date, "chats");
-  const q = query(
-    collection(firestore, "users", email, "dates", date, "chats")
-  );
+  const q = query(coll);
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
@@ -151,6 +149,19 @@ const getOpenAIAPIKey = async (docName) => {
   return docSnap?.data().api_key;
 };
 
+const getSevenDaysDiary = async (email) => {
+  let diaries = [];
+  const diaryCollectionRef = collection(firestore, "users", email, 'dates');
+  const q = query(diaryCollectionRef);
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    diaries.push(doc.data().diary);
+  });
+  const results = diaries.slice(-7)
+  return results;
+}
+
 export {
   auth,
   firestore,
@@ -158,6 +169,7 @@ export {
   getAllMsg,
   getHumanMsg,
   addDataForDay,
+  getSevenDaysDiary,
   getChatCount,
   addMsg,
   updateDiaryContent,
