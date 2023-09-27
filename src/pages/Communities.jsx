@@ -7,6 +7,7 @@ import { PostCard, CreatePostModal, EditPostModal } from "../components/communit
 import { firestore } from "../firebase_setup/FirebaseConfig";
 import { addDoc, collection, updateDoc, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
+import Loading from "./Loading";
 
 const Communities = ({ user }) => {
   const [currentPost, setCurrentPost] = useState();
@@ -44,6 +45,7 @@ const Communities = ({ user }) => {
           author_uid: user?.uid,
           author_name: user?.displayName,
           likes: [],
+          comment_count: 0,
           timestamp: serverTimestamp(),
         });
         handleCloseCreatePostModal();
@@ -62,22 +64,13 @@ const Communities = ({ user }) => {
     await updateDoc(doc(firestore, "community", id), { title: newTitle, content: newContent });
   };
 
-  const handleDeletePost = async (id) => {
-    const postDocRef = doc(firestore, "community", id);
-
-    try {
-      await deleteDoc(postDocRef);
-      toast.success("Successfully deleted post!");
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
-
   useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: "/communities", title: "Communities Page" });
   }, []);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="relative z-0 h-screen bg-primary-lightpink text-secondary-brown overflow-y-scroll">
       <HomeNavbar />
       <CreatePostModal
@@ -111,9 +104,7 @@ const Communities = ({ user }) => {
                 key={index}
                 user={user}
                 post={post}
-                id={post.data().id}
-                handleDeletePost={handleDeletePost}
-                openEditPost={() => setIsEditPostModalOpen(true)}
+                // openEditPost={() => setIsEditPostModalOpen(true)}
                 handleEditPost={handleEditPost}
               ></PostCard>
             );

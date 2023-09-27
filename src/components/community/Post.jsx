@@ -2,37 +2,59 @@ import InputForm from "../common/InputForm";
 import Modal from "react-modal";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { BsPersonCircle } from "react-icons/bs";
-import { collection, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, arrayRemove, deleteDoc } from "firebase/firestore";
 import { AiFillDelete, AiOutlineLike, AiFillLike } from "react-icons/ai";
-import { BiPencil } from "react-icons/bi";
+import { BiPencil, BiArrowBack, BiComment } from "react-icons/bi";
 import { firestore } from "../../firebase_setup/FirebaseConfig";
+import { Loading } from "../../pages";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import { useDocument } from "react-firebase-hooks/firestore";
 
-const PostCard = ({ post, user, id, handleDeletePost, openEditPost }) => {
+import HomeNavbar from "../common/HomeNavbar";
+import { Comment } from "./Comment";
+
+const Post = ({ user }) => {
+  const { id } = useParams();
+  const docRef = doc(firestore, "community", id);
+  const [post, loading, error] = useDocument(docRef);
+
+  if (error) {
+    toast.error("Error occured: " + error);
+  }
+
+  return loading ? (
+    <Loading />
+  ) : (
+    <div className="relative z-0 h-screen bg-primary-lightpink text-secondary-brown overflow-y-scroll">
+      <HomeNavbar />
+      <div className="absolute top-[120px] w-screen">
+        <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-fit overflow-y-hidden flex justify-between">
+          <div>
+            <h1 className="text-sm">{post.data().author_name}</h1>
+            <h2 className="text-xl font-semibold mb-2">{post.data().title}</h2>
+            <p className="text-gray-600">{post.data().content}</p>
+            <LikePost user={user} post={post} />
+          </div>
+          <div>
+            <DeletePost user={user} post={post} />
+          </div>
+        </div>
+        <Comment user={user} post={post} />
+      </div>
+    </div>
+  );
+};
+
+const PostCard = ({ post, user }) => {
   const editPostModalState = useState(false);
   const [isEditPostModalOpen, setIsEditPostModalOpen] = editPostModalState;
   const [title, setTitle] = useState(post.data().title);
   const [content, setContent] = useState(post.data().content);
-  const postDocRef = doc(firestore, "community", post.id);
-
-  const likes = post.data().likes;
-  const userLiked = likes.includes(user?.uid);
 
   // const handleEditPost = async (id, newTitle, newContent) => {
   //   await updateDoc(postDoc, { title: newTitle, content: newContent });
   // };
-
-  const handleLike = async () => {
-    try {
-      if (userLiked) {
-        await updateDoc(postDocRef, { likes: arrayRemove(user?.uid) });
-      } else {
-        await updateDoc(postDocRef, { likes: arrayUnion(user?.uid) });
-      }
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
 
   return (
     <>
@@ -46,25 +68,27 @@ const PostCard = ({ post, user, id, handleDeletePost, openEditPost }) => {
         handleClosePopup={() => setIsEditPostModalOpen(false)}
         handleEditPost={handleEditPost}
       /> */}
-      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-32 overflow-y-hidden flex justify-between">
+      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm h-40 overflow-y-hidden flex justify-between">
         <div>
           <div className="flex flex-row gap-x-2 items-center text-sm">
-            {/* <BsPersonCircle /> */}
-            <h1>{post.data().author_name}</h1>
+            <h1>{post.data().author_name ?? "Anon"}</h1>
           </div>
-          <h2 className="text-xl font-semibold mb-2">{title}</h2>
-          <p className="text-gray-600">{content}</p>
-          <div className="flex flex-row items-center gap-x-1">
-            {!userLiked && <AiOutlineLike className="cursor-pointer" onClick={handleLike} />}
-            {userLiked && <AiFillLike className="cursor-pointer" onClick={handleLike} />}
-            {likes.length}
+          <Link to={`/post/${post.id}`}>
+            <div className="w-full overflow-y-hidden text-ellipsis">
+              <h2 className="text-xl h-8 font-semibold mb-1 ">{title}</h2>
+              <p className="text-gray-600 h-12 overflow-y-hidden text-ellipsis ">{content}</p>
+            </div>
+          </Link>
+          <div className="flex gap-x-2">
+            <LikePost post={post} user={user} />
+            <Link to={`/post/${post.id}`}>
+              <CommentPost post={post} />
+            </Link>
           </div>
         </div>
         <div>
-          {user?.uid === post.data().author_uid ? (
-            <AiFillDelete className="cursor-pointer w-6 h-6" onClick={() => handleDeletePost(post.id)} />
-          ) : null}
-          <BiPencil className="cursor-pointer w-6 h-6" onClick={() => setIsEditPostModalOpen(true)} />
+          <DeletePost post={post} user={user} />
+          {/* <BiPencil className="cursor-pointer w-6 h-6" onClick={() => setIsEditPostModalOpen(true)} /> */}
         </div>
       </div>
     </>
@@ -181,4 +205,67 @@ const EditPostModal = ({ openState, id, title, content, setTitle, setContent, ha
   );
 };
 
-export { PostCard, CreatePostModal, EditPostModal };
+const DeletePost = ({ user, post }) => {
+  const postDocRef = doc(firestore, "community", post.id);
+
+  const handleDeletePost = async (id) => {
+    try {
+      await deleteDoc(postDocRef);
+      toast.success("Successfully deleted post!");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  return (
+    <div>
+      {user?.uid === post.data().author_uid ? (
+        <AiFillDelete className="cursor-pointer w-6 h-6" onClick={() => handleDeletePost(post.id)} />
+      ) : null}
+    </div>
+  );
+};
+
+const LikePost = ({ user, post }) => {
+  const postDocRef = doc(firestore, "community", post.id);
+  const likes = post.data().likes;
+  const userLiked = likes.includes(user?.uid);
+
+  const handleLike = async () => {
+    try {
+      if (userLiked) {
+        await updateDoc(postDocRef, { likes: arrayRemove(user?.uid) });
+      } else {
+        await updateDoc(postDocRef, { likes: arrayUnion(user?.uid) });
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  return (
+    <div className="flex flex-row items-center gap-x-1">
+      {!userLiked && <AiOutlineLike className="cursor-pointer" onClick={handleLike} />}
+      {userLiked && <AiFillLike className="cursor-pointer" onClick={handleLike} />}
+      {likes.length}
+    </div>
+  );
+};
+
+const CommentPost = ({ post }) => {
+  return (
+    <div className="flex flex-row items-center gap-x-1">
+      <BiComment />
+      {post.data().comment_count ?? 0}
+    </div>
+  );
+};
+
+const GoBack = () => {
+  return (
+    <button className="mx-auto bg-white rounded-2xl">
+      <BiArrowBack className="w-8 h-8 text-background group-hover:text-text" />
+    </button>
+  );
+};
+export { DeletePost, LikePost, Post, PostCard, CreatePostModal, EditPostModal };
