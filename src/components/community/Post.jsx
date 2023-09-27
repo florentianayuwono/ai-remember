@@ -2,37 +2,32 @@ import InputForm from "../common/InputForm";
 import Modal from "react-modal";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { BsPersonCircle } from "react-icons/bs";
-import { collection, doc, updateDoc, arrayUnion, arrayRemove, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, arrayRemove, deleteDoc } from "firebase/firestore";
 import { AiFillDelete, AiOutlineLike, AiFillLike } from "react-icons/ai";
-import { BiPencil, BiArrowBack } from "react-icons/bi";
+import { BiPencil, BiArrowBack, BiComment } from "react-icons/bi";
 import { firestore } from "../../firebase_setup/FirebaseConfig";
+import { Loading } from "../../pages";
 import { useParams } from "react-router";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDocument } from "react-firebase-hooks/firestore";
 
 import HomeNavbar from "../common/HomeNavbar";
+import { Comment } from "./Comment";
 
 const Post = ({ user }) => {
   const { id } = useParams();
   const docRef = doc(firestore, "community", id);
-  // console.log(docRef);
-
   const [post, loading, error] = useDocument(docRef);
 
-  // useEffect(() => {
-  //   const docRef = doc(firestore, "community", id);
-  //   onSnapshot(docRef, (snapshot) => {
-  //     setPost({ ...snapshot.data(), id: snapshot.id });
-  //   });
-  // }, []);
-  if (loading) return;
-  console.log(post);
+  if (error) {
+    toast.error("Error occured: " + error);
+  }
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="relative z-0 h-screen bg-primary-lightpink text-secondary-brown overflow-y-scroll">
-      {/* <HomeNavbar /> */}
+      <HomeNavbar />
       <div className="absolute top-[120px] w-screen">
         <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-fit overflow-y-hidden flex justify-between">
           <div>
@@ -41,12 +36,13 @@ const Post = ({ user }) => {
             </div>
             <h2 className="text-xl font-semibold mb-2">{post.data().title}</h2>
             <p className="text-gray-600">{post.data().content}</p>
-            <LikePost post={post} user={user} />
+            <LikePost user={user} post={post} />
           </div>
           <div>
-            <DeletePost post={post} user={user} />
+            <DeletePost user={user} post={post} />
           </div>
         </div>
+        <Comment user={user} post={post} />
       </div>
     </div>
   );
@@ -74,16 +70,21 @@ const PostCard = ({ post, user }) => {
         handleClosePopup={() => setIsEditPostModalOpen(false)}
         handleEditPost={handleEditPost}
       /> */}
-      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-32 overflow-y-hidden flex justify-between">
+      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm h-40 overflow-y-hidden flex justify-between items-">
         <div>
           <div className="flex flex-row gap-x-2 items-center text-sm">
-            <h1>{post.data().author_name}</h1>
+            <h1>{post.data().author_name ?? "Anon"}</h1>
           </div>
           <Link to={`/post/${post.id}`}>
-            <h2 className="text-xl font-semibold mb-2">{title}</h2>
-            <p className="text-gray-600">{content}</p>
+            <div className="w-full overflow-y-hidden text-ellipsis">
+              <h2 className="text-xl h-8 font-semibold mb-1 ">{title}</h2>
+              <p className="text-gray-600 h-12 overflow-y-hidden text-ellipsis ">{content}</p>
+            </div>
           </Link>
-          <LikePost post={post} user={user} />
+          <div className="flex gap-x-2">
+            <LikePost post={post} user={user} />
+            <CommentPost post={post} />
+          </div>
         </div>
         <div>
           <DeletePost post={post} user={user} />
@@ -204,7 +205,7 @@ const EditPostModal = ({ openState, id, title, content, setTitle, setContent, ha
   );
 };
 
-const DeletePost = ({ post, user }) => {
+const DeletePost = ({ user, post }) => {
   const postDocRef = doc(firestore, "community", post.id);
 
   const handleDeletePost = async (id) => {
@@ -225,7 +226,7 @@ const DeletePost = ({ post, user }) => {
   );
 };
 
-const LikePost = ({ post, user }) => {
+const LikePost = ({ user, post }) => {
   const postDocRef = doc(firestore, "community", post.id);
   const likes = post.data().likes;
   const userLiked = likes.includes(user?.uid);
@@ -247,6 +248,17 @@ const LikePost = ({ post, user }) => {
       {!userLiked && <AiOutlineLike className="cursor-pointer" onClick={handleLike} />}
       {userLiked && <AiFillLike className="cursor-pointer" onClick={handleLike} />}
       {likes.length}
+    </div>
+  );
+};
+
+const CommentPost = ({ post }) => {
+  const comments = post.data().comments ?? [];
+
+  return (
+    <div className="flex flex-row items-center gap-x-1">
+      <BiComment />
+      {comments.length}
     </div>
   );
 };
