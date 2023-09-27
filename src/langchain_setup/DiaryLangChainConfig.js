@@ -16,7 +16,7 @@ const diaryModel = new OpenAI({
 
 export const diaryGenerator = async (chats) => {
   const diary_prompt =
-    "Imagine youself as the user who writes these texts about his/her daily life. Write a diary about this and keep the personality and tone of the user, as if the user itself who write the diary." +
+    "Imagine yourself as the user who writes these texts about his/her daily life. Write a diary about this and keep the personality and tone of the user, as if the user itself who write the diary." +
     chats;
   const response = await diaryModel.completions.create({
     model: "text-davinci-003",
