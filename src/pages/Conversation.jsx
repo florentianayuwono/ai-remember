@@ -126,6 +126,17 @@ const DiaryButton = () => {
     setIsDiaryModalOpen(true);
   };
 
+  const handleRegenerateDiary = async () => {
+    try {
+      const userChats = await getHumanMsg(user.email, displayDate);
+      const newContent = await diaryGenerator(userChats);
+      setContent(newContent);
+    } catch (error) {
+      // Handle errors if needed
+      console.error("An error occurred while regenerating the diary:", error);
+    }
+  }
+
   return (
     <div className="flex items-center justify-center cursor-pointer">
       {isDiaryModalOpen ? (
@@ -138,6 +149,7 @@ const DiaryButton = () => {
         setTitle={setTitle}
         setContent={setContent}
         email={user.email}
+        handleRegenerateDiary={handleRegenerateDiary}
       />
       ) : (
         <div

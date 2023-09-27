@@ -5,7 +5,7 @@ import { auth, getHumanMsg } from "../../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { diaryGenerator } from "../../langchain_setup/DiaryLangChainConfig";
 
-const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, setContent, email, date }) => {
+const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, setContent, email, handleRegenerateDiary }) => {
   const [isDiaryOpen, setIsDiaryOpen] = openState;
 
   const handleTitleChange = (e) => {
@@ -54,7 +54,7 @@ const DiaryModal = ({ openState, handleClosePopup, title, content, setTitle, set
               <button
                 className="border border-purple-500 bg-white text-purple-700 hover:bg-purple-500 hover:text-white w-auto h-10 py-2 px-4 rounded-3xl "
                 type="submit"
-                onClick={handleClosePopup}
+                onClick={handleRegenerateDiary}
               >
                 Regenerate diary
               </button>
