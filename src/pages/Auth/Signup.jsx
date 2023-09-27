@@ -32,6 +32,17 @@ const Signup = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const navigateLogin = async () => {
+      await signOut(auth);
+      navigate("/login");
+    };
+
+    if (user) {
+      navigateLogin();
+    }
+  }, [user]);
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -65,16 +76,8 @@ const Signup = () => {
       setError("Password need to be longer than 6 characters.");
       return;
     }
-    await createUserWithEmailAndPassword(email, password).catch((err) => {
-      console.log("ERROR");
-      console.log(err);
-    });
-    if (firebaseerror != undefined) {
-      setError(firebaseerror.message);
-      return;
-    }
-    await signOut(auth);
-    navigate("/login");
+    setError("");
+    await createUserWithEmailAndPassword(email, password);
   };
 
   return (
@@ -118,6 +121,9 @@ const Signup = () => {
           </label>
         </div>
         {error !== "" && <div className="text-red-500">{error}</div>}
+        {firebaseerror !== undefined && (
+          <div className="text-red-500">{firebaseerror.message}</div>
+        )}
         <div className="flex items-center mt-4 mb-2">
           <button
             className=" flex justify-center bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl"
