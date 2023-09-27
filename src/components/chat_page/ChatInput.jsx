@@ -79,22 +79,23 @@ const ChatInput = ({ email, date }) => {
       {!browserSupportsSpeechRecognition ? (
         <></>
       ) : (
-        <button
+        <div
           onClick={() => {
             if (listening) {
               SpeechRecognition.stopListening();
             } else {
               SpeechRecognition.startListening();
+              setPrompt("");
             }
           }}
           className={
             listening
-              ? "text-white rounded-2xl p-4 my-2 bg-red-400"
-              : "text-white rounded-2xl p-4 my-2 bg-secondary-brown"
+              ? "text-white rounded-2xl flex p-4 my-2 justify-center items-center bg-red-400"
+              : "text-white rounded-2xl p-4 flex my-2 justify-center items-center bg-secondary-brown"
           }
         >
-          <BiSolidMicrophone />
-        </button>
+          <BiSolidMicrophone size={20} />
+        </div>
       )}
     </form>
   );
