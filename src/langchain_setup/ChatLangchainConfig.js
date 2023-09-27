@@ -73,7 +73,7 @@ export const startChat = async (email, date) => {
 
   const startChatData = await startChatChain.call({});
   let text = startChatData.text;
-  text = text.substr(
+  text = text.slice(
     0,
     Math.max(
       text.lastIndexOf("!") + 1,
@@ -97,6 +97,34 @@ export const continueChat = async (email, date) => {
   });
 };
 
+//function to receive human message, give response and store both to firebase
+export const processHumanResponse = async (email, date, response, count) => {
+  //add human response
+  await addMsg(email,date, response, count, true);
+  chatInput.push(new HumanMessage(response));
+
+    //normal processing of human reponse to get ai response
+    const chatPrompt = ChatPromptTemplate.fromMessages(chatInput);
+    const chatChain = new LLMChain({
+      llm: chatModel,
+      prompt: chatPrompt,
+    });
+    const chatData = await chatChain.call({});
+    let text = chatData.text;
+    text = text.slice(
+      0,
+      Math.max(
+        text.lastIndexOf("!") + 1,
+        text.lastIndexOf(".") + 1,
+        text.lastIndexOf("?") + 1
+      )
+    );
+    //add ai response
+    await addMsg(email, date, text, (parseInt(count) + 1).toString(), false);
+    chatInput.push(new AIMessage(text));
+};
+
+
 const GET_MEMORY_PROMPT = `
 Current User Query: {response}
 
@@ -107,22 +135,7 @@ Instructions to the AI:
 2. Retrieve the content of that memory and provide a detailed description tailored to the user's current mood or emotions.
 `;
 
-//function to receive human message, give response and store both to firebase
-export const processHumanResponse = async (email, date, response, count) => {
-  //add human response
-  await addMsg(email,date, response, count, true);
-  chatInput.push(new HumanMessage(response));
-
-  const chatData = await chatModel.call([new HumanMessage(response)], {
-    functions: [extractionFunctionSchema],
-    function_call: { name: "extractor" },
-  });
-  const jsonObject = chatData.additional_kwargs.function_call.arguments;
-  const isAskingForPastEvents = JSON.parse(jsonObject).asking_for_past_events;
-  let text = ""
-
-  //get past events
-  if (isAskingForPastEvents) {
+const askingForPastEvents = async(email, response) => {
     let chatInputCopy = [...chatInput];
     const systemMessagePrompt = SystemMessagePromptTemplate.fromTemplate(GET_MEMORY_PROMPT);
     chatInputCopy.push(systemMessagePrompt);
@@ -139,26 +152,5 @@ export const processHumanResponse = async (email, date, response, count) => {
         diary: diary,
         response: response
     });
-    text = chatData.text;
-  } else {
-    //normal processing of human reponse to get ai response
-    const chatPrompt = ChatPromptTemplate.fromMessages(chatInput);
-    const chatChain = new LLMChain({
-      llm: chatModel,
-      prompt: chatPrompt,
-    });
-    const chatData = await chatChain.call({});
-    text = chatData.text;
-  }
-    text = text.slice(
-      0,
-      Math.max(
-        text.lastIndexOf("!") + 1,
-        text.lastIndexOf(".") + 1,
-        text.lastIndexOf("?") + 1
-      )
-    );
-    //add ai response
-    await addMsg(email, date, text, (parseInt(count) + 1).toString(), false);
-    chatInput.push(new AIMessage(text));
-};
+    let text = chatData.text;
+}
