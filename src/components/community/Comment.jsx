@@ -1,63 +1,67 @@
-import { arrayRemove, arrayUnion, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { firestore } from "../../firebase_setup/FirebaseConfig";
-import { v4 as uuidv4 } from "uuid";
-import { useDocument } from "react-firebase-hooks/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 import toast from "react-hot-toast";
 import { Loading } from "../../pages";
-import { useEffect } from "react";
 import InputForm from "../common/InputForm";
+import { AiFillDelete } from "react-icons/ai";
 
 const Comment = ({ user, post }) => {
   const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
-  const docRef = doc(firestore, "community", post.id);
-  useEffect(() => {
-    setComments(post.data().comments);
-    console.log(comments);
-  }, []);
+  const postDocRef = doc(firestore, "community", post.id);
+  const commentCollectionRef = collection(firestore, "community", post.id, "comments");
+  const [comments, loading, error] = useCollection(commentCollectionRef);
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
   };
 
-  const handleAddComment = async (e) => {
+  const handleAddComment = async () => {
     try {
-      await updateDoc(docRef, {
-        comments: arrayUnion({
+      if (comment) {
+        const curr_count = post.data().comment_count ?? 0;
+        await addDoc(commentCollectionRef, {
           author_uid: user?.uid,
           author_name: user?.displayName,
-          comment: comment,
-          id: uuidv4(),
-        }),
-      });
-      setComment("");
+          content: comment,
+        });
+        await updateDoc(postDocRef, { comment_count: curr_count + 1 });
+        setComment("");
+        toast.success("Successfully created comment!");
+      } else {
+        toast.error("Comment can't be empty!");
+      }
     } catch (err) {
       toast.error(err.message);
     }
   };
 
   // delete comment function
-  const handleDeleteComment = (comment) => {
-    console.log(comment);
-    updateDoc(docRef, {
-      comments: arrayRemove(comment),
-    })
-      .then((e) => {
-        console.log(e);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleDeleteComment = async (id) => {
+    const docRef = doc(firestore, "community", post.id, "comments", id);
+    try {
+      const curr_count = post.data().comment_count ?? 0;
+      await deleteDoc(docRef);
+      await updateDoc(postDocRef, { comment_count: curr_count - 1 });
+      toast.success("Successfully deleted comment!");
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="w-screen max-w-screen-sm mx-auto">
       Comments
-      <div className="container">
-        {comments?.map((cmt, index) => {
-          console.log(cmt);
-          return <CommentCard key={index} comment={cmt.comment} author_name={cmt.author_name} id={cmt.id}></CommentCard>;
+      <div>
+        {comments?.docs.map((cmt, index) => {
+          return (
+            <>
+              <CommentCard key={index} user={user} comment={cmt} handleDeleteComment={handleDeleteComment}></CommentCard>
+            </>
+          );
         })}
       </div>
       <InputForm title="" value={comment} htmlValue="comment" handleChange={handleCommentChange} placeholder="Leave a comment" />
@@ -72,20 +76,18 @@ const Comment = ({ user, post }) => {
   );
 };
 
-const CommentCard = ({ comment, author_name }) => {
+const CommentCard = ({ user, comment, handleDeleteComment }) => {
   return (
     <>
-      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-32 overflow-y-hidden flex justify-between">
-        <div>
-          <div className="flex flex-row gap-x-2 items-center text-sm">
-            <h1>{author_name}</h1>
-          </div>
-          <p className="text-gray-600">{comment}</p>
-          {/* <LikePost post={post} user={user} /> */}
+      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-32 overflow-y-scroll flex justify-between">
+        <div className="">
+          <h1>{comment.data().author_name}</h1>
+          <p className="text-gray-600">{comment.data().content}</p>
         </div>
         <div>
-          {/* <DeletePost post={post} user={user} />
-          <BiPencil className="cursor-pointer w-6 h-6" onClick={() => setIsEditPostModalOpen(true)} /> */}
+          {user?.uid === comment.data().author_uid ? (
+            <AiFillDelete className="cursor-pointer w-6 h-6" onClick={() => handleDeleteComment(comment.id)} />
+          ) : null}
         </div>
       </div>
     </>

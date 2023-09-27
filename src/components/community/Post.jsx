@@ -31,9 +31,7 @@ const Post = ({ user }) => {
       <div className="absolute top-[120px] w-screen">
         <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-fit overflow-y-hidden flex justify-between">
           <div>
-            <div className="flex flex-row gap-x-2 items-center text-sm">
-              <h1>{post.data().author_name}</h1>
-            </div>
+            <h1 className="text-sm">{post.data().author_name}</h1>
             <h2 className="text-xl font-semibold mb-2">{post.data().title}</h2>
             <p className="text-gray-600">{post.data().content}</p>
             <LikePost user={user} post={post} />
@@ -70,7 +68,7 @@ const PostCard = ({ post, user }) => {
         handleClosePopup={() => setIsEditPostModalOpen(false)}
         handleEditPost={handleEditPost}
       /> */}
-      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm h-40 overflow-y-hidden flex justify-between items-">
+      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm h-40 overflow-y-hidden flex justify-between">
         <div>
           <div className="flex flex-row gap-x-2 items-center text-sm">
             <h1>{post.data().author_name ?? "Anon"}</h1>
@@ -90,7 +88,7 @@ const PostCard = ({ post, user }) => {
         </div>
         <div>
           <DeletePost post={post} user={user} />
-          <BiPencil className="cursor-pointer w-6 h-6" onClick={() => setIsEditPostModalOpen(true)} />
+          {/* <BiPencil className="cursor-pointer w-6 h-6" onClick={() => setIsEditPostModalOpen(true)} /> */}
         </div>
       </div>
     </>
@@ -255,12 +253,10 @@ const LikePost = ({ user, post }) => {
 };
 
 const CommentPost = ({ post }) => {
-  const comments = post.data().comments ?? [];
-
   return (
     <div className="flex flex-row items-center gap-x-1">
       <BiComment />
-      {comments.length}
+      {post.data().comment_count ?? 0}
     </div>
   );
 };

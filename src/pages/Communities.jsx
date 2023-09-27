@@ -45,6 +45,7 @@ const Communities = ({ user }) => {
           author_uid: user?.uid,
           author_name: user?.displayName,
           likes: [],
+          comment_count: 0,
           timestamp: serverTimestamp(),
         });
         handleCloseCreatePostModal();
@@ -103,7 +104,6 @@ const Communities = ({ user }) => {
                 key={index}
                 user={user}
                 post={post}
-                id={post.data().id}
                 // openEditPost={() => setIsEditPostModalOpen(true)}
                 handleEditPost={handleEditPost}
               ></PostCard>
