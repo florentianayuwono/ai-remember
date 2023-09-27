@@ -7,5 +7,6 @@ import Communities from "./Communities";
 import Diary from "./Diary";
 import Conversation from "./Conversation";
 import Loading from "./Loading";
+import PrivacyPolicy from "./PrivacyPolicy"
 
-export { Landing, Login, Signup, Loading, Forget, Verify, Communities, Diary, Conversation };
+export { Landing, Login, Signup, Loading, Forget, Verify, Communities, Diary, Conversation, PrivacyPolicy };
