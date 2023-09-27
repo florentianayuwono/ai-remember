@@ -1,7 +1,12 @@
 import ReactGA from "react-ga4";
 import { GiFairyWand } from "react-icons/gi";
 import { useState, useEffect, useRef } from "react";
-import { auth, firestore, getHumanMsg } from "../firebase_setup/FirebaseConfig";
+import {
+  auth,
+  firestore,
+  getHumanMsg,
+  updateDiaryCount,
+} from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import {
@@ -126,11 +131,13 @@ const DiaryButton = () => {
 
         const foundDiary = diaries.find((diary) => diary.id === displayDate);
 
-        if (foundDiary && foundDiary !== "") {
-          console.log(foundDiary);
+        if (foundDiary && foundDiary.diary !== "") {
           setContent(foundDiary.diary);
+          setGenerateCount(foundDiary.generateDiaryCount);
         } else {
           fetchDiaryContent();
+          setGenerateCount(generateCount + 1);
+          updateDiaryCount(user.email, displayDate, generateCount);
         }
       } catch (error) {
         console.error(error);
@@ -161,22 +168,36 @@ const DiaryButton = () => {
   };
 
   const handleRegenerateDiary = async () => {
-    if (generateCount >= 4) {
-      console.error("You can only generate diaries 5 times a day.");
-      setTitle(
-        "Sorry, but your current plan can only generate diaries 5 times a day😥. Uprade to pro for unlimited diaries!"
-      );
-    } else {
-      try {
-        const userChats = await getHumanMsg(user.email, displayDate);
-        const newContent = await diaryGenerator(userChats);
-        setGenerateCount(generateCount + 1);
-        setContent(newContent);
+    try {
+        const data = await getDocs(diaryCollectionRef);
+        const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+        const foundDiary = diaries.find((diary) => diary.id === displayDate);
+
+        if (foundDiary) {
+          setGenerateCount(foundDiary.generateDiaryCount);
+          console.log(generateCount);
+          if (generateCount >= 5) {
+            console.error("You can only generate diaries 5 times a day.");
+            setTitle(
+              "Sorry, but your current plan can only generate diaries 5 times a day😥. Uprade to pro for unlimited diaries!"
+            );
+          } else {
+            try {
+              const userChats = await getHumanMsg(user.email, displayDate);
+              const newContent = await diaryGenerator(userChats);
+              setGenerateCount(generateCount + 1);
+              setContent(newContent);
+              updateDiaryCount(user.email, displayDate, generateCount);
+            } catch (error) {
+              // Handle errors if needed
+              console.error("An error occurred while regenerating the diary:", error);
+            }
+          }
+        }
       } catch (error) {
-        // Handle errors if needed
-        console.error("An error occurred while regenerating the diary:", error);
+        console.error(error);
       }
-    }
   };
 
   return (

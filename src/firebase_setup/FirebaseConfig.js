@@ -38,6 +38,7 @@ const addDataForDay = async (email, date, content) => {
     if (todayDocSnap.data() == undefined) {
       await setDoc(todayDocRef, {
         diary: "",
+        generateDiaryCount: 0
       });
       addMsg(email, date, content.text, "0",false);
       console.log("Today data added with ID: ", todayDocRef.id);
@@ -73,6 +74,26 @@ const updateDiaryContent = async (email, date, diaryContent) => {
   }
 };
 
+// Function to update diary count for a specific date
+const updateDiaryCount = async (email, date, count) => {
+  try {
+    const todayDocRef = doc(firestore, 'users', email, 'dates', date);
+    const todayDocSnap = await getDoc(todayDocRef);
+
+    if (todayDocSnap.exists()) {
+      // Update the diary content
+      await updateDoc(todayDocRef, {
+        generateDiaryCount: count
+      });
+
+      console.log('Diary count updated for date: ', date);
+    } else {
+      console.log('Document for this date does not exist.');
+    }
+  } catch (error) {
+    console.error('Error updating diary count: ', error);
+  }
+};
 
 const getChatCount = async (email, date) => {
   const coll = collection(firestore, "users", email, "dates", date, "chats");
@@ -144,5 +165,6 @@ export {
   addDataForDay,
   getChatCount,
   addMsg,
-  updateDiaryContent
+  updateDiaryContent,
+  updateDiaryCount
 };
