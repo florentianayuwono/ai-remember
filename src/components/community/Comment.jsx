@@ -64,14 +64,16 @@ const Comment = ({ user, post }) => {
           );
         })}
       </div>
-      <InputForm title="" value={comment} htmlValue="comment" handleChange={handleCommentChange} placeholder="Leave a comment" />
-      <button
-        className="bg-purple-500 hover:bg-purple-700 text-white w-24 h-10 py-2 px-4 rounded-3xl "
-        type="submit"
-        onClick={handleAddComment}
-      >
-        Post
-      </button>
+      <InputForm title="" value={comment} htmlValue="comment" handleChange={handleCommentChange} placeholder="Leave a comment..." />
+      <div className="flex justify-end">
+        <button
+          className="bg-purple-500 hover:bg-purple-700 text-white w-24 h-10 py-2 px-4 rounded-3xl "
+          type="submit"
+          onClick={handleAddComment}
+        >
+          Post
+        </button>
+      </div>
     </div>
   );
 };
