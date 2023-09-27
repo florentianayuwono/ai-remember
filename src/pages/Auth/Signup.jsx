@@ -12,6 +12,11 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isAgreed, setIsAgreed] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsAgreed(!isAgreed);
+  };
 
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -39,8 +44,13 @@ const Signup = () => {
     setConfirmPassword(e.target.value);
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isAgreed) {
+      setError("Please agree to the privacy policy.");
+      return;
+    }
+
     let re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(email)) {
@@ -48,20 +58,19 @@ const Signup = () => {
       return;
     }
     if (password != confirmPassword) {
-      setError("Unmatching passwords.")
+      setError("Unmatching passwords.");
       return;
     }
     if (password.length < 6) {
       setError("Password need to be longer than 6 characters.");
       return;
     }
-    await createUserWithEmailAndPassword(email, password)
-    .catch((err) => {
+    await createUserWithEmailAndPassword(email, password).catch((err) => {
       console.log("ERROR");
-      console.log(err)
+      console.log(err);
     });
     if (firebaseerror != undefined) {
-      setError(firebaseerror.message)
+      setError(firebaseerror.message);
       return;
     }
     await signOut(auth);
@@ -93,6 +102,21 @@ const Signup = () => {
           handleChange={handleConfirmPasswordChange}
           placeholder="confirm password"
         />
+        <div className="flex items-center mb-2">
+          <input
+            type="checkbox"
+            id="privacyCheckbox"
+            checked={isAgreed}
+            onChange={handleCheckboxChange}
+            className="mr-2"
+          />
+          <label htmlFor="privacyCheckbox">
+            I agree to the{" "}
+            <a href="/privacy-policy" className="text-purple-500">
+              Privacy Policy
+            </a>
+          </label>
+        </div>
         {error !== "" && <div className="text-red-500">{error}</div>}
         <div className="flex items-center mt-4 mb-2">
           <button
