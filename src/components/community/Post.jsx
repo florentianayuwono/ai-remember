@@ -83,7 +83,9 @@ const PostCard = ({ post, user }) => {
           </Link>
           <div className="flex gap-x-2">
             <LikePost post={post} user={user} />
-            <CommentPost post={post} />
+            <Link to={`/post/${post.id}`}>
+              <CommentPost post={post} />
+            </Link>
           </div>
         </div>
         <div>
