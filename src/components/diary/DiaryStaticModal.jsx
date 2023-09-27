@@ -54,7 +54,7 @@ const DiaryStaticModal = ({
                 speed={50}
                 repeat={0}
                 cursor={false}
-                className="font-handwriting-diary"
+                className="font-handwriting-user"
               />
             </div>
 
