@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { PostCard, CreatePostModal, EditPostModal } from "../components/community/Post";
 import { firestore } from "../firebase_setup/FirebaseConfig";
-import { addDoc, collection, updateDoc, doc, serverTimestamp, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc, serverTimestamp, deleteDoc, getDocs } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Loading from "./Loading";
 
@@ -71,9 +71,10 @@ const Communities = ({ user }) => {
   return loading ? (
     <Loading />
   ) : (
-    <div className="relative z-0 h-screen bg-primary-lightpink text-secondary-brown overflow-y-scroll">
+    <div className="relative z-0 h-screen bg-primary-lightpink text-secondary-brown overflow-y-scroll overflow-x-hidden">
       <HomeNavbar />
       <CreatePostModal
+        user={user}
         openState={createPostModalState}
         handleClosePopup={handleCloseCreatePostModal}
         title={title}
@@ -96,7 +97,6 @@ const Communities = ({ user }) => {
           Have something to share?
           <BsFillPlusSquareFill className="w-8 h-8 m-12" />
         </div>
-
         <div>
           {posts?.docs.map((post, index) => {
             return (

@@ -2,14 +2,14 @@ import InputForm from "../common/InputForm";
 import Modal from "react-modal";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { doc, updateDoc, arrayUnion, arrayRemove, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, arrayRemove, deleteDoc, collection } from "firebase/firestore";
 import { AiFillDelete, AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { BiPencil, BiArrowBack, BiComment } from "react-icons/bi";
 import { firestore } from "../../firebase_setup/FirebaseConfig";
 import { Loading } from "../../pages";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { useDocument } from "react-firebase-hooks/firestore";
+import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 
 import HomeNavbar from "../common/HomeNavbar";
 import { Comment } from "./Comment";
@@ -98,7 +98,7 @@ const PostCard = ({ post, user }) => {
   );
 };
 
-const CreatePostModal = ({ openState, handleClosePopup, title, content, setTitle, setContent, handleSubmitPost }) => {
+const CreatePostModal = ({ user, openState, handleClosePopup, title, content, setTitle, setContent, handleSubmitPost }) => {
   const [isOpen, setIsOpen] = openState;
 
   const handleTitleChange = (e) => {
@@ -121,10 +121,17 @@ const CreatePostModal = ({ openState, handleClosePopup, title, content, setTitle
           className="relative mx-auto transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
         >
           <div className="flex flex-col gap-x-4 max-w-sm sm:flex-wrap mx-auto my-10">
-            <InputForm title="Title" value={title} htmlValue="title" handleChange={handleTitleChange} placeholder="Title for your post" />
+            <ChooseDiary user={user} setTitle={setTitle} setContent={setContent} />
+            <InputForm
+              title="Title"
+              value={title || ""}
+              htmlValue="title"
+              handleChange={handleTitleChange}
+              placeholder="Title for your post"
+            />
             <InputForm
               title="Content"
-              value={content}
+              value={content || ""}
               htmlValue="content"
               handleChange={handleContentChange}
               placeholder="Content for your post"
@@ -184,7 +191,6 @@ const EditPostModal = ({ openState, id, title, content, setTitle, setContent, ha
               handleChange={handleContentChange}
               placeholder="Content for your post"
             />
-
             <div className="flex flex-wrap gap-x-10 my-6 ">
               <button
                 className="bg-purple-500 hover:bg-purple-700 text-white w-24 h-10 py-2 px-4 rounded-3xl "
@@ -264,6 +270,53 @@ const CommentPost = ({ post }) => {
   );
 };
 
+const ChooseDiary = ({ user, setTitle, setContent }) => {
+  const [selectedTitle, setSelectedTitle] = useState("");
+  const [selectedContent, setSelectedContent] = useState("");
+
+  const diaryCollectionRef = collection(firestore, "users", user?.email, "dates");
+  const [diaries, loading, error] = useCollection(diaryCollectionRef);
+
+  const handleSelectChange = (option) => {
+    const selectedIndex = option.target.options.selectedIndex;
+    const id = option.target.options[selectedIndex].getAttribute("data-key");
+
+    setSelectedTitle(id);
+    setSelectedContent(option.target.value);
+    console.log(selectedTitle);
+  };
+
+  const handleImportDiary = () => {
+    console.log(selectedTitle);
+    setTitle(selectedTitle);
+    setContent(selectedContent);
+  };
+
+  return loading ? (
+    <Loading />
+  ) : (
+    <div className="text-gray-900 flex flex-col gap-y-2 mb-4">
+      Select a diary to import the content!
+      <select className="w-full px-4 py-2 border bg-white rounded-xl focus:ring-1 focus:ring-black" onChange={handleSelectChange}>
+        {diaries?.docs.map((x, index) => {
+          return (
+            <option value={x.data().diary || ""} key={index} data-key={x.id} onClick={() => handleSelectChange(x)}>
+              {x.id}
+            </option>
+          );
+        })}
+      </select>
+      <button
+        className="border border-purple-500 bg-white text-purple-700 hover:bg-purple-400 hover:text-white w-24 h-10 py-2 px-4 rounded-3xl "
+        type="submit"
+        onClick={handleImportDiary}
+      >
+        Import
+      </button>
+    </div>
+  );
+};
+
 const GoBack = () => {
   return (
     <button className="mx-auto bg-white rounded-2xl">
@@ -271,4 +324,4 @@ const GoBack = () => {
     </button>
   );
 };
-export { CommentPost, DeletePost, LikePost, Post, PostCard, CreatePostModal, EditPostModal };
+export { ChooseDiary, CommentPost, DeletePost, LikePost, Post, PostCard, CreatePostModal, EditPostModal };
