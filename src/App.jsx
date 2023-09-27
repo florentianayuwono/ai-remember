@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes, Navigate, Outlet } from "react-router-dom
 import { useCookies } from "react-cookie";
 import { Toaster } from "react-hot-toast";
 import ReactGA from "react-ga4";
+import "regenerator-runtime/runtime";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
