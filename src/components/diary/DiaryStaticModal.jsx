@@ -59,13 +59,13 @@ const DiaryStaticModal = ({
             </div>
 
             <div className="flex flex-wrap gap-x-10 my-6 justify-start absolute bottom-10">
-              <button
+              {/* <button
                 className="bg-pink-500 hover:bg-pink-700 text-white w-24 h-10 py-2 px-4 rounded-3xl "
                 type="submit"
                 onClick={handleEditDiary}
               >
                 Edit
-              </button>
+              </button> */}
             </div>
           </div>
         </Modal>

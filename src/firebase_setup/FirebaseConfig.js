@@ -118,7 +118,12 @@ const getHumanMsg = async (email, date) => {
     // doc.data() is never undefined for query doc snapshots
     chats.push(doc.data());
   });
-  return chats;
+  // Extract the content strings
+  const contentStrings = chats.map((chat) => chat.content);
+
+  // Combine the content strings into one long string
+  const combinedContent = contentStrings.join(' ');
+  return combinedContent;
 };
 
 //getHumanMsg("xuyi9272@gmail.com","September 26, 2023")
