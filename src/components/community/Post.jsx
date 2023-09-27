@@ -5,7 +5,6 @@ import { useState } from "react";
 import { doc, updateDoc, arrayUnion, arrayRemove, deleteDoc, collection } from "firebase/firestore";
 import { AiFillDelete, AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { BiPencil, BiArrowBack, BiComment } from "react-icons/bi";
-import Select from "react-select";
 import { firestore } from "../../firebase_setup/FirebaseConfig";
 import { Loading } from "../../pages";
 import { useParams } from "react-router";
