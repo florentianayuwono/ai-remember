@@ -15,7 +15,7 @@ const chatModel = new ChatOpenAI({
     topP:0.5,
     frequencyPenalty: 0,
     presencePenalty: 0,
-    maxTokens: 250,
+    maxTokens: 100,
 })
 
 //initialise chain with prompts
@@ -45,9 +45,11 @@ export const startChat = async(email, date) => {
     })
     
     const startChatData = await startChatChain.call({});
-    chatInput.push(new AIMessage(startChatData.text))
+    let text = startChatData.text;
+    text = text.substr(0, Math.max(text.lastIndexOf("!")+1, text.lastIndexOf(".")+1,text.lastIndexOf("?")+1));
+    chatInput.push(new AIMessage(text))
     //text being the text
-    addDataForDay(email, date, startChatData);
+    addDataForDay(email, date, text);
 }
 
 //get old responses
@@ -75,8 +77,10 @@ export const processHumanResponse = async(email, date, response, count) => {
         prompt: chatPrompt,
     })
     const chatData = await chatChain.call({});
+    let text = chatData.text;
+    text = text.substr(0, Math.max(text.lastIndexOf("!")+1, text.lastIndexOf(".")+1,text.lastIndexOf("?")+1));
 
     //add ai response
-    await addMsg(email,date, chatData.text, count+1, false);
-    chatInput.push(new AIMessage(chatData.text))
+    await addMsg(email,date, text, count+1, false);
+    chatInput.push(new AIMessage(text))
 }

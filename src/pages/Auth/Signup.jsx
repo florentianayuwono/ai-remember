@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { auth } from "../../firebase_setup/FirebaseConfig";
-import { signOut } from 'firebase/auth';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { signOut } from "firebase/auth";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import ReactGA from "react-ga4";
 
 import { logo2 } from "../../assets";
-import {CircularIndicator, InputForm} from "../../components";
+import { CircularIndicator, InputForm } from "../../components";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
@@ -13,15 +13,11 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [registerLoading, setRegisterLoading] = useState(false);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  const [
-    createUserWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, firebaseerror] =
+    useCreateUserWithEmailAndPassword(auth);
 
   useEffect(() => {
     ReactGA.send({
@@ -43,22 +39,33 @@ const Signup = () => {
     setConfirmPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    setRegisterLoading(true);
-    createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-        signOut(auth);
-        setRegisterLoading(false);
-        if (userCredential != undefined) {
-          navigate('/login')
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setRegisterLoading(false);
-      });
+    let re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(email)) {
+      setError("Invalid email format.");
+      return;
+    }
+    if (password != confirmPassword) {
+      setError("Unmatching passwords.")
+      return;
+    }
+    if (password.length < 6) {
+      setError("Password need to be longer than 6 characters.");
+      return;
+    }
+    await createUserWithEmailAndPassword(email, password)
+    .catch((err) => {
+      console.log("ERROR");
+      console.log(err)
+    });
+    if (firebaseerror != undefined) {
+      setError(firebaseerror.message)
+      return;
+    }
+    await signOut(auth);
+    navigate("/login");
   };
 
   return (
@@ -86,13 +93,14 @@ const Signup = () => {
           handleChange={handleConfirmPasswordChange}
           placeholder="confirm password"
         />
+        {error !== "" && <div className="text-red-500">{error}</div>}
         <div className="flex items-center mt-4 mb-2">
           <button
             className=" flex justify-center bg-purple-500 hover:bg-purple-700 text-white w-full h-10 py-2 px-4 rounded-3xl"
             type="submit"
             onClick={handleSubmit}
           >
-            {registerLoading ? <CircularIndicator /> : "Register"}
+            {loading ? <CircularIndicator /> : "Register"}
           </button>
         </div>
         <p>
