@@ -146,8 +146,8 @@ const Calendar = ({ month, diaries }) => {
                                   className="event bg-primary-blue text-black rounded-full px-4 py-1 mx-auto text-sm mb-1 truncate cursor-pointer"
                                   onClick={() => openDiaryModal(day)}
                                 >
-                                  <span className="event-name">
-                                    {diaryEntry ? diaryEntry.diary : ""}
+                                  <span className="truncate">
+                                  {diaryEntry ? (diaryEntry.diary.length > 15 ? diaryEntry.diary.slice(0, 15) + '...' : diaryEntry.diary) : ""}
                                   </span>
                                 </div>
                               ) : (
