@@ -34,7 +34,10 @@ const Post = ({ user }) => {
             <h1 className="text-sm">{post.data().author_name}</h1>
             <h2 className="text-xl font-semibold mb-2">{post.data().title}</h2>
             <p className="text-gray-600">{post.data().content}</p>
-            <LikePost user={user} post={post} />
+            <div className="flex gap-x-2">
+              <LikePost post={post} user={user} />
+              <CommentPost post={post} />
+            </div>
           </div>
           <div>
             <DeletePost user={user} post={post} />
@@ -268,4 +271,4 @@ const GoBack = () => {
     </button>
   );
 };
-export { DeletePost, LikePost, Post, PostCard, CreatePostModal, EditPostModal };
+export { CommentPost, DeletePost, LikePost, Post, PostCard, CreatePostModal, EditPostModal };
