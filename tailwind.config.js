@@ -23,7 +23,7 @@ module.exports = {
         "white-100": "#f3f3f3",
       },
       fontFamily: {
-        "handwriting-bear": ['Shadows Into Light'],
+        "handwriting-bear": ['Indie Flower'],
         "handwriting-user": ['Caveat'],
         "handwriting-diary": ['Dancing Script']
       },

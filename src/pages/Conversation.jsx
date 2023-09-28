@@ -9,16 +9,7 @@ import {
 } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
-import {
-  addDoc,
-  collection,
-  query,
-  onSnapshot,
-  doc,
-  serverTimestamp,
-  deleteDoc,
-  getDocs,
-} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import Loading from "./Loading";
 import { Chat, ChatInput, DiaryModal, HomeNavbar } from "../components";
 import {
@@ -59,12 +50,14 @@ const Conversation = () => {
       await continueChat(user.email, displayDate);
     };
 
-    if (chats?.docs.length == 0 && !loadingc && !loading) {
-      getNewContent();
-    } else {
-      getOldContent();
+    if (!loadingc && !loading) {
+      if (chats?.docs.length == 0) {
+        getNewContent();
+      } else {
+        getOldContent();
+      }
     }
-  }, [loadingc]);
+  }, [loading, loadingc]);
 
   useEffect(() => {
     // 👇️ scroll to bottom every time messages change
@@ -138,7 +131,7 @@ const DiaryButton = () => {
         setGenerateCount(async (prevCount) => {
           const updatedCount = prevCount + 1;
           await updateDiaryCount(user.email, displayDate, updatedCount);
-          return updatedCount
+          return updatedCount;
         });
       }
     } catch (error) {
@@ -176,7 +169,7 @@ const DiaryButton = () => {
 
       if (foundDiary) {
         setGenerateCount(foundDiary.generateDiaryCount);
-        console.log(generateCount)
+        console.log(generateCount);
         if (foundDiary.generateDiaryCount >= 5) {
           console.error("You can only generate diaries 5 times a day.");
           setTitle(
@@ -189,10 +182,9 @@ const DiaryButton = () => {
             setGenerateCount(async (prevCount) => {
               const updatedCount = prevCount + 1;
               await updateDiaryCount(user.email, displayDate, updatedCount);
-              return updatedCount
+              return updatedCount;
             });
-            setContent(newContent)
-            console.log(generateCount)
+            setContent(newContent);
           } catch (error) {
             // Handle errors if needed
             console.error(
