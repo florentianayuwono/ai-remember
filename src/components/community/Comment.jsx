@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, orderBy, query, serverTimestamp, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { firestore } from "../../firebase_setup/FirebaseConfig";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -11,7 +11,7 @@ const Comment = ({ user, post }) => {
   const [comment, setComment] = useState("");
   const postDocRef = doc(firestore, "community", post.id);
   const commentCollectionRef = collection(firestore, "community", post.id, "comments");
-  const [comments, loading, error] = useCollection(commentCollectionRef);
+  const [comments, loading, error] = useCollection(query(commentCollectionRef, orderBy("timestamp")));
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -25,6 +25,7 @@ const Comment = ({ user, post }) => {
           author_uid: user?.uid,
           author_name: user?.displayName,
           content: comment,
+          timestamp: serverTimestamp(),
         });
         await updateDoc(postDocRef, { comment_count: curr_count + 1 });
         setComment("");
@@ -81,9 +82,10 @@ const Comment = ({ user, post }) => {
 const CommentCard = ({ user, comment, handleDeleteComment }) => {
   return (
     <>
-      <div className="mb-4 bg-white hover:bg-gray-100 rounded-lg shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-32 overflow-y-scroll flex justify-between">
+      <div className="mb-4 bg-white hover:bg-gray-100 rounded-xl shadow-xl p-4 mx-auto w-screen max-w-screen-sm max-h-40 overflow-y-auto flex justify-between">
         <div className="">
           <h1>{comment.data().author_name}</h1>
+          <p className="text-xs">{new Date(comment.data().timestamp?.toDate())?.toLocaleString()}</p>
           <p className="text-gray-600">{comment.data().content}</p>
         </div>
         <div>

@@ -37,7 +37,7 @@ const Post = ({ user }) => {
             <GoBack />
             <div className="flex flex-row gap-x-10 items-center text-sm justify-between">
               <h1>{post.data().is_anon ? "Anon" : post.data().author_name}</h1>
-              <p>{new Date(post?.data().timestamp?.toDate())?.toUTCString()}</p>
+              <p>{new Date(post?.data().timestamp?.toDate())?.toLocaleString()}</p>
             </div>
 
             <h2 className="text-xl font-semibold mb-2">{post.data().title}</h2>
