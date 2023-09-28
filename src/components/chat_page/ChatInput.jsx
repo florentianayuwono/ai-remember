@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { CHAT_PLACEHOLDER } from "../../constants";
-import { BsFillPencilFill } from "react-icons/bs";
 import { BiSolidMicrophone } from "react-icons/bi";
 import { getChatCount } from "../../firebase_setup/FirebaseConfig";
 import toast from "react-hot-toast";
@@ -9,7 +8,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import "regenerator-runtime/runtime";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineEnter } from "react-icons/ai";
 
 const ChatInput = ({ email, date }) => {
   const [prompt, setPrompt] = useState("");
@@ -74,7 +73,7 @@ const ChatInput = ({ email, date }) => {
         type="submit"
         className="text-white bg-secondary-brown rounded-2xl p-4 m-2"
       >
-        <BsFillPencilFill />
+        <AiOutlineEnter size={20}/>
       </button>
       {!browserSupportsSpeechRecognition ? (
         <></>

@@ -38,7 +38,7 @@ const chatModel = new ChatOpenAI({
   topP: 0.5,
   frequencyPenalty: 0,
   presencePenalty: 0,
-  maxTokens: 100,
+  maxTokens: 50,
 });
 
 //initialise chain with prompts
@@ -46,11 +46,14 @@ const INTRO_PROMPT =
   "You're paw paw, our welcoming memory companion, you are not a language model or AI. Encourage the user to open up and chat naturally. Make the introduction warm and inviting.";
 const CONVO_START_PROMPT =
   "Initiate a delightful conversation by asking the user about their day. Encourage them to share thoughts and experiences openly. Create an engaging and friendly atmosphere.";
-const CONVO_PROMPT =
-  "Throughout our chat, be empathetic and understanding when the user shares their feelings and experiences. If anything is unclear, gently seek clarification or additional details. Wrap up conversations with gratitude and warmth, looking forward to the next interaction.";
 const RELEVANCE_PROMPT =
   "Emphasize the importance of meaningful conversations that revolve around the user's daily experiences, emotions, and cherished memories. Help user to retrieve past memories if necessary. Encourage the avoidance of unrelated topics, gently redirecting the conversation when necessary.";
-const RESTRICTION_PROMPT = ""
+const CONVO_PROMPT = `
+Don't hesitate to use chat abbreviations like 'lol,' 'brb,' or 'omg' to keep the conversation light and fun!
+Short and sweet is the way to go! Keep your messages to 1-3 sentences for a more natural chat flow.
+Throughout our chat, be empathetic and understanding when the user shares their feelings and experiences. If anything is unclear, gently seek clarification or additional details.
+
+`
   
 //initialise chats for the user today
 let chatInput = [
@@ -64,6 +67,7 @@ export const startChat = async (email, date) => {
   const startChatInput = [
     new SystemMessage(INTRO_PROMPT),
     new SystemMessage(CONVO_START_PROMPT),
+    new SystemMessage(CONVO_PROMPT),
   ];
 
   const startChatPrompt = ChatPromptTemplate.fromMessages(startChatInput);
