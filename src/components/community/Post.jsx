@@ -37,7 +37,7 @@ const Post = ({ user }) => {
             <GoBack />
             <div className="flex flex-row gap-x-10 items-center text-sm justify-between">
               <h1>{post.data().is_anon ? "Anon" : post.data().author_name}</h1>
-              <p>{new Date(post?.data().timestamp?.toDate())?.toUTCString()}</p>
+              <p>{new Date(post?.data().timestamp?.toDate())?.toLocaleString()}</p>
             </div>
 
             <h2 className="text-xl font-semibold mb-2">{post.data().title}</h2>
@@ -83,12 +83,12 @@ const PostCard = ({ post, user }) => {
         <div>
           <div className="flex flex-row gap-x-10 items-center text-sm justify-between">
             <h1>{post.data().is_anon ? "Anon" : post.data().author_name}</h1>
-            <p>{new Date(post?.data().timestamp?.toDate())?.toUTCString()}</p>
+            <p>{new Date(post?.data().timestamp?.toDate())?.toLocaleString()}</p>
           </div>
           <Link to={`/post/${post.id}`}>
             <div className="w-full overflow-y-hidden text-ellipsis">
               <h2 className="text-xl h-8 font-semibold mb-1 ">{title}</h2>
-              <p className="text-gray-600 h-12 overflow-y-hidden text-ellipsis ">{content}</p>
+              <p className="text-gray-600 h-12 text-ellipsis line-clamp-2">{content}</p>
             </div>
           </Link>
           <div className="flex justify-between">

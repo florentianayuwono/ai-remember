@@ -18,7 +18,7 @@ const Communities = ({ user }) => {
   const [isAnon, setIsAnon] = useState(false);
 
   const postsCollectionRef = collection(firestore, "community");
-  const [posts, loading, error] = useCollection(query(postsCollectionRef, orderBy("timestamp")));
+  const [posts, loading, error] = useCollection(query(postsCollectionRef, orderBy("timestamp", "desc")));
 
   const handleCloseCreatePostModal = () => {
     setIsCreatePostModalOpen(false);
