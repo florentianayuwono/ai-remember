@@ -29,3 +29,5 @@ export const diaryGenerator = async (chats) => {
   const result = response.choices[0].text.trim();
   return result;
 };
+
+
