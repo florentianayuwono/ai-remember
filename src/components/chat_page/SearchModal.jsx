@@ -15,7 +15,7 @@ const SearchModal = ({
 }) => {
   const [isSearchOpen, setIsSearchOpen] = openState;
   const [canSubmit, setCanSubmit] = useState(true);
-  const [content, setContent] = useState("paw paw will find your precious memory 🌟");
+  const [content, setContent] = useState("paw paw will find your precious memory 🌟 (But take note that paw paw is a creative young bear that will create memories if it can't find one)");
 
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
