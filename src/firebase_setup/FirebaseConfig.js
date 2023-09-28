@@ -39,7 +39,6 @@ const addDataForDay = async (email, date, content) => {
       await setDoc(todayDocRef, {
         diary: "",
         generateDiaryCount: 0,
-        generateSearchCount: 0
       });
       addMsg(email, date, content, "0",false);
       console.log("Today data added with ID: ", todayDocRef.id);
@@ -169,7 +168,7 @@ const canPerformSearch = async (email,date) => {
   if (dateDocSnap.exists()) {
     const data = dateDocSnap.data();
     //max of 1 generation
-    if (data.generateSearchCount == undefined || date.generateSearchCount == 0) {
+    if (data.generateSearchCount == undefined) {
       updateDoc(dateDoc,{
         generateSearchCount: 1
       })
