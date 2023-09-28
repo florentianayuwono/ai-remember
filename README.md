@@ -67,3 +67,6 @@ If you want to test AI-Remember locally, follow these steps:
    npm run preview
    ```
 6. Open a web browser and access AI-Remember at http://localhost:3000 🚀
+
+## Resources
+We rely on OpenAI and LangChain documentation for integration of the Generative AI capabilities.
