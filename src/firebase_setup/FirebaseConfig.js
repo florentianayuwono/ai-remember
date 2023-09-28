@@ -38,7 +38,8 @@ const addDataForDay = async (email, date, content) => {
     if (todayDocSnap.data() == undefined) {
       await setDoc(todayDocRef, {
         diary: "",
-        generateDiaryCount: 0
+        generateDiaryCount: 0,
+        generateSearchCount: 0
       });
       addMsg(email, date, content, "0",false);
       console.log("Today data added with ID: ", todayDocRef.id);
@@ -162,6 +163,22 @@ const getSevenDaysDiary = async (email) => {
   return results;
 }
 
+const canPerformSearch = async (email,date) => {
+  const dateDoc = doc(firestore, "users", email, "dates", date);
+  const dateDocSnap = await getDoc(dateDoc);
+  if (dateDocSnap.exists()) {
+    const data = dateDocSnap.data();
+    //max of 1 generation
+    if (data.generateSearchCount == undefined || date.generateSearchCount == 0) {
+      updateDoc(dateDoc,{
+        generateSearchCount: 1
+      })
+      return true;
+    }
+  }
+  return false;
+}
+
 export {
   auth,
   firestore,
@@ -169,6 +186,7 @@ export {
   getAllMsg,
   getHumanMsg,
   addDataForDay,
+  canPerformSearch,
   getSevenDaysDiary,
   getChatCount,
   addMsg,

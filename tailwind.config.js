@@ -32,7 +32,8 @@ module.exports = {
       },
       backgroundImage: {
         'note-paper': "url('/src/assets/chat_page/note-paper.jpg')",
-        'diary-paper': "url('/src/assets/chat_page/diary-paper.png')"
+        'diary-paper': "url('/src/assets/chat_page/diary-paper.png')",
+        'search-paper':"url('/src/assets/chat_page/search-paper.jpg')"
       },
       screens: {
         'xs': "450px",

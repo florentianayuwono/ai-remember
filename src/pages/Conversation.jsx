@@ -1,5 +1,6 @@
 import ReactGA from "react-ga4";
 import { GiFairyWand } from "react-icons/gi";
+import { FaRadio} from "react-icons/fa6";
 import { useState, useEffect, useRef } from "react";
 import {
   auth,
@@ -11,7 +12,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, getDocs } from "firebase/firestore";
 import Loading from "./Loading";
-import { Chat, ChatInput, DiaryModal, HomeNavbar } from "../components";
+import { Chat, ChatInput, DiaryModal, HomeNavbar,SearchModal } from "../components";
 import {
   continueChat,
   startChat,
@@ -97,6 +98,8 @@ const DiaryButton = () => {
   const [user, loading] = useAuthState(auth);
   const openState = useState(false);
   const [isDiaryModalOpen, setIsDiaryModalOpen] = openState;
+  const searchOpenState = useState(false);
+  const [isSeachModalOpen, setIsSearchModalOpen] = searchOpenState;
 
   let newDate = new Date();
   let displayDate = newDate.toLocaleDateString("en-En", {
@@ -108,6 +111,8 @@ const DiaryButton = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [generateCount, setGenerateCount] = useState(0);
+
+  const [query, setQuery] = useState("");
 
   const diaryCollectionRef = collection(
     firestore,
@@ -155,9 +160,17 @@ const DiaryButton = () => {
     setIsDiaryModalOpen(false);
   };
 
+  const handleCloseSearchPopup = () => {
+    setIsSearchModalOpen(false);
+  };
+
   const openDiaryModal = () => {
     setIsDiaryModalOpen(true);
     getDiary();
+  };
+
+  const openSearchModal = () => {
+    setIsSearchModalOpen(true);
   };
 
   const handleRegenerateDiary = async () => {
@@ -201,6 +214,14 @@ const DiaryButton = () => {
 
   return (
     <div className="flex items-center justify-center cursor-pointer">
+      { isSeachModalOpen && <SearchModal
+          openState={searchOpenState}
+          handleClosePopup={handleCloseSearchPopup}
+          query={query}
+          setQuery={setQuery}
+          email={user.email}
+          date={displayDate}
+        /> }
       {isDiaryModalOpen ? (
         // Step 2: Use the imported DiaryModal component
         <DiaryModal
@@ -214,12 +235,27 @@ const DiaryButton = () => {
           handleRegenerateDiary={handleRegenerateDiary}
         />
       ) : (
-        <div
-          className="flex items-center justify-center mb-2 py-2 px-4 rounded-2xl bg-primary-pink bg-opacity-50 text-secondary-purple select-none"
-          onClick={openDiaryModal}
-        >
-          <GiFairyWand />
-          Generate Diary
+        <div className="flex">
+          <div
+            className="flex items-center justify-center mb-2 mx-2 py-2 px-4 rounded-2xl bg-primary-pink bg-opacity-50 text-secondary-purple select-none"
+            onClick={openDiaryModal}
+          >
+            <GiFairyWand />
+            <div className="ml-2">
+            Generate Diary
+            </div>
+          </div>
+          <div
+            className="flex items-center justify-center mb-2 mx-2 py-2 px-4 rounded-2xl bg-primary-purple bg-opacity-50 text-secondary-purple select-none"
+            onClick={openSearchModal}
+          >
+            <FaRadio />
+            <div className="ml-2">
+            I'm feeling nostalgic
+            </div>
+            
+          </div>
+
         </div>
       )}
     </div>
