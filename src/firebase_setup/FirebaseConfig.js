@@ -186,6 +186,7 @@ export {
   getAllMsg,
   getHumanMsg,
   addDataForDay,
+  canPerformSearch,
   getSevenDaysDiary,
   getChatCount,
   addMsg,

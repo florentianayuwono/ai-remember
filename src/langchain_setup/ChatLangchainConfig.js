@@ -149,9 +149,10 @@ Collection of the User's Past Memories from the Past 7 Days (Excluding Today):
 
 Instructions to the AI:
 1. Analyze the current user query and determine which item from the collection corresponds to the past memory most relevant to the query.
-2. Explain the content of that memory to the user as if it was a past memory the user has forgotten. Emphasize with the user's current mood and encourage them to share thoughts.
-3. Do not make up a memory that does not exist in the collection.
-4. Please ensure that the retrieved memory is from the past 7 days, excluding today, helping the user reminisce about recent experiences.
+2. Explain the content of that memory to the user as if it was a past memory the user has forgotten. Emphasize with the user's current mood.
+3. Be succinct, response with at most 150 words. Do not talk about yourself.
+4. Do not make up a memory that does not exist in the collection.
+5. Please ensure that the retrieved memory is from the past 7 days, excluding today, helping the user reminisce about recent experiences.
 `;
 
 const searchModel = new ChatOpenAI({
@@ -160,10 +161,10 @@ const searchModel = new ChatOpenAI({
   topP: 0.5,
   frequencyPenalty: 0,
   presencePenalty: 0,
-  maxTokens: 1024,
+  maxTokens: 300,
 });
 
-const askingForPastEvents = async(email, response) => {
+export const askingForPastEvents = async(email, response) => {
   const systemMessagePrompt = SystemMessagePromptTemplate.fromTemplate(GET_MEMORY_PROMPT);
   const diaries = await getSevenDaysDiary(email);
   const diary = diaries.join(`\n`);
