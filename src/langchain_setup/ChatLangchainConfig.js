@@ -101,17 +101,17 @@ export const continueChat = async (email, date) => {
     }
   });
   if (chats.length % 2 === 0 && chats.length !== 0) {
-    await addAIResponse(email,date, chats.length-1);
+    await addAIResponse(email,date, chats.length);
   }
 };
 
 //function to receive human message, give response and store both to firebase
 export const processHumanResponse = async (email, date, response, count) => {
   //add human response
-  await addMsg(email,date, response, (parseInt(count) -1).toString()+0, true);
+  await addMsg(email,date, response, count, true);
   chatInput.push(new HumanMessage(response));
 
-  addAIResponse(email,date,count);
+  addAIResponse(email,date,parseInt(count)+1);
 };
 
 const addAIResponse = async(email, date, count) => {
@@ -132,7 +132,10 @@ const addAIResponse = async(email, date, count) => {
     )
   );
   //add ai response
-  await addMsg(email, date, text, (count).toString()+0, false);
+  if (count == 10) {
+    count = 90;
+  } 
+  await addMsg(email, date, text, count.toString(), false);
   chatInput.push(new AIMessage(text));
 
 }
