@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes, Navigate, Outlet } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Toaster } from "react-hot-toast";
 import ReactGA from "react-ga4";
@@ -6,19 +12,31 @@ import "regenerator-runtime/runtime";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase_setup/FirebaseConfig";
-import { Login, Loading, Landing, Forget, Signup, Verify, Communities, Diary, Conversation, PrivacyPolicy } from "./pages";
+import {
+  Login,
+  Loading,
+  Landing,
+  Forget,
+  Signup,
+  Verify,
+  Communities,
+  Diary,
+  Conversation,
+  PrivacyPolicy,
+} from "./pages";
 import { Post } from "./components/community/Post";
+import { Helmet } from "react-helmet";
 
 const MEASUREMENT_ID_AI = "G-Q40RWCDB0B";
 const MEASUREMENT_ID_XY = "G-P3ZGZ14ZR6";
 ReactGA.initialize([
   {
-  trackingId: MEASUREMENT_ID_AI,
-},{
-  trackingId: MEASUREMENT_ID_XY,
-},]
-);
-
+    trackingId: MEASUREMENT_ID_AI,
+  },
+  {
+    trackingId: MEASUREMENT_ID_XY,
+  },
+]);
 
 const App = () => {
   const [cookies, setCookie] = useCookies(["user"]);
@@ -31,23 +49,35 @@ const App = () => {
     return children ? children : <Outlet />;
   };
 
-  const LoggedInRoute = ({ user, redirectPath = "/conversation", children }) => {
+  const LoggedInRoute = ({
+    user,
+    redirectPath = "/conversation",
+    children,
+  }) => {
     if (user) {
       return <Navigate to={redirectPath} replace />;
     }
     return children ? children : <Outlet />;
   };
-  
+
   return loading ? (
     <Loading />
   ) : (
     <>
+      <Helmet>
+        <title>AI-Remember</title>
+        <meta name="description" content="Your personal memory keeper that never forgets small things." />
+        <link rel="canonical" href="https://ai-remember.vercel.app/" />
+      </Helmet>
       <Toaster position="top-center" />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing user={user} />} />
           <Route element={<LoggedInRoute user={user} />}>
-            <Route path="/login" element={<Login setCookie={setCookie} cookies={cookies} />} />
+            <Route
+              path="/login"
+              element={<Login setCookie={setCookie} cookies={cookies} />}
+            />
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/forget" element={<Forget />} />
