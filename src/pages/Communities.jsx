@@ -10,7 +10,6 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import Loading from "./Loading";
 
 const Communities = ({ user }) => {
-  const [currentPost, setCurrentPost] = useState();
   const createPostModalState = useState(false);
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = createPostModalState;
   const [title, setTitle] = useState("");

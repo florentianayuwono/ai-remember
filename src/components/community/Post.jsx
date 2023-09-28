@@ -87,7 +87,7 @@ const PostCard = ({ post, user }) => {
           </div>
           <Link to={`/post/${post.id}`}>
             <div className="w-full overflow-y-hidden text-ellipsis">
-              <h2 className="text-xl h-8 font-semibold mb-1 ">{title}</h2>
+              <h2 className="text-xl h-8 font-semibold mb-1 text-ellipsis line-clamp-1">{title}</h2>
               <p className="text-gray-600 h-12 text-ellipsis line-clamp-2">{content}</p>
             </div>
           </Link>
