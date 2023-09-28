@@ -6,15 +6,29 @@ AI-Remember simplifies the process of recording cherished memories through diari
 
 ## Group Members 👥
 
-| Matriculation Number | Name               | Contributions                              |
+| Matriculation Number | Name               | GitHub Handle                            |
 | -------------------- | ------------------ | ------------------------------------------ |
-| A0237732A            | Xu Yi              | [Description of contributions]             |
-| A0244109L            | Florentiana Yuwono | [Description of contributions by Member 2] |
-| A0242770H            | Ting Yi Xin        | [Description of contributions by Member 3] |
+| A0237732A            | Xu Yi              | [@optionalemon](https://github.com/optionalemon/)         |
+| A0244109L            | Florentiana Yuwono | [@florentianayuwono](https://github.com/florentianayuwono/) |
+| A0242770H            | Ting Yi Xin        | [@tyx021](https://github.com/tyx021) |
+
+### Contributions
+- **Xu Yi:**
+  - [Contribution]
+
+- **Florentiana Yuwono:**
+  - [Contribution]
+
+- **Ting Yi Xin:**
+  - [Contribution]
 
 ## Application URL 🌐
 
-https://ai-remember.vercel.app/
+Visit us at [AI-Remember](https://ai-remember.vercel.app/)
+
+## Twitter 🐦
+
+Stay updated with us on [Twitter](https://twitter.com/ai_remember)
 
 ## Set-up Instructions for Local Testing ⚙️
 
