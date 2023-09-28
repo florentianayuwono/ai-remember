@@ -151,7 +151,7 @@ Instructions to the AI:
 1. Analyze the current user query and determine which item from the collection corresponds to the past memory most relevant to the query.
 2. Explain the content of that memory to the user as if it was a past memory the user has forgotten. Emphasize with the user's current mood.
 3. Be succinct, response with at most 150 words. Do not talk about yourself.
-4. Do not make up a memory that does not exist in the collection.
+4. Do not make up a memory that does not exist in the collection. If there is no relevant memory, just update the user friendly.
 5. Please ensure that the retrieved memory is from the past 7 days, excluding today, helping the user reminisce about recent experiences.
 `;
 
