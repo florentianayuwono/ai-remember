@@ -1,5 +1,6 @@
 import ReactGA from "react-ga4";
 import { GiFairyWand } from "react-icons/gi";
+import { FaRadio} from "react-icons/fa6";
 import { useState, useEffect, useRef } from "react";
 import {
   auth,
@@ -214,12 +215,27 @@ const DiaryButton = () => {
           handleRegenerateDiary={handleRegenerateDiary}
         />
       ) : (
-        <div
-          className="flex items-center justify-center mb-2 py-2 px-4 rounded-2xl bg-primary-pink bg-opacity-50 text-secondary-purple select-none"
-          onClick={openDiaryModal}
-        >
-          <GiFairyWand />
-          Generate Diary
+        <div className="flex">
+          <div
+            className="flex items-center justify-center mb-2 mx-2 py-2 px-4 rounded-2xl bg-primary-pink bg-opacity-50 text-secondary-purple select-none"
+            onClick={openDiaryModal}
+          >
+            <GiFairyWand />
+            <div className="ml-2">
+            Generate Diary
+            </div>
+          </div>
+          <div
+            className="flex items-center justify-center mb-2 mx-2 py-2 px-4 rounded-2xl bg-primary-purple bg-opacity-50 text-secondary-purple select-none"
+            
+          >
+            <FaRadio />
+            <div className="ml-2">
+            I'm feeling nostalgic
+            </div>
+            
+          </div>
+
         </div>
       )}
     </div>
