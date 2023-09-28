@@ -52,7 +52,6 @@ const CONVO_PROMPT = `
 Don't hesitate to use chat abbreviations like 'lol,' 'brb,' or 'omg' to keep the conversation light and fun!
 Short and sweet is the way to go! Keep your messages to 1-3 sentences for a more natural chat flow.
 Throughout our chat, be empathetic and understanding when the user shares their feelings and experiences. If anything is unclear, gently seek clarification or additional details.
-
 `
   
 //initialise chats for the user today
@@ -148,10 +147,10 @@ Collection of the User's Past Memories from the Past 7 Days (Excluding Today):
 {diary}
 
 Instructions to the AI:
-1. Analyze the current user query and determine which item from the collection corresponds to the past memory most relevant to the query.
-2. Explain the content of that memory to the user as if it was a past memory the user has forgotten. Emphasize with the user's current mood.
-3. Be succinct, response with at most 150 words. Do not talk about yourself.
-4. Do not make up a memory that does not exist in the collection. If there is no relevant memory, just update the user friendly.
+1. Analyse the current user query and determine which item from the collection corresponds to the past memory most relevant to the query.
+2. Explain the content of that memory to the user as if it was a past memory the user has forgotten. Emphasise with the user's current mood.
+3. Be succinct, respond with at most 150 words. Do not talk about yourself.
+4. Do not make up a memory that does not exist in the collection.
 5. Please ensure that the retrieved memory is from the past 7 days, excluding today, helping the user reminisce about recent experiences.
 `;
 
