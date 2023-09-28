@@ -104,7 +104,7 @@ const addMsg = async (email, date, content, chatId, isUser) => {
     isUser: isUser,
     content: content,
   };
-  await setDoc(ref, msg);
+  await setDoc(ref, msg).catch((err) => {console.log(err)});
 };
 
 const getAllMsg = async (email, date) => {

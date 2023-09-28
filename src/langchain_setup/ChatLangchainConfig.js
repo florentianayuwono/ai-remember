@@ -100,6 +100,9 @@ export const continueChat = async (email, date) => {
       chatInput.push(new AIMessage(chat.content));
     }
   });
+  if (chats.length % 2 === 0 && chats.length !== 0) {
+    await addAIResponse(email,date, chats.length-1);
+  }
 };
 
 //function to receive human message, give response and store both to firebase
@@ -108,26 +111,31 @@ export const processHumanResponse = async (email, date, response, count) => {
   await addMsg(email,date, response, (parseInt(count) -1).toString()+0, true);
   chatInput.push(new HumanMessage(response));
 
-    //normal processing of human reponse to get ai response
-    const chatPrompt = ChatPromptTemplate.fromMessages(chatInput);
-    const chatChain = new LLMChain({
-      llm: chatModel,
-      prompt: chatPrompt,
-    });
-    const chatData = await chatChain.call({});
-    let text = chatData.text;
-    text = text.slice(
-      0,
-      Math.max(
-        text.lastIndexOf("!") + 1,
-        text.lastIndexOf(".") + 1,
-        text.lastIndexOf("?") + 1
-      )
-    );
-    //add ai response
-    await addMsg(email, date, text, (count).toString()+0, false);
-    chatInput.push(new AIMessage(text));
+  addAIResponse(email,date,count);
 };
+
+const addAIResponse = async(email, date, count) => {
+  //normal processing of human reponse to get ai response
+  const chatPrompt = ChatPromptTemplate.fromMessages(chatInput);
+  const chatChain = new LLMChain({
+    llm: chatModel,
+    prompt: chatPrompt,
+  });
+  const chatData = await chatChain.call({});
+  let text = chatData.text;
+  text = text.slice(
+    0,
+    Math.max(
+      text.lastIndexOf("!") + 1,
+      text.lastIndexOf(".") + 1,
+      text.lastIndexOf("?") + 1
+    )
+  );
+  //add ai response
+  await addMsg(email, date, text, (count).toString()+0, false);
+  chatInput.push(new AIMessage(text));
+
+}
 
 
 const GET_MEMORY_PROMPT = `
