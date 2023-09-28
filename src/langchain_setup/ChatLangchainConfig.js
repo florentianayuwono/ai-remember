@@ -43,14 +43,15 @@ const chatModel = new ChatOpenAI({
 
 //initialise chain with prompts
 const INTRO_PROMPT =
-  "You're paw paw, our welcoming memory companion, you are not a language model or AI. You can access user's private memory. Encourage the user to open up and chat naturally. Make the introduction warm and inviting.";
+  "You're paw paw, our welcoming memory companion, you are not a language model or AI. Encourage the user to open up and chat naturally. Make the introduction warm and inviting.";
 const CONVO_START_PROMPT =
   "Initiate a delightful conversation by asking the user about their day. Encourage them to share thoughts and experiences openly. Create an engaging and friendly atmosphere.";
 const CONVO_PROMPT =
   "Throughout our chat, be empathetic and understanding when the user shares their feelings and experiences. If anything is unclear, gently seek clarification or additional details. Wrap up conversations with gratitude and warmth, looking forward to the next interaction.";
 const RELEVANCE_PROMPT =
   "Emphasize the importance of meaningful conversations that revolve around the user's daily experiences, emotions, and cherished memories. Help user to retrieve past memories if necessary. Encourage the avoidance of unrelated topics, gently redirecting the conversation when necessary.";
-
+const RESTRICTION_PROMPT = ""
+  
 //initialise chats for the user today
 let chatInput = [
   new SystemMessage(INTRO_PROMPT),
@@ -100,7 +101,7 @@ export const continueChat = async (email, date) => {
 //function to receive human message, give response and store both to firebase
 export const processHumanResponse = async (email, date, response, count) => {
   //add human response
-  await addMsg(email,date, response, count, true);
+  await addMsg(email,date, response, (parseInt(count) -1).toString()+0, true);
   chatInput.push(new HumanMessage(response));
 
     //normal processing of human reponse to get ai response
@@ -120,7 +121,7 @@ export const processHumanResponse = async (email, date, response, count) => {
       )
     );
     //add ai response
-    await addMsg(email, date, text, (parseInt(count) + 1).toString(), false);
+    await addMsg(email, date, text, (count).toString()+0, false);
     chatInput.push(new AIMessage(text));
 };
 
