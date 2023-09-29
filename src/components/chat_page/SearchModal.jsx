@@ -4,6 +4,7 @@ import { AiOutlineEnter } from "react-icons/ai";
 import { useState } from "react";
 import { askingForPastEvents } from "../../langchain_setup/ChatLangchainConfig";
 import { canPerformSearch } from "../../firebase_setup/FirebaseConfig";
+import { useEffect } from "react";
 
 const SearchModal = ({
   openState,
@@ -20,6 +21,14 @@ const SearchModal = ({
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
   };
+
+  useEffect(() => {
+    if (query.length == 0) {
+      setCanSubmit(false);
+    } else {
+      setCanSubmit(true);
+    }
+  },[query])
 
   const handleSubmitSearch = async () => {
     const canSearch = await canPerformSearch(email,date);
