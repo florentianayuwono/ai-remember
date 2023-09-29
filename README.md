@@ -14,25 +14,25 @@ AI-Remember simplifies the process of recording cherished memories through diari
 
 ### Contributions
 - **Xu Yi:**
-  - Implemented the chat feature (both frontend and backend)
-  - Designed the logo and its variants
-  - Implemented the authentication system
-  - Set up the Google analytics
-  - Set up the LangChain and OpenAI API
-  - Contributed to the Landing page
-  - Set up the Firebase
+  - Implemented chat feature (both frontend and backend)
+  - Designed logo and its variants
+  - Implemented authentication system
+  - Embedded Google analytics
+  - Set up chat & search (OpenAI GPT-3.5-turbo) model
+  - Contributed to Landing page
+  - Set up Firebase
 
 - **Florentiana Yuwono:**
-  - Implemented the diary generator and viewing (both frontend and backend)
-  - Implemented the calendar feature
+  - Implemented diary generator and viewing (both frontend and backend)
+  - Implemented calendar feature
   - Come up with brand colors and vibes
-  - Contributed to the Landing page
-  - Set up the OpenAI davinci model
+  - Contributed to Landing page
+  - Set up diary (OpenAI davinci) model
 
 - **Ting Yi Xin:**
-  - Implemented the community feature (both frontend and backend)
-  - Contributed to the Landing page
-  - Created the frontend for the authentication pages
+  - Implemented community feature (both frontend and backend)
+  - Contributed to Landing page
+  - Created frontend for authentication pages
 
 ## Application URL 🌐
 
