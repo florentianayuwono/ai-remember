@@ -4,6 +4,8 @@
 
 AI-Remember simplifies the process of recording cherished memories through diaries. It offers a user-friendly approach, sparing users the effort of writing lengthy diaries themselves, which can often be time-consuming. AI-Remember steps in as a supportive companion, gently guiding conversations with users to ensure that no detail or sentiment is left unexplored. At the end of each day, it compiles all the stories shared by the user into a beautifully summarized diary, transforming precious moments into lasting memories.
 
+Paw Paw 🐻 can't BEAR without you 🥺 and is just PAWsitively thrilled for your visit! 🤩
+
 ## Group Members 👥
 
 | Matriculation Number | Name               | GitHub Handle                            |
@@ -38,8 +40,7 @@ AI-Remember simplifies the process of recording cherished memories through diari
 
 Visit us at [AI-Remember](https://ai-remember.vercel.app/) \
 See our demo video [here](https://youtu.be/0lbNq1ESeBM) \
-Writeups: [group-6-milestones.pdf](group-6-milestones.pdf)\
-Pitch: [group-6-pitch.pdf](group-6-pitch.pdf)
+Here are our [writeups](group-6-milestones.pdf) and [pitch](group-6-pitch.pdf).
 
 ## Twitter 🐦
 
