@@ -1,4 +1,5 @@
 # AI-Remember 📔
+<img width="547" alt="image" src="https://github.com/florentianayuwono/ai-remember/assets/76247368/b66f1b95-2244-4c03-a645-59025c19efab">
 
 ## About AI-Remember 🌟
 
