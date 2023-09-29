@@ -37,6 +37,7 @@ AI-Remember simplifies the process of recording cherished memories through diari
 ## Application URL 🌐
 
 Visit us at [AI-Remember](https://ai-remember.vercel.app/)
+
 See our demo video [here](https://youtu.be/0lbNq1ESeBM)
 
 ## Twitter 🐦
