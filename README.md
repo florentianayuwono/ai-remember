@@ -30,6 +30,7 @@ Paw Paw 🐻 can't BEAR without you 🥺 and is just PAWsitively thrilled for yo
   - Come up with brand colors and vibes
   - Contributed to Landing page
   - Set up diary (OpenAI davinci) model
+  - Set up deployment
 
 - **Ting Yi Xin:**
   - Implemented community feature (both frontend and backend)
