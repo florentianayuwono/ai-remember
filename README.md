@@ -75,3 +75,5 @@ If you want to test AI-Remember locally, follow these steps:
 
 ## Resources
 We rely on OpenAI and LangChain documentation for integration of the Generative AI capabilities.
+Our Landing Page is transformed from [@florentianayuwono's personal website repo](https://github.com/florentianayuwono/florentianayuwono.github.io).
+We rely on TailwindCSS documentation for our UI.
