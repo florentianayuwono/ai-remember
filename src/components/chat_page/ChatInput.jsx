@@ -10,7 +10,7 @@ import SpeechRecognition, {
 import "regenerator-runtime/runtime";
 import { AiOutlineClose, AiOutlineEnter } from "react-icons/ai";
 
-const ChatInput = ({ email, date }) => {
+const ChatInput = ({ email, date, isPro }) => {
   const [prompt, setPrompt] = useState("");
   const {
     transcript,
@@ -26,7 +26,6 @@ const ChatInput = ({ email, date }) => {
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!prompt) return;
-    const isPro = await isUserPro(email);
     //get chat count
     const count = await getChatCount(email, date);
 

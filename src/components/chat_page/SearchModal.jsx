@@ -12,9 +12,10 @@ const SearchModal = ({
   query,
   setQuery,
   email,
-  date
+  date,
+  isPro
 }) => {
-  const [isSearchOpen, setIsSearchOpen] = openState;
+  const [isSearchOpen] = openState;
   const [canSubmit, setCanSubmit] = useState(true);
   const [content, setContent] = useState("paw paw will find your precious memory 🌟 (But take note that paw paw is a creative young bear that will create memories if it can't find one)");
 
@@ -31,7 +32,7 @@ const SearchModal = ({
   },[query])
 
   const handleSubmitSearch = async () => {
-    const canSearch = await canPerformSearch(email,date);
+    const canSearch = isPro || (await canPerformSearch(email,date));
     setCanSubmit(false);
     if (canSearch) {
       setContent("paw paw🐻 is on a fuzzy-wuzzy quest🌟 to hunt down the memory you're beary eager to find...")

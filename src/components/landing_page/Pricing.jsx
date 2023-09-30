@@ -83,7 +83,6 @@ const ProPriceCard = () => {
       closeAlertDialog();
       //set user identity to pro
     } else {
-      setCode("");
       setError("Invalid code");
     }
   }

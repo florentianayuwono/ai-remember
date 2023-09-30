@@ -9,8 +9,8 @@ import {
   updateDiaryCount,
 } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { useCollection, useDocument } from "react-firebase-hooks/firestore";
+import { collection, getDocs, orderBy, query,doc } from "firebase/firestore";
 import Loading from "./Loading";
 import { Chat, ChatInput, DiaryModal, HomeNavbar,SearchModal } from "../components";
 import {
@@ -34,6 +34,8 @@ const Conversation = () => {
     orderBy('createdAt','asc'))
   );
 
+  const [userstore, loadingu] = useDocument(doc(firestore, "users", user.email));
+
   useEffect(() => {
     ReactGA.send({
       hitType: "pageview",
@@ -53,14 +55,14 @@ const Conversation = () => {
       await continueChat(user.email, displayDate);
     };
 
-    if (!loadingc && !loading) {
+    if (!loadingc && !loading && !loadingu) {
       if (chats?.docs.length == 0) {
         getNewContent();
       } else {
         getOldContent();
       }
     }
-  }, [loading, loadingc]);
+  }, [loading, loadingc, loadingu]);
 
   useEffect(() => {
     // 👇️ scroll to bottom every time messages change
@@ -88,15 +90,15 @@ const Conversation = () => {
           <div ref={bottomRef} />
         </div>
         <div className="flex flex-col">
-          <DiaryButton />
-          <ChatInput email={user?.email} date={displayDate} />
+          <DiaryButton isPro = {userstore?.data().isPro}/>
+          <ChatInput email={user?.email} date={displayDate} isPro={userstore?.data().isPro}/>
         </div>
       </div>
     </>
   );
 };
 
-const DiaryButton = () => {
+const DiaryButton = ({isPro}) => {
   const [user, loading] = useAuthState(auth);
   const openState = useState(false);
   const [isDiaryModalOpen, setIsDiaryModalOpen] = openState;
@@ -216,6 +218,7 @@ const DiaryButton = () => {
   return (
     <div className="flex items-center justify-center cursor-pointer">
       { isSeachModalOpen && <SearchModal
+          isPro={isPro}
           openState={searchOpenState}
           handleClosePopup={handleCloseSearchPopup}
           query={query}
