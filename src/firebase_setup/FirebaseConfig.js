@@ -162,6 +162,13 @@ const getSevenDaysDiary = async (email) => {
   return results;
 }
 
+const upgradeUserToPro = async (email) => {
+  const userDoc = doc(firestore, "users", email);
+  await setDoc(userDoc,{
+    isPro: true
+  })
+}
+
 const canPerformSearch = async (email,date) => {
   const dateDoc = doc(firestore, "users", email, "dates", date);
   const dateDocSnap = await getDoc(dateDoc);
@@ -190,5 +197,6 @@ export {
   getChatCount,
   addMsg,
   updateDiaryContent,
-  updateDiaryCount
+  updateDiaryCount,
+  upgradeUserToPro
 };

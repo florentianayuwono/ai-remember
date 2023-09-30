@@ -6,6 +6,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import AlertDialog from "../common/AlertDialog";
 import { sleepybear } from "../../assets";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, upgradeUserToPro } from "../../firebase_setup/FirebaseConfig";
+import { PROMO_CODE } from "../../constants";
+import toast from "react-hot-toast";
 
 const Pricing = () => {
   return (
@@ -51,14 +55,38 @@ const FreePriceCard = () => {
 
 const ProPriceCard = () => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [user] = useAuthState(auth);
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
 
   const openAlertDialog = () => {
-    setIsAlertOpen(true);
+    if (user) {
+      setIsAlertOpen(true);
+    } else {
+      toast("Please login first", {
+        icon: "⌛",
+      });
+    }
+   
   };
 
   const closeAlertDialog = () => {
     setIsAlertOpen(false);
+    setError("")
+    setCode("")
   };
+
+  const handleSubmit = async() => { 
+    if (code == PROMO_CODE) {
+      await upgradeUserToPro(user.email);
+      toast.success("Upgraded to PRO 🐾")
+      closeAlertDialog();
+      //set user identity to pro
+    } else {
+      setCode("");
+      setError("Invalid code");
+    }
+  }
 
   return (
     <div className="min-w-[50%] max-w-[1000px] py-20 px-10 m-5 rounded-[20px] bg-primary-lightblue flex flex-col">
@@ -93,12 +121,14 @@ const ProPriceCard = () => {
       {isAlertOpen && (
         <AlertDialog
           title="Thanks for the enthusiasm!🤗"
-          description="Pro version is currently still in testing and available to selected users only. How about we keep your interest in mind?"
-          hasCancel={true}
+          description="The Pro version is currently tucked away in a cozy bear den, accessible by invitation only. 🐻 Don't hibernate your interest! We promise to make it public soon."
           image={sleepybear}
           handleChange={closeAlertDialog}
-          handleModelChange={closeAlertDialog}
-        />
+          code={code}
+          setCode={setCode}
+          error={error}
+          handleSubmit={handleSubmit}
+        /> 
       )}
     </div>
   );
