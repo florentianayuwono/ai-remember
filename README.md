@@ -7,6 +7,15 @@ AI-Remember simplifies the process of recording cherished memories through diari
 
 Paw Paw 🐻 can't BEAR without you 🥺 and is just PAWsitively thrilled for your visit! 🤩
 
+## Application URL 🌐
+
+Visit us at [AI-Remember](https://ai-remember.vercel.app/) \
+Check out our [demo video](https://youtu.be/0lbNq1ESeBM), [writeup](group-6-milestones.pdf) and [pitch](group-6-pitch.pdf)
+
+## Twitter 🐦
+
+Stay updated with us on [Twitter](https://twitter.com/ai_remember)
+
 ## Group Members 👥
 
 | Matriculation Number | Name               | GitHub Handle                            |
@@ -37,16 +46,6 @@ Paw Paw 🐻 can't BEAR without you 🥺 and is just PAWsitively thrilled for yo
   - Implemented community feature (both frontend and backend)
   - Contributed to Landing page
   - Created frontend for authentication pages
-
-## Application URL 🌐
-
-Visit us at [AI-Remember](https://ai-remember.vercel.app/) \
-See our demo video [here](https://youtu.be/0lbNq1ESeBM) \
-Here are our [writeups](group-6-milestones.pdf) and [pitch](group-6-pitch.pdf).
-
-## Twitter 🐦
-
-Stay updated with us on [Twitter](https://twitter.com/ai_remember)
 
 ## Set-up Instructions for Local Testing ⚙️
 
