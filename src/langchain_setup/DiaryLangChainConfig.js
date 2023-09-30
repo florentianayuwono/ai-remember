@@ -1,10 +1,7 @@
 import { OpenAI } from "openai";
 
 import {
-  addDataForDay,
-  getAllMsg,
   getOpenAIAPIKey,
-  addMsg,
 } from "../firebase_setup/FirebaseConfig.js";
 
 const diary_api_key = await getOpenAIAPIKey("openai_api_key");

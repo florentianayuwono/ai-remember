@@ -10,6 +10,7 @@ import {
   getDoc,
   getDocs,
   addDoc,
+  orderBy,
   serverTimestamp,
   collection,
 } from "@firebase/firestore";
@@ -41,7 +42,6 @@ const addDataForDay = async (email, date, content) => {
         generateDiaryCount: 0,
       });
       addMsg(email, date, content, "0",false);
-      console.log("Today data added with ID: ", todayDocRef.id);
     }
   } catch (error) {
     console.error("Error adding user: ", error);
@@ -104,13 +104,13 @@ const addMsg = async (email, date, content, chatId, isUser) => {
     isUser: isUser,
     content: content,
   };
-  await setDoc(ref, msg).catch((err) => {console.log(err)});
+  await setDoc(ref, msg);
 };
 
 const getAllMsg = async (email, date) => {
   let chats = [];
   const coll = collection(firestore, "users", email, "dates", date, "chats");
-  const q = query(coll);
+  const q = query(coll, orderBy('createdAt'));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
@@ -119,13 +119,11 @@ const getAllMsg = async (email, date) => {
   return chats;
 };
 
-//getAllMsg("xuyi9272@gmail.com","September 26, 2023")
-
 const getHumanMsg = async (email, date) => {
   let chats = [];
   const q = query(
     collection(firestore, "users", email, "dates", date, "chats"),
-    where("isUser", "==", true)
+    where("isUser", "==", true), orderBy('createdAt')
   );
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
@@ -169,6 +167,18 @@ const upgradeUserToPro = async (email) => {
   })
 }
 
+const isUserPro = async (email) => {
+  const userDoc = doc(firestore, "users", email);
+  const userDocSnap = await getDoc(userDoc);
+  if (userDocSnap.exists()) {
+    const data = userDocSnap.data();
+    if (data.isPro == true) {
+      return true;
+    }
+  }
+  return false;
+}
+
 const canPerformSearch = async (email,date) => {
   const dateDoc = doc(firestore, "users", email, "dates", date);
   const dateDocSnap = await getDoc(dateDoc);
@@ -198,5 +208,6 @@ export {
   addMsg,
   updateDiaryContent,
   updateDiaryCount,
-  upgradeUserToPro
+  upgradeUserToPro,
+  isUserPro
 };

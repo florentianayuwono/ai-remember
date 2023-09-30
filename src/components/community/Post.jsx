@@ -318,7 +318,6 @@ const ChooseDiary = ({ user, setTitle, setContent }) => {
   };
 
   const handleImportDiary = () => {
-    console.log(selectedTitle);
     setTitle(selectedTitle);
     setContent(selectedContent);
   };

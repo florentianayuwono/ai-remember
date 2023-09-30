@@ -10,7 +10,7 @@ import {
 } from "../firebase_setup/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Loading from "./Loading";
 import { Chat, ChatInput, DiaryModal, HomeNavbar,SearchModal } from "../components";
 import {
@@ -29,7 +29,9 @@ const Conversation = () => {
     day: "numeric",
   });
   const [chats, loadingc, error] = useCollection(
-    collection(firestore, "users", user.email, "dates", displayDate, "chats")
+    query(
+    collection(firestore, "users", user.email, "dates", displayDate, "chats"),
+    orderBy('createdAt','asc'))
   );
 
   useEffect(() => {
@@ -182,7 +184,6 @@ const DiaryButton = () => {
 
       if (foundDiary) {
         setGenerateCount(foundDiary.generateDiaryCount);
-        console.log(generateCount);
         if (foundDiary.generateDiaryCount >= 5) {
           console.error("You can only generate diaries 5 times a day.");
           setTitle(
