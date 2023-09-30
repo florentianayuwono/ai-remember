@@ -90,6 +90,7 @@ export const startChat = async (email, date) => {
 
 //get old responses
 export const continueChat = async (email, date) => {
+  if (chatInput.length !== 3) return;
   const chats = await getAllMsg(email, date);
   chats.forEach((chat) => {
     if (chat.isUser) {
