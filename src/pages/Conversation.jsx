@@ -90,8 +90,8 @@ const Conversation = () => {
           <div ref={bottomRef} />
         </div>
         <div className="flex flex-col">
-          <DiaryButton isPro = {userstore?.data().isPro}/>
-          <ChatInput email={user?.email} date={displayDate} isPro={userstore?.data().isPro}/>
+          <DiaryButton isPro = {userstore?.data()?.isPro}/>
+          <ChatInput email={user?.email} date={displayDate} isPro={userstore?.data()?.isPro}/>
         </div>
       </div>
     </>
