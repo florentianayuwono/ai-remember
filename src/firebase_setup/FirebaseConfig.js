@@ -123,7 +123,7 @@ const getHumanMsg = async (email, date) => {
   let chats = [];
   const q = query(
     collection(firestore, "users", email, "dates", date, "chats"),
-    [where("isUser", "==", true), orderBy('createdAt')]
+    where("isUser", "==", true), orderBy('createdAt')
   );
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
