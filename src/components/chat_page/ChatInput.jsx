@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CHAT_PLACEHOLDER } from "../../constants";
 import { BiSolidMicrophone } from "react-icons/bi";
-import { getChatCount } from "../../firebase_setup/FirebaseConfig";
+import { getChatCount, isUserPro } from "../../firebase_setup/FirebaseConfig";
 import toast from "react-hot-toast";
 import { processHumanResponse } from "../../langchain_setup/ChatLangchainConfig";
 import SpeechRecognition, {
@@ -10,7 +10,7 @@ import SpeechRecognition, {
 import "regenerator-runtime/runtime";
 import { AiOutlineClose, AiOutlineEnter } from "react-icons/ai";
 
-const ChatInput = ({ email, date }) => {
+const ChatInput = ({ email, date, isPro }) => {
   const [prompt, setPrompt] = useState("");
   const {
     transcript,
@@ -26,12 +26,11 @@ const ChatInput = ({ email, date }) => {
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!prompt) return;
-
     //get chat count
     const count = await getChatCount(email, date);
 
     //send only if ai has sent and user less than 5 msgs
-    if (count % 2 == 1 && count < 10) {
+    if (count % 2 == 1 && (count < 10 || isPro)) {
       // get mood based on content
       const response = prompt.trim();
       setPrompt("");
@@ -42,7 +41,7 @@ const ChatInput = ({ email, date }) => {
       toast("paw paw is sorry for being slow... please BEAR it", {
         icon: "⌛",
       });
-    } else if (count >= 10) {
+    } else if (count >= 10 && !isPro) {
       //alert dialogue to upgrade to pro
       toast.error("Please upgrade to pro to send more than 5 messages per day");
     }

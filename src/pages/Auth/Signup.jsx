@@ -83,7 +83,7 @@ const Signup = () => {
   return (
     <div className="bg-secondary-darkpurple flex justify-center items-center min-h-screen text-black">
       <form className="bg-white rounded-xl px-14 py-8 m-5 text-sm flex flex-col justify-center">
-        <img className="w-24 m-auto mb-4" src={logo2} />
+        <img className="w-24 m-auto mb-4 cursor-pointer" src={logo2} onClick={() => {navigate('/')}} />
         <InputForm
           title="Email"
           value={email}

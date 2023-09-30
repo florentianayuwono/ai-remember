@@ -109,4 +109,6 @@ const reasons = [
   },
 ];
 
+export const PROMO_CODE = "REMEMBERME?"
+
 export { features, testimonials, reasons };
