@@ -42,18 +42,17 @@ const Diary = () => {
         const data = await getDocs(diaryCollectionRef);
         const diaries = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-        const diariesByMonth = []
+        const diariesByMonth = [];
 
         diaries.forEach((diary) => {
           const dateObject = new Date(diary.id);
           const monthKey = dateObject.getMonth();
 
           if (!diariesByMonth[monthKey]) {
-
             diariesByMonth[monthKey] = {
               month: monthNames[monthKey],
-              diaries: []
-            }
+              diaries: [],
+            };
           }
           diariesByMonth[monthKey].diaries.push(diary);
         });
@@ -74,10 +73,13 @@ const Diary = () => {
   ) : (
     <div className="relative z-0 bg-primary-lightpink">
       <HomeNavbar />
-      {diaryList.map((entry) => {
-        const { month, diaries } = entry;
-        return <Calendar key={month} month={month} diaries={diaries} />;
-      })}
+      {diaryList
+        .slice()
+        .reverse()
+        .map((entry) => {
+          const { month, diaries } = entry;
+          return <Calendar key={month} month={month} diaries={diaries} />;
+        })}
     </div>
   );
 };

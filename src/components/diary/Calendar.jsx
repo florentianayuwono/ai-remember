@@ -117,25 +117,28 @@ const Calendar = ({ month, diaries }) => {
                     const day = calendarDays[dayIndex];
 
                     // Format the current day to match the diary.id format
-                    const formattedCurrentDay = `${
-                      monthNames[monthNames.indexOf(month)]
-                    } ${day}, ${year}`;
+                    const formattedCurrentDay = `${month} ${day}, ${year}`;
                     // Find the diary entry for the current day
                     const diaryEntry = diaries.find(
                       (diary) => diary.id === formattedCurrentDay
                     );
+
+                    // Define the base class name based on conditions
+                    let cellClassName =
+                      "border p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease";
+
+                    // Add conditional class names based on day and currentDay
+                    if (day === null || day === undefined) {
+                      cellClassName += " bg-gray-100 hover:bg-gray-100";
+                    } else if (day === currentDay) {
+                      cellClassName +=
+                        " bg-secondary-lightgreen hover:bg-gray-300";
+                    } else {
+                      cellClassName += " bg-white hover:bg-gray-300";
+                    }
                     return (
-                      <td
-                        key={colIndex}
-                        className={`border p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease ${
-                          day === null
-                            ? "bg-gray-100"
-                            : day === currentDay
-                            ? "bg-secondary-lightgreen"
-                            : "bg-white"
-                        } hover:bg-${day === null ? "gray-100" : "gray-300"}`}
-                      >
-                        {day !== null && (
+                      <td key={colIndex} className={cellClassName}>
+                        {day !== null && day <= lastDay && (
                           <div className="flex flex-col h-40 mx-auto xl:w-40 lg:w-30 md:w-30 sm:w-full w-10 overflow-hidden">
                             <div className="top h-5 w-full">
                               <span className="text-gray-500">{day}</span>
@@ -147,7 +150,11 @@ const Calendar = ({ month, diaries }) => {
                                   onClick={() => openDiaryModal(day)}
                                 >
                                   <span className="truncate">
-                                  {diaryEntry ? (diaryEntry.diary.length > 15 ? diaryEntry.diary.slice(0, 15) + '...' : diaryEntry.diary) : ""}
+                                    {diaryEntry
+                                      ? diaryEntry.diary.length > 15
+                                        ? diaryEntry.diary.slice(0, 15) + "..."
+                                        : diaryEntry.diary
+                                      : ""}
                                   </span>
                                 </div>
                               ) : (
